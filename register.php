@@ -7,7 +7,7 @@ $surname2= $_POST['surname2'];
 $dob = $_POST['dateofbirth'];
 $username = $_POST['username'];
 $password1 = $_POST['password'];
-$password2 = $_POST['password2'];
+$password2 = $_POST['password2']; 
 $date = date('y-m-d'); // obtenim data local
 
 // També hem de controlar si un username ja existeix dins la bd?
