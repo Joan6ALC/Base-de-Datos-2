@@ -1,0 +1,11 @@
+CREATE DATABASE pelistube;
+
+CREATE TABLE User (
+    username varchar(15) PRIMARY KEY,
+    password varchar(45) NOT NULL,
+    name varchar(25), 
+    surname varchar(45),
+    DOB DATE,
+    entrydate DATE,
+    admin boolean
+);

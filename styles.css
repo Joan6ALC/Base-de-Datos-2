@@ -1,0 +1,54 @@
+body{
+    background-color:white;
+}
+
+header{
+    padding-top: 35px;
+    text-align: center;
+}
+
+section{
+    padding-top: 15px;
+}
+
+footer{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.title-large{
+    padding-top: 55px;
+    color:firebrick;
+    font-family: manis;
+    font-size:100px;
+}
+
+.subtitle-large{
+    font-size: 13px;
+    padding-bottom: 20px;
+}
+
+.title-small{
+    color:firebrick;
+    font-family: manis;
+    font-size: 50px;
+}
+
+.subtitle-small{
+    font-size: 10px;
+}
+
+.registered-successfully{
+    text-align: center;
+}
+
+.padding{
+    padding-top: 10px;
+}
+
+@font-face {
+    font-family: manis;
+    src: url(fonts/Manis\ Banget.otf);
+}
