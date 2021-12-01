@@ -22,7 +22,7 @@ if($password1!=$password2){
     include "conexion.php";
 
     $hash=crypt($password1,"");
-    $consulta = "insert into persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
+    $consulta = "insert into persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixement, administrador) values ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
     mysqli_query($con, $consulta);
 }
 ?>
