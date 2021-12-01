@@ -3,12 +3,8 @@ body{
 }
 
 header{
-    padding-top: 35px;
+    
     text-align: center;
-}
-
-section{
-    padding-top: 15px;
 }
 
 footer{
@@ -19,7 +15,7 @@ footer{
 }
 
 .title-large{
-    padding-top: 55px;
+    padding-top: 85px;
     color:firebrick;
     font-family: manis;
     font-size:100px;
@@ -38,6 +34,7 @@ footer{
 
 .subtitle-small{
     font-size: 10px;
+    padding-bottom: 15px;
 }
 
 .registered-successfully{
