@@ -125,37 +125,50 @@
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="d-grid gap-1">
-                                <div class="align-center">
                                 <center><h2>Hola 
                                     <?php // BENVINGUDA: Imprimir el nom del usuari
                                     echo "@".$_SESSION['username'].",";
                                     ?>
                                 </h2>
-                                <img src="img/mensaje.png" height="30" width="30">
-                                <?php // MISSATGES: Comprovam si tenim missatges sense llegir
-                                    include "conexion.php";
-
-                                    $query = "select count(*) from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
-                                    $fila = mysqli_query($con,$query);
-                                    $registre = mysqli_fetch_array($fila);
-
-                                    if($registre['count(*)']>0){
-                                        echo "<br>Tienes ".$registre['count(*)']." mensaje(s) nuevos: <br>";
-                                        $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
-                                        $fila = mysqli_query($con,$query);
-
-                                        while($registre = mysqli_fetch_array($fila)){ // Obtenim la primera fila de la consulta (només n'hi ha una)
-                                            echo $registre['descripcio']; 
-                                        }
-                                    } else {
-                                        echo "<br>No tienes mensajes nuevos<br>";
-                                    }
-                                    mysqli_close($con);
-                                ?>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                </center>
-                                </div>
                                 <br>
+
+                                <div class="row">
+                                    <div class="col-md-6"> <!-- MISSATGES -->
+                                        <img src="img/mensaje.png" height="30" width="30">
+                                        <?php // MISSATGES: Comprovam si tenim missatges sense llegir
+                                            include "conexion.php";
+
+                                            $query = "select count(*) from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                            $fila = mysqli_query($con,$query);
+                                            $registre = mysqli_fetch_array($fila);
+
+                                            if($registre['count(*)']>0){
+                                                echo "<br>Tienes ".$registre['count(*)']." mensaje(s) nuevos: <br>";
+                                                $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                                $fila = mysqli_query($con,$query);
+
+                                                while($registre = mysqli_fetch_array($fila)){ // Obtenim la primera fila de la consulta (només n'hi ha una)
+                                                    echo $registre['descripcio']; 
+                                                }
+                                            } else {
+                                                echo "<br>No tienes mensajes nuevos<br>";
+                                            }
+                                            mysqli_close($con);
+                                        ?>
+                                    </div>
+                                    <div class="col-md-6"> <!-- FACTURES -->
+                                        <img src="img/factura.png" height="27" width="27">
+                                        <?php
+                                            include "conexion.php";
+
+                                            $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                            $fila = mysqli_query($con,$query);
+                                            $registre = mysqli_fetch_array($fila);
+                                            echo "<br>Consulta tu última factura";
+                                        ?>
+                                    </div>
+                                </div>
+                                </center>
                             </div>
                         </div>
                     </div>
