@@ -1,8 +1,8 @@
-<?php session_start();
-
-if (isset($_SESSION)) {
-   // echo "Sesión no iniciada";
-    // Recollida de paràmetres
+<?php 
+    // Recollida de paràmetres del formulari
+    if(!isset($_SESSION)){
+        echo "SESION NO INCIADA";
+    }
     $username= $_POST['username'];
     $password= $_POST['password'];
 
@@ -10,19 +10,28 @@ if (isset($_SESSION)) {
     include "conexion.php";
     $consulta = "SELECT * FROM persona where username='".$username."'";
 
-    $resultado=mysqli_query($con, $consulta); // hay que comprobar si el username existe --> resultado!=null ¿?¿?¿?¿
-    $registro = mysqli_fetch_array($resultado);
+    $resultado=mysqli_query($con, $consulta); 
 
-    $passbd = $registro['password']; // Contiene la contraseña encriptada que esta guardada en la bd
+    if(!isset($resultado)){ // hay que comprobar si el username existe --> resultado!=null ¿?¿?¿?¿
+        echo '<center>El usuario introducido no existe</center>';  // Aquí hauriem de tornar a la pàgina principal mostrant l'error ******
 
-    if(!password_verify($password, $passbd)){ // Compara la contraseña introducida (plana) con la guardada en la base de datos (hash)
-       // echo "<br> ERROR: PASSWORD NO CORRECTO"; // Cómo muestro un html diferente si se produce este error?????
-    
     } else {
-        //echo "<br> PASSWORD CORRECTO";
-        $_SESSION['username']= $username;
+        $registro = mysqli_fetch_array($resultado); // Obtenim la primera fila de la consulta (només n'hi ha una)
+        $passbd = $registro['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
+
+        if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
+            // PASSWORD INCORRECTE (Com mostram un html diferent si es produeix aquest error?) *****
+            // posible sol echo '<html> .... </html>
+            echo "sessió no iniciada";
+        
+        } else {
+            session_start();
+            
+            $_SESSION['username']= $username; // Establim la variable de sessió (username)
+            $_SESSION['administrador']=$registro['administrador']; // Si es administrador o no (administrador)
+        }
     }
-}
+
 // Mostrar menú d'opcions
 ?>
 
@@ -65,18 +74,26 @@ if (isset($_SESSION)) {
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Perfil
+                                        <?php echo $_SESSION['username']; ?> <!-- Nom del perfil-->
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="#">Ver perfil</a>
                                             <a class="dropdown-item" href="#">Editar perfil</a>
-                                            <a class="dropdown-item" href="#">Contenidos favoritos</a>
-                                            <a class="dropdown-item" href="#">Categorias favoritas</a>
                                             <a class="dropdown-item" href="#">Mensajes</a>
                                             <a class="dropdown-item" href="#">Facturas</a>
+                                            <?php 
+                                                if($_SESSION['administrador']==true){
+                                                    echo '<a class="dropdown-item" href="#">Añadir contenido</a>';
+                                                    echo '<a class="dropdown-item" href="#">Añadir categoria</a>';
+                                                    echo '<a class="dropdown-item" href="#">Visualizar usuarios</a>';
+                                                    echo '<a class="dropdown-item" href="#">Añadir contenido</a>';
+                                                }
+                                            ?>
                                         </div>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Cerrar sesión</a></li>
+
+
+                                    <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar sesión</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -95,7 +112,7 @@ if (isset($_SESSION)) {
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="d-grid gap-1">
                                 <div class="align-center">
-                                <center>Bienvenido de nuevo<br></center>
+                                <center><h1>Bienvenido de nuevo</h1></center>
                                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                                 </div>
                                 <br>
@@ -111,8 +128,7 @@ if (isset($_SESSION)) {
             PelisTube &copy; 2021
         </footer>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
