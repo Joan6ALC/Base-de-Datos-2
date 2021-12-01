@@ -44,7 +44,7 @@ CREATE TABLE Persona(
 	nom varchar(25) NOT NULL,
 	llinatge1 varchar(20) NOT NULL,
 	llinatge2 varchar(20) NOT NULL,
-	dataNaixement DATE NOT NULL, # he afegit això perquè al frontend ja ho havia inclòs
+	dataNaixament DATE NOT NULL, # he afegit això perquè al frontend ja ho havia inclòs
 	administrador boolean,
 	IdTipus integer,
 	FOREIGN KEY (IdTipus) REFERENCES Tipus(IdTipus)
@@ -102,4 +102,4 @@ INSERT INTO tipus(edat) VALUES ("<9 anys"),  ("9-18 anys"),  ("+18 anys");
 
 INSERT INTO categoria(nomCat) VALUES ("TERROR"), ("COMÈDIA"), ("INTRIGA");
 
-INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixement, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR AMB PASSWORD= 1234
+INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR AMB PASSWORD= 1234
