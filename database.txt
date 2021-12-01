@@ -43,7 +43,7 @@ CREATE TABLE Persona(
 	password varchar(45) NOT NULL,
 	nom varchar(25) NOT NULL,
 	llinatge1 varchar(20) NOT NULL,
-	llinatge2 varchar(20) NOT NULL,
+	llinatge2 varchar(20), # moltes persones no en tenen
 	dataNaixament DATE NOT NULL, # he afegit això perquè al frontend ja ho havia inclòs
 	administrador boolean,
 	IdTipus integer,

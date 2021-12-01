@@ -1,8 +1,5 @@
 <?php 
     // Recollida de paràmetres del formulari
-    if(!isset($_SESSION)){
-        echo "SESION NO INCIADA";
-    }
     $username= $_POST['username'];
     $password= $_POST['password'];
 
@@ -12,25 +9,26 @@
 
     $resultado=mysqli_query($con, $consulta); 
 
-    if(!isset($resultado)){ // hay que comprobar si el username existe --> resultado!=null ¿?¿?¿?¿
-        echo '<center>El usuario introducido no existe</center>';  // Aquí hauriem de tornar a la pàgina principal mostrant l'error ******
+    
+    $registro = mysqli_fetch_array($resultado); // Obtenim la primera fila de la consulta (només n'hi ha una)
+    $passbd = $registro['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
 
-    } else {
-        $registro = mysqli_fetch_array($resultado); // Obtenim la primera fila de la consulta (només n'hi ha una)
-        $passbd = $registro['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
+    if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
+        // PASSWORD INCORRECTE (Com mostram un html diferent si es produeix aquest error?) *****
+        // posible sol echo '<html> .... </html>
+        echo "<center>Los datos introducidos no son correctos</center>";
+        header("Location: index.html");
 
-        if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
-            // PASSWORD INCORRECTE (Com mostram un html diferent si es produeix aquest error?) *****
-            // posible sol echo '<html> .... </html>
-            echo "sessió no iniciada";
         
-        } else {
-            session_start();
+    } else {
+        session_start();
             
-            $_SESSION['username']= $username; // Establim la variable de sessió (username)
-            $_SESSION['administrador']=$registro['administrador']; // Si es administrador o no (administrador)
-        }
+        $_SESSION['username']= $username; // Establim la variable de sessió (username)
+        $_SESSION['administrador']=$registro['administrador']; // Si es administrador o no (administrador)
     }
+
+    mysqli_close($con);
+    
 
 // Mostrar menú d'opcions
 ?>
@@ -72,6 +70,7 @@
                                             <a class="dropdown-item" href="#">Categorias</a>
                                         </div>
                                     </li>
+                                    <div class="alinear">
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <?php echo $_SESSION['username']; ?> <!-- Nom del perfil-->
@@ -84,19 +83,22 @@
                                             <?php 
                                                 if($_SESSION['administrador']==true){
                                                     echo '<a class="dropdown-item" href="#">Añadir contenido</a>';
+                                                    echo '<a class="dropdown-item" href="#">Editar contenido</a>';
+                                                    echo '<a class="dropdown-item" href="#">Borrar contenido</a>';
                                                     echo '<a class="dropdown-item" href="#">Añadir categoria</a>';
-                                                    echo '<a class="dropdown-item" href="#">Visualizar usuarios</a>';
-                                                    echo '<a class="dropdown-item" href="#">Añadir contenido</a>';
+                                                    echo '<a class="dropdown-item" href="#">Visualizar usuarios</a>'; 
                                                 }
                                             ?>
                                         </div>
                                     </li>
-
+                                    </div>
 
                                     <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar sesión</a></li>
                                 </ul>
+
+                                
                             </div>
-                        </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -107,13 +109,40 @@
         <section>
             <div class="container">
                 <div class="row ">
-                    <div class="col-md-1"></div> <!--primera columna vacía-->
+                    <div class="col-md-1"></div> 
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="d-grid gap-1">
                                 <div class="align-center">
-                                <center><h1>Bienvenido de nuevo</h1></center>
+                                <center><h2>Hola, 
+                                    <?php
+                                    echo "@".$_SESSION['username'];
+                                    ?>
+                                </h2>
+
+                                <?php // MISSATGES: Comprovam si tenim missatges sense llegir
+                                    include "conexion.php";
+
+                                    $query = "select count(*) from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                    $fila = mysqli_query($con,$query);
+                                    $registre = mysqli_fetch_array($fila);
+
+                                    if($registre['count(*)']>0){
+                                        echo "<br>Tienes ".$registre['count(*)']." mensaje(s) nuevos: <br>";
+                                        $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                        $fila = mysqli_query($con,$query);
+
+                                        while($registre = mysqli_fetch_array($fila)){ // Obtenim la primera fila de la consulta (només n'hi ha una)
+                                            echo $registre['descripcio']; 
+                                        }
+                                    } else {
+                                        echo "<br>No tienes mensajes nuevos<br>";
+                                    }
+                                    mysqli_close($con);
+                                ?>
+
                                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                </center>
                                 </div>
                                 <br>
                             </div>
