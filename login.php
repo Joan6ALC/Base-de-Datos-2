@@ -43,62 +43,74 @@
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
 </head>
-    <body>
+    <body>  
         <header>
             <div class="col-12">
-                <nav class="navbar navbar-expand-md navbar-light border-2 border-bottom border-danger" style="background-color: #FFFFFF;">
+                <nav class="navbar navbar-expand-md ml-auto navbar-light border-2 border-bottom border-danger" style="background-color: #FFFFFF;">
                     <div class="container-fluid">
+                        <!-- LOGO -->
+                        <div class="mx-auto order-0">
                         <a href="#" class="navbar-brand">
                             <img src="img/navbar_logo.png" width="100" height="30">
                         </a>
                         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
                             <span class="navbar-toggler-icon"></span> <!-- Icono desplegable para dispositivos pequeños -->
                         </button>
+                        </div>
+
+                        <!-- Opcions -->
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <div id="MenuNavegacion" class="collapse navbar-collapse">
-                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                            <div id="MenuNavegacion" class="collapse navbar-collapse">
-                                <ul class="navbar-nav ms-3">
-                                    <li class="nav-item"><a class="nav-link" href="#">Explorar</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                                <ul class="navbar-nav mr-auto ms-1"> <!-- Alinear a la esquerra -->
+                                        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#">Explorar</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                                        <li class="nav-item dropdown"> <!-- Favoritos -->
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Favoritos
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="#">Contenidos</a>
+                                                <a class="dropdown-item" href="#">Categorias</a>
+                                            </div>
+                                        </li>
+                                        <?php
+                                            if($_SESSION['administrador']==true){
+                                                echo '  <li class="nav-item dropdown">
+                                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Administrador
+                                                            </a>
+                                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                                <a class="dropdown-item" href="#">Añadir contenidos</a>
+                                                                <a class="dropdown-item" href="#">Editar contenidos</a>
+                                                                <a class="dropdown-item" href="#">Añadir categoria</a>
+                                                                <a class="dropdown-item" href="#">Editar categoria</a>
+                                                                <a class="dropdown-item" href="#">Visualizar usuarios</a>
+                                                            </div>
+                                                        </li>';
+                                            }
+
+                                        ?>
+                                </ul>
+                            </div>
+
+                        <!-- Perfil i tancar sessió -->
+                            <ul class="navbar-nav ml-auto"> <!-- Alinear la dreta-->
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Favoritos
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">Contenidos</a>
-                                            <a class="dropdown-item" href="#">Categorias</a>
-                                        </div>
-                                    </li>
-                                    <div class="alinear">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <?php echo $_SESSION['username']; ?> <!-- Nom del perfil-->
+                                        Mi perfil
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="#">Ver perfil</a>
                                             <a class="dropdown-item" href="#">Editar perfil</a>
                                             <a class="dropdown-item" href="#">Mensajes</a>
                                             <a class="dropdown-item" href="#">Facturas</a>
-                                            <?php 
-                                                if($_SESSION['administrador']==true){
-                                                    echo '<a class="dropdown-item" href="#">Añadir contenido</a>';
-                                                    echo '<a class="dropdown-item" href="#">Editar contenido</a>';
-                                                    echo '<a class="dropdown-item" href="#">Borrar contenido</a>';
-                                                    echo '<a class="dropdown-item" href="#">Añadir categoria</a>';
-                                                    echo '<a class="dropdown-item" href="#">Visualizar usuarios</a>'; 
-                                                }
-                                            ?>
                                         </div>
                                     </li>
-                                    </div>
-
                                     <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar sesión</a></li>
-                                </ul>
+                            </ul>
 
                                 
-                            </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -114,12 +126,12 @@
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="d-grid gap-1">
                                 <div class="align-center">
-                                <center><h2>Hola, 
-                                    <?php
-                                    echo "@".$_SESSION['username'];
+                                <center><h2>Hola 
+                                    <?php // BENVINGUDA: Imprimir el nom del usuari
+                                    echo "@".$_SESSION['username'].",";
                                     ?>
                                 </h2>
-
+                                <img src="img/mensaje.png" height="30" width="30">
                                 <?php // MISSATGES: Comprovam si tenim missatges sense llegir
                                     include "conexion.php";
 
@@ -140,7 +152,6 @@
                                     }
                                     mysqli_close($con);
                                 ?>
-
                                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                                 </center>
                                 </div>
@@ -151,7 +162,7 @@
                 </div>
             </div>
         </section>
-
+        
 
         <footer>
             PelisTube &copy; 2021
