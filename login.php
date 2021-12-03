@@ -18,7 +18,6 @@
         // posible sol echo '<html> .... </html>
         echo "<center>Los datos introducidos no son correctos</center>";
         header("Location: index.html");
-
         
     } else {
         session_start();
@@ -28,8 +27,6 @@
     }
 
     mysqli_close($con);
-    
-
 // Mostrar menú d'opcions
 ?>
 
@@ -43,7 +40,8 @@
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
 </head>
-    <body>  
+    <body>
+
         <header>
             <div class="col-12">
                 <nav class="navbar navbar-expand-md ml-auto navbar-light border-2 border-bottom border-danger" style="background-color: #FFFFFF;">
@@ -51,7 +49,7 @@
                         <!-- LOGO -->
                         <div class="mx-auto order-0">
                         <a href="#" class="navbar-brand">
-                            <img src="img/navbar_logo.png" width="100" height="30">
+                            <img src="img/navbar_logo.png" width="123" height="40">
                         </a>
                         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
                             <span class="navbar-toggler-icon"></span> <!-- Icono desplegable para dispositivos pequeños -->
@@ -61,7 +59,7 @@
                         <!-- Opcions -->
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <div id="MenuNavegacion" class="collapse navbar-collapse">
-                                <ul class="navbar-nav mr-auto ms-1"> <!-- Alinear a la esquerra -->
+                                <ul class="navbar-nav mr-auto ms-0"> <!-- Alinear a la esquerra -->
                                         <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#">Explorar</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
@@ -92,8 +90,9 @@
 
                                         ?>
                                 </ul>
+                                
                             </div>
-
+                            
                         <!-- Perfil i tancar sessió -->
                             <ul class="navbar-nav ml-auto"> <!-- Alinear la dreta-->
                                     <li class="nav-item dropdown">
@@ -134,7 +133,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6"> <!-- MISSATGES -->
-                                        <img src="img/mensaje.png" height="30" width="30">
+                                        <img src="img/mensaje.png" height="24" width="24">
                                         <?php // MISSATGES: Comprovam si tenim missatges sense llegir
                                             include "conexion.php";
 
@@ -143,28 +142,40 @@
                                             $registre = mysqli_fetch_array($fila);
 
                                             if($registre['count(*)']>0){
-                                                echo "<br>Tienes ".$registre['count(*)']." mensaje(s) nuevos: <br>";
+                                                echo "Tienes ".$registre['count(*)']." mensaje(s) nuevos: <br>";
                                                 $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
                                                 $fila = mysqli_query($con,$query);
 
                                                 while($registre = mysqli_fetch_array($fila)){ // Obtenim la primera fila de la consulta (només n'hi ha una)
-                                                    echo $registre['descripcio']; 
+                                                    echo $registre['data']." - ".$registre['assumpte']; 
+                                                    echo '<div class="padding"><a class="btn btn-outline-danger btn-sm" href="index.html" role="button">Ver mensajes</a></div>';
                                                 }
                                             } else {
-                                                echo "<br>No tienes mensajes nuevos<br>";
+                                                echo "No tienes mensajes nuevos<br>";
                                             }
                                             mysqli_close($con);
                                         ?>
                                     </div>
                                     <div class="col-md-6"> <!-- FACTURES -->
-                                        <img src="img/factura.png" height="27" width="27">
+                                        <img src="img/factura.png" height="22" width="22">
                                         <?php
                                             include "conexion.php";
 
-                                            $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                            $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$username."'";
                                             $fila = mysqli_query($con,$query);
-                                            $registre = mysqli_fetch_array($fila);
-                                            echo "<br>Consulta tu última factura";
+                                            if($registre = mysqli_fetch_array($fila)){
+                                                echo 'Consulta tu última factura:';
+                                                echo "<br>".$registre['dataInici']." al ".$registre['dataFinal']." - Importe: ".$registre['import']."€";
+                                                if ($registre['dataPagament']==null){
+                                                    echo '<div class="padding"><a class="btn btn-outline-danger btn-sm px-2" href="index.html" role="button">Pagar</a><div>';
+                                                } else {
+                                                    echo '<div class="padding"><a class="btn btn-outline-danger btn-sm px-2" href="index.html" role="button">Ver</a></div>';
+                                                }
+
+                                            } else {
+                                                echo "No tienes todavía ninguna factura disponible";
+                                            }
+                                            mysqli_close($con);
                                         ?>
                                     </div>
                                 </div>

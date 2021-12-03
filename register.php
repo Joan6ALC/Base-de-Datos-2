@@ -23,6 +23,7 @@ if($password1!=$password2){
 
     $hash=crypt($password1,"");
     $consulta = "insert into persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
+    echo $consulta;
     mysqli_query($con, $consulta);
 }
 ?>
@@ -30,6 +31,7 @@ if($password1!=$password2){
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width">
     <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
