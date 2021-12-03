@@ -58,85 +58,114 @@
                                     echo "@".$_SESSION['username'].",";
                                     ?>
                                 </h2>
+</center>
                                 <br>
-
+                                <h5>Bandeja de entrada</h5>
+                                <center>
                                 <div class="row">
                                     <div class="col-md-6"> <!-- MISSATGES -->
-                                        <img src="img/mensaje.png" height="24" width="24">
-                                        <?php // MISSATGES: Comprovam si tenim missatges sense llegir
-                                            include "conexion.php";
+                                        <div class="card" style="width: 27rem;">
+                                            <div class="card-body">
+                                                <img src="img/mensaje.png" height="24" width="24">
+                                                <div class="padding"></div>
+                                                <?php // MISSATGES: Comprovam si tenim missatges sense llegir
+                                                    include "conexion.php";
 
-                                            $query = "select count(*) from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
-                                            $fila = mysqli_query($con,$query);
-                                            $registre = mysqli_fetch_array($fila);
+                                                    $query = "select count(*) from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                                    $fila = mysqli_query($con,$query);
+                                                    $registre = mysqli_fetch_array($fila);
 
-                                            if($registre['count(*)']>0){
-                                                echo "Tienes ".$registre['count(*)']." mensaje(s) nuevos: <br>";
-                                                $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
-                                                $fila = mysqli_query($con,$query);
+                                                    if($registre['count(*)']>0){
+                                                        echo '<h6 class="Pelicula">Tienes '.$registre['count(*)']." mensaje(s) nuevos: </h6>";
+                                                        $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                                        $fila = mysqli_query($con,$query);
 
-                                                while($registre = mysqli_fetch_array($fila)){ // Obtenim la primera fila de la consulta (només n'hi ha una)
-                                                    echo $registre['data']." - ".$registre['assumpte']; 
-                                                    echo '<div class="padding"><a class="btn btn-outline-danger btn-sm" href="index.html" role="button">Ver mensajes</a></div>';
-                                                }
-                                            } else {
-                                                echo "No tienes mensajes nuevos<br>";
-                                            }
-                                            mysqli_close($con);
-                                        ?>
+                                                        while($registre = mysqli_fetch_array($fila)){ // Obtenim la primera fila de la consulta (només n'hi ha una)
+                                                            echo $registre['data']." - ".$registre['assumpte']; 
+                                                        }
+                                                        echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Ver mensajes</a>';
+                                                    } else {
+                                                        echo "No tienes mensajes nuevos<br>";
+                                                    }
+                                                    echo '</div></div>';
+                                                    mysqli_close($con);
+                                                ?>
                                     </div>
                                     <div class="col-md-6"> <!-- FACTURES -->
-                                        <img src="img/factura.png" height="22" width="22">
-                                        <?php
-                                            include "conexion.php";
+                                        <div class="card" style="width: 27rem;">
+                                                <div class="card-body">
+                                                    <img src="img/factura.png" height="22" width="22">
+                                                    <div class="padding"></div>
+                                                    <?php
+                                                        include "conexion.php";
 
-                                            $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$username."'";
-                                            $fila = mysqli_query($con,$query);
-                                            if($registre = mysqli_fetch_array($fila)){
-                                                echo 'Consulta tu última factura:';
-                                                echo "<br>".$registre['dataInici']." al ".$registre['dataFinal']." - Importe: ".$registre['import']."€";
-                                                if ($registre['dataPagament']==null){
-                                                    echo '<div class="padding"><a class="btn btn-outline-danger btn-sm px-2" href="index.html" role="button">Pagar</a><div>';
-                                                } else {
-                                                    echo '<div class="padding"><a class="btn btn-outline-danger btn-sm px-2" href="index.html" role="button">Ver</a></div>';
-                                                }
+                                                        $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$username."'";
+                                                        $fila = mysqli_query($con,$query);
+                                                        if($registre = mysqli_fetch_array($fila)){
+                                                            echo '<h6 class="Pelicula">Consulta tu última factura:</h6>';
+                                                            echo $registre['dataInici']." al ".$registre['dataFinal']." - Importe: ".$registre['import'].'€';
+                                                            if ($registre['dataPagament']==null){
+                                                                echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Pagar</a>';
+                                                            } else {
+                                                                echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Vers</a>';;
+                                                            }
 
-                                            } else {
-                                                echo "No tienes todavía ninguna factura disponible";
-                                            }
-                                            mysqli_close($con);
-                                        ?>
+                                                        } else {
+                                                            echo '<h6 class="Pelicula">No tienes todavía ninguna factura disponible</h6>';
+                                                        }
+                                                        mysqli_close($con);
+                                                    ?>
                                     </div>
                                 </div>
                                 </center>
                                 <br>
                                 <h5>Novedades</h5>
-                                <div class="row">
-                                    <div class="card" style="width: 18rem;">
-                                        <img class="card-img-top" src="./img/icon.png" alt="avatar.png">
-                                        <div class="card-body">
-                                            <h6 class="Pelicula">Avatar</h6>
-                                            <p class="card-text">Sinopsis de la película Avatar</p>
-                                            <center><a href="#" class="btn btn-danger btn-sm">Ver película</a></center>
+                                <center>
+                                <div class="row justify-content-center gap-1">
+                                    <div class="col-lg-3">
+                                        <div class="card" style="width: 12rem;">
+                                            <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
+                                            <div class="card-body">
+                                                <h6 class="Pelicula">Avatar</h6>
+                                                <div class="padding"></div>
+                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                            </div>
                                         </div>
                                     </div> 
-                                    <div class="card" style="width: 18rem;">
-                                        <img class="card-img-top" src="./img/icon.png" alt="avatar.png">
-                                        <div class="card-body">
-                                            <h6 class="Pelicula">Avatar</h6>
-                                            <p class="card-text">Sinopsis de la película Avatar</p>
-                                            <center><a href="#" class="btn btn-danger btn-sm">Ver película</a></center>
+                                    <div class="col-lg-3">
+                                        <div class="card" style="width: 12rem;">
+                                            <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
+                                            <div class="card-body">
+                                                <h6 class="Pelicula">Avatar</h6>
+                                                <div class="padding"></div>
+                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                            </div>
                                         </div>
                                     </div> 
-                                    <div class="card" style="width: 18rem;">
-                                        <img class="card-img-top" src="./img/icon.png" alt="avatar.png">
-                                        <div class="card-body">
-                                            <h6 class="Pelicula">Avatar</h6>
-                                            <p class="card-text">Sinopsis de la película Avatar</p>
-                                            <center><a href="#" class="btn btn-danger btn-sm">Ver película</a></center>
+                                    <div class="col-lg-3">
+                                        <div class="card" style="width: 12rem;">
+                                            <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
+                                            <div class="card-body">
+                                                <h6 class="Pelicula">Avatar</h6>
+                                                <div class="padding"></div>
+                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                            </div>
                                         </div>
                                     </div> 
+                                    <div class="col-lg-3">
+                                        <div class="card" style="width: 12rem;">
+                                            <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
+                                            <div class="card-body">
+                                                <h6 class="Pelicula">Avatar</h6>
+                                                <div class="padding"></div>
+                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    
                                 </div>
+                                </center>
                             </div>
                         </div>
                     </div>
