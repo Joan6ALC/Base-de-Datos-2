@@ -58,7 +58,7 @@
                                     echo "@".$_SESSION['username'].",";
                                     ?>
                                 </h2>
-</center>
+                                </center>
                                 <br>
                                 <h5>Bandeja de entrada</h5>
                                 <center>
