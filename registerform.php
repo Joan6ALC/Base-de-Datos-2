@@ -23,23 +23,23 @@
                             <form action="register.php" method="post">
                                 <div class="d-grid gap-2">
                                     <label>Nombre:</label>
-                                    <input name="name" class="form-control" placeholder="Nombre" required>
+                                    <input name="name" class="form-control" placeholder="Nombre" <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?>required>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Primer apellido:</label>
-                                            <input name="surname1" class="form-control" placeholder="Primer apellido" required>
+                                            <input name="surname1" class="form-control" placeholder="Primer apellido" <?php if(isset($_GET['surname1'])) echo 'value="'.$_GET['surname1'].'"'; ?> required>
                                         </div> 
                                         <div class="col-md-6">
                                             <label>Segundo apellido:</label>
-                                            <input name="surname2" class="form-control" placeholder="Segundo apellido">       
+                                            <input name="surname2" class="form-control" placeholder="Segundo apellido" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
                                         </div> 
                                     </div>
 
                                     
                                     <label>Fecha de nacimiento:</label>
-                                    <input type="date" name="dateofbirth" class="form-control" required>
+                                    <input type="date" name="dateofbirth" class="form-control" min="1920-1-01" max="2023-12-31" <?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?> required>
                                     <label>Usuario:</label>
-                                    <input name="username" class="form-control" placeholder="Usuario" required>
+                                    <input name="username" class="form-control" placeholder="Usuario" <?php if(isset($_GET['username'])) echo 'value="'.$_GET['username'].'"'; ?> required>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Contraseña:</label>
@@ -48,9 +48,21 @@
                                         <div class="col-md-6">
                                             <label>Repite la contraseña:</label>
                                             <input type="password" name="password2" class="form-control" placeholder="Contraseña" required>    
-                                        </div> 
+                                        </div>
+                                        <a class="padding"></a>
+                                        <?php if (isset($_GET['error'])){
+                                            switch ($_GET['error']) {
+                                                case 1:
+                                                    echo '<div class="error-message">Las contraseñas no coinciden</div>';
+                                                    break;
+                                                case 2:
+                                                    echo '<div class="error-message">El nombre de usuario elegido ya existe</div>';
+                                                    break;
+                                                default:
+                                            }
+                                        } ?>
                                     </div>
-                                    <a class="padding"></a> 
+                                    
                                     <button type="submit" class="btn btn-danger">Registrarse</button>
                                     
                                 </div>
@@ -60,7 +72,6 @@
                 </div>
             </div>
         </section>
-
 
         <footer>
             PelisTube &copy; 2021

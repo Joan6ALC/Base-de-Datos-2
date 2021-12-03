@@ -1,31 +1,35 @@
 <?php 
 
-// Recogida de parámetros
-$name= $_POST['name'];
-$surname1= $_POST['surname1'];
-$surname2= $_POST['surname2'];
-$dob = $_POST['dateofbirth'];
-$username = $_POST['username'];
-$password1 = $_POST['password'];
-$password2 = $_POST['password2']; 
-$date = date('y-m-d'); // obtenim data local
+    // Recollida de paràmetres
+    $name= $_POST['name'];
+    $surname1= $_POST['surname1'];
+    $surname2= $_POST['surname2'];
+    $dob = $_POST['dateofbirth'];
+    $username = $_POST['username'];
+    $password1 = $_POST['password'];
+    $password2 = $_POST['password2']; 
+    $date = date('y-m-d'); // obtenim data local
 
-// També hem de controlar si un username ja existeix dins la bd?
+    // Comprovam que les contrasenyes introduides coincideixen
+    if($password1!=$password2){ // Si coincideixen, error 1
+        header("Location: registerform.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
+        
+    }
+        
+    include "conexion.php"; // Connexió a bd
 
-if($password1!=$password2){
-    echo "Las dos contraseñas introducidas no coinciden"; // Com tornam a la pagina anterior? (register.html)
-    
-    // <INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
-    
-} else {
-    // Connexió a bd
-    include "conexion.php";
+    // Comprobam si l'username triat ja està en ús
+    $query = 'select username from persona where username="'.$username.'"';
+    $result=mysqli_query($con, $query);
+    $register = mysqli_fetch_array($result);
+    if (isset($register['username'])){ // Si ja existeix l'usuari, error 2
+        header("Location: registerform.php?error=2&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
+    }
 
     $hash=crypt($password1,"");
-    $consulta = "insert into persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
-    echo $consulta;
-    mysqli_query($con, $consulta);
-}
+    $query = "insert into persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
+    mysqli_query($con, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +67,6 @@ if($password1!=$password2){
                 </div>
             </div>
         </section>
-
 
         <footer>
             PelisTube &copy; 2021
