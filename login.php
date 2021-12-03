@@ -57,9 +57,9 @@
                         </div>
 
                         <!-- Opcions -->
-                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">   
                             <div id="MenuNavegacion" class="collapse navbar-collapse">
-                                <ul class="navbar-nav mr-auto ms-0"> <!-- Alinear a la esquerra -->
+                                <ul class="navbar-nav mr-auto"> <!-- Alinear a la esquerra -->
                                         <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#">Explorar</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
@@ -123,7 +123,7 @@
                     <div class="col-md-1"></div> 
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <div class="d-grid gap-1">
+                            <div class="d-grid gap-0">
                                 <center><h2>Hola 
                                     <?php // BENVINGUDA: Imprimir el nom del usuari
                                     echo "@".$_SESSION['username'].",";
@@ -180,6 +180,34 @@
                                     </div>
                                 </div>
                                 </center>
+                                <br>
+                                <h5>Novedades</h5>
+                                <div class="row">
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="./img/icon.png" alt="avatar.png">
+                                        <div class="card-body">
+                                            <h6 class="Pelicula">Avatar</h6>
+                                            <p class="card-text">Sinopsis de la película Avatar</p>
+                                            <center><a href="#" class="btn btn-danger btn-sm">Ver película</a></center>
+                                        </div>
+                                    </div> 
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="./img/icon.png" alt="avatar.png">
+                                        <div class="card-body">
+                                            <h6 class="Pelicula">Avatar</h6>
+                                            <p class="card-text">Sinopsis de la película Avatar</p>
+                                            <center><a href="#" class="btn btn-danger btn-sm">Ver película</a></center>
+                                        </div>
+                                    </div> 
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="./img/icon.png" alt="avatar.png">
+                                        <div class="card-body">
+                                            <h6 class="Pelicula">Avatar</h6>
+                                            <p class="card-text">Sinopsis de la película Avatar</p>
+                                            <center><a href="#" class="btn btn-danger btn-sm">Ver película</a></center>
+                                        </div>
+                                    </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
