@@ -35,7 +35,7 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width">
-    <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
+    <title>Bienvenido <?php echo "@".$_SESSION['username'] ?></title> <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
@@ -69,7 +69,7 @@
                                                 <img src="img/mensaje.png" height="24" width="24">
                                                 <div class="padding"></div>
                                                 <?php // MISSATGES: Comprovam si tenim missatges sense llegir
-                                                    include "conexion.php";
+                                                    include "connection.php";
 
                                                     $query = "select count(*) from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
                                                     $fila = mysqli_query($con,$query);
@@ -97,7 +97,7 @@
                                                     <img src="img/factura.png" height="22" width="22">
                                                     <div class="padding"></div>
                                                     <?php
-                                                        include "conexion.php";
+                                                        include "connection.php";
 
                                                         $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$username."'";
                                                         $fila = mysqli_query($con,$query);
@@ -121,7 +121,7 @@
                                 <br>
                                 <h5>Novedades</h5>
                                 <center>
-                                <div class="row justify-content-center gap-2">
+                                <div class="row justify-content-center gap-2"> <!-- NOVETATS SEGONS PREFERÈNCIES -->
                                     <div class="col">
                                         <div class="card" style="width: 12rem;">
                                             <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
