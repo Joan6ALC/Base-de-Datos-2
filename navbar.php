@@ -18,7 +18,7 @@
                     <ul class="navbar-nav mr-auto"> <!-- Alinear a la esquerra -->
                         <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Explorar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                        <li class="nav-item"><a class="nav-link" href="llistarCategories.php">Categorías</a></li>
                         <li class="nav-item dropdown"> <!-- Favorits -->
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Favoritos
