@@ -160,10 +160,6 @@
                                         echo "<h6>Añade categorías favoritas para recibir recomendaciones</h6>";
                                     }
 
-                                    
-
-                                    
-
                                     mysqli_close($con);
                                 ?>   
                             </center>
