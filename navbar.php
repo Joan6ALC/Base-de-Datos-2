@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">   
                 <div id="MenuNavegacion" class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto"> <!-- Alinear a la esquerra -->
-                        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="login.php">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Explorar</a></li>
                         <li class="nav-item"><a class="nav-link" href="llistarCategories.php">Categorías</a></li>
                         <li class="nav-item dropdown"> <!-- Favorits -->

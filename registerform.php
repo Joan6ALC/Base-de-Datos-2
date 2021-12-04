@@ -34,8 +34,6 @@
                                             <input name="surname2" class="form-control" placeholder="Segundo apellido" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
                                         </div> 
                                     </div>
-
-                                    
                                     <label>Fecha de nacimiento:</label>
                                     <input type="date" name="dateofbirth" class="form-control" min="1920-1-01" max="2023-12-31" <?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?> required>
                                     <label>Usuario:</label>
@@ -62,9 +60,7 @@
                                             }
                                         } ?>
                                     </div>
-                                    
                                     <button type="submit" class="btn btn-danger">Registrarse</button>
-                                    
                                 </div>
                             </form>
                         </div>

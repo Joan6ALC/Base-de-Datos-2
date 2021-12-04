@@ -1,4 +1,4 @@
-<?php 
+<?php session_start();
     // Recollida de paràmetres del formulari
     $username= $_POST['username'];
     $password= $_POST['password'];
@@ -19,7 +19,7 @@
         header("Location: index.html");
         
     } else {
-        session_start();
+        //session_start();
         $_SESSION['username']= $username; // Establim la variable de sessió (username)
         $_SESSION['administrador']=$row['administrador']; // Si es administrador o no (administrador)
     }
@@ -58,11 +58,11 @@
                                 </center>
                                 <div class="padding"></div>
                                 <div class="padding"></div>
-                                
-                                
+
                                 <div class="row justify-content-center gap-2">
                                     <div class="col"> <!-- MISSATGES -->
                                         <h5>Bandeja de entrada</h5>
+                                        <div class="padding"></div>
                                         <center>
                                         <div class="card" style="width: 26rem;">
                                             <div class="card-body">
@@ -79,7 +79,7 @@
                                                         echo '<h6 class="Pelicula">Tienes '.$row['count(*)']." mensaje(s) nuevos: </h6>";
                                                         $query = "select * from missatge where username='".$username."'";
                                                         $result = mysqli_query($con,$query);
-
+                                                        
                                                         while($row = mysqli_fetch_array($result)){ // Obtenim la primera fila de la consulta
                                                             echo $row['data']." - ".$row['assumpte']."<br>"; 
                                                         }
@@ -87,42 +87,44 @@
                                                     } else {
                                                         echo "No tienes mensajes nuevos<br>";
                                                     }
-                                                    echo '</div></div>';
                                                     mysqli_close($con);
                                                 ?>
-                                        </div>
-                                        </center>
-                                        <div class="col"> <!-- FACTURES -->
-                                            <h5>Facturación</h5>
-                                            <center>
-                                            <div class="card" style="width: 26rem;">
-                                                <div class="card-body">
-                                                    <img src="img/factura.png" height="22" width="22">
-                                                    <div class="padding"></div>
-                                                    <?php
-                                                        include "connection.php";
-
-                                                        $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$username."'";
-                                                        $result = mysqli_query($con,$query);
-                                                        if($row = mysqli_fetch_array($result)){
-                                                            echo '<h6 class="Pelicula">Consulta tu última factura:</h6>';
-                                                            echo $row['dataInici']." al ".$row['dataFinal']." - Importe: ".$row['import'].'€';
-                                                            if ($row['dataPagament']==null){
-                                                                echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Pagar</a>';
-                                                            } else {
-                                                                echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Vers</a>';;
-                                                            }
-
-                                                        } else {
-                                                            echo '<h6 class="Pelicula">No tienes todavía ninguna factura disponible</h6>';
-                                                        }
-                                                        mysqli_close($con);
-                                                    ?>
-                                                    
-                                                </div>
                                             </div>
                                         </div>
-                                        </center>
+                                    </div>
+                                    </center>
+                                    <div class="col"> <!-- FACTURES -->
+                                        <h5>Facturación</h5>
+                                        <div class="padding"></div>
+                                        <center>
+                                        <div class="card" style="width: 26rem;">
+                                            <div class="card-body">
+                                                <img src="img/factura.png" height="22" width="22">
+                                                <div class="padding"></div>
+                                                <?php
+                                                    include "connection.php";
+
+                                                    $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$username."'";
+                                                    $result = mysqli_query($con,$query);
+                                                    if($row = mysqli_fetch_array($result)){
+                                                        echo '<h6 class="Pelicula">Consulta tu última factura:</h6>';
+                                                        echo $row['dataInici']." al ".$row['dataFinal']." - Importe: ".$row['import'].'€';
+                                                        if ($row['dataPagament']==null){
+                                                            echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Pagar</a>';
+                                                        } else {
+                                                            echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Vers</a>';;
+                                                        }
+
+                                                    } else {
+                                                        echo '<h6 class="Pelicula">No tienes todavía ninguna factura disponible</h6>';
+                                                    }
+                                                    mysqli_close($con);
+                                                ?>
+                                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </center>
                                 <br>
                                 <div class="padding"></div>
                                 <h5>Novedades</h5>
@@ -130,15 +132,16 @@
                                 <div class="row justify-content-center gap-2"> <!-- NOVETATS SEGONS MISSATGES (segons les categories favorites) -->
                                 <?php 
                                     include "connection.php";
-                                    $query = "select * from missatge where username='".$_SESSION['username']."'" ;
+                                    $query = "select * from missatge where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
                                     $result = mysqli_query($con,$query);
                                     $i=0;
 
                                     if($row=mysqli_fetch_array($result)){
+                                        
                                         while ($row and $i<8){
-                                            $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // las últimas novedades se mostrarán primero
+                                            $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agaf el contingut i l'imprimesc
                                             $result2 = mysqli_query($con,$query);
-                                            $contingut = mysqli_fetch_array($result2);
+                                            $contingut = mysqli_fetch_array($result2); 
                                             echo    '<div class="col">
                                                         <div class="card" style="width: 12rem;">
                                                             <img class="card-img-top" src=".'.$contingut['camiFoto'].'" alt="'.$contingut['titol'].'.png" height="250">
@@ -153,18 +156,17 @@
                                             $i=$i+1;
                                             $row=mysqli_fetch_array($result);
                                         }
-                                    } 
-                                        echo "Empieza a añadir categorías favoritas para recibir recomendaciones";
-                                    
 
-                                    
-                                
-                                
-                                ?>
-                                    
-                            </div>
-                        </center>
-                            
+
+                                        
+                                    } 
+
+                                    //echo "Empieza a añadir categorías favoritas para recibir recomendaciones";
+
+                                    mysqli_close($con);
+                                ?>   
+                                </div>
+                            </center>
                         </div>
                     </div>
                 </div>
