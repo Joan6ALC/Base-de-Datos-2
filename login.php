@@ -76,7 +76,7 @@
                                                     $row = mysqli_fetch_array($result);
 
                                                     if($row['count(*)']>0){
-                                                        echo '<h6 class="Pelicula">Tienes '.$row['count(*)']." mensaje(s) nuevos: </h6>";
+                                                        echo '<h6>Tienes '.$row['count(*)']." mensaje(s) nuevos:</h6>";
                                                         $query = "select * from missatge where username='".$username."'";
                                                         $result = mysqli_query($con,$query);
                                                         
@@ -85,7 +85,7 @@
                                                         }
                                                         echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Ver mensajes</a>';
                                                     } else {
-                                                        echo "No tienes mensajes nuevos<br>";
+                                                        echo "<h6>No tienes mensajes nuevos</h6>";
                                                     }
                                                     mysqli_close($con);
                                                 ?>
@@ -107,7 +107,7 @@
                                                     $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$username."'";
                                                     $result = mysqli_query($con,$query);
                                                     if($row = mysqli_fetch_array($result)){
-                                                        echo '<h6 class="Pelicula">Consulta tu última factura:</h6>';
+                                                        echo '<h6>Consulta tu última factura:</h6>';
                                                         echo $row['dataInici']." al ".$row['dataFinal']." - Importe: ".$row['import'].'€';
                                                         if ($row['dataPagament']==null){
                                                             echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Pagar</a>';
@@ -116,7 +116,7 @@
                                                         }
 
                                                     } else {
-                                                        echo '<h6 class="Pelicula">No tienes todavía ninguna factura disponible</h6>';
+                                                        echo '<h6>No tienes todavía ninguna factura disponible</h6>';
                                                     }
                                                     mysqli_close($con);
                                                 ?>
@@ -156,16 +156,16 @@
                                             $i=$i+1;
                                             $row=mysqli_fetch_array($result);
                                         }
+                                    } else {
+                                        echo "<h6>Añade categorías favoritas para recibir recomendaciones</h6>";
+                                    }
 
+                                    
 
-                                        
-                                    } 
-
-                                    //echo "Empieza a añadir categorías favoritas para recibir recomendaciones";
+                                    
 
                                     mysqli_close($con);
                                 ?>   
-                                </div>
                             </center>
                         </div>
                     </div>
