@@ -50,18 +50,20 @@
                     <div class="col-md-1"></div> 
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                                <center><h2>Hola 
-                                    <?php // BENVINGUDA: Imprimir el nom del usuari
+                                <center><h2>Hola  <!-- BENVINGUDA: Imprimir el nom del usuari -->
+                                    <?php 
                                     echo "@".$_SESSION['username'].",";
                                     ?>
                                 </h2>
                                 </center>
                                 <div class="padding"></div>
+                                <div class="padding"></div>
                                 
-                                <h5 class=>Bandeja de entrada</h5>
-                                <center>
+                                
                                 <div class="row justify-content-center gap-2">
                                     <div class="col"> <!-- MISSATGES -->
+                                        <h5>Bandeja de entrada</h5>
+                                        <center>
                                         <div class="card" style="width: 26rem;">
                                             <div class="card-body">
                                                 <img src="img/mensaje.png" height="24" width="24">
@@ -69,13 +71,13 @@
                                                 <?php // MISSATGES: Comprovam si tenim missatges sense llegir
                                                     include "connection.php";
 
-                                                    $query = "select count(*) from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                                    $query = "select count(*) from missatge where username='".$username."'";
                                                     $result = mysqli_query($con,$query);
                                                     $row = mysqli_fetch_array($result);
 
                                                     if($row['count(*)']>0){
                                                         echo '<h6 class="Pelicula">Tienes '.$row['count(*)']." mensaje(s) nuevos: </h6>";
-                                                        $query = "select * from persona join missatge on persona.username='".$username."' AND missatge.username='".$username."'";
+                                                        $query = "select * from missatge where username='".$username."'";
                                                         $result = mysqli_query($con,$query);
 
                                                         while($row = mysqli_fetch_array($result)){ // Obtenim la primera fila de la consulta
@@ -88,9 +90,12 @@
                                                     echo '</div></div>';
                                                     mysqli_close($con);
                                                 ?>
-                                    </div>
-                                    <div class="col"> <!-- FACTURES -->
-                                        <div class="card" style="width: 26rem;">
+                                        </div>
+                                        </center>
+                                        <div class="col"> <!-- FACTURES -->
+                                            <h5>Facturación</h5>
+                                            <center>
+                                            <div class="card" style="width: 26rem;">
                                                 <div class="card-body">
                                                     <img src="img/factura.png" height="22" width="22">
                                                     <div class="padding"></div>
@@ -113,10 +118,13 @@
                                                         }
                                                         mysqli_close($con);
                                                     ?>
-                                    </div>
-                                </div>
-                                </center>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </center>
                                 <br>
+                                <div class="padding"></div>
                                 <h5>Novedades</h5>
                                 <center>
                                 <div class="row justify-content-center gap-2"> <!-- NOVETATS SEGONS MISSATGES (segons les categories favorites) -->
@@ -124,31 +132,38 @@
                                     include "connection.php";
                                     $query = "select * from missatge where username='".$_SESSION['username']."'" ;
                                     $result = mysqli_query($con,$query);
-                                    $i=1;
-                                    while ($row = mysqli_fetch_array($result) and $i<8){
-                                        $query = "select * from contingut where IdContingut='".$row['IdContingut']."'";
-                                        $result2 = mysqli_query($con,$query);
-                                        $contingut = mysqli_fetch_array($result2);
-                                        echo    '<div class="col">
-                                                    <div class="card" style="width: 12rem;">
-                                                        <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
-                                                        <div class="card-body">
-                                                            <h6 class="Pelicula">'.$contingut['titol'].'</h6>
-                                                            <div class="padding"></div>
-                                                            <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                    $i=0;
+
+                                    if($row=mysqli_fetch_array($result)){
+                                        while ($row and $i<8){
+                                            $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // las últimas novedades se mostrarán primero
+                                            $result2 = mysqli_query($con,$query);
+                                            $contingut = mysqli_fetch_array($result2);
+                                            echo    '<div class="col">
+                                                        <div class="card" style="width: 12rem;">
+                                                            <img class="card-img-top" src=".'.$contingut['camiFoto'].'" alt="'.$contingut['titol'].'.png" height="250">
+                                                            <div class="card-body">
+                                                                <h6 class="Pelicula">'.$contingut['titol'].'</h6>
+                                                                <div class="padding"></div>
+                                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>';
+                                                    </div>';
 
+                                            $i=$i+1;
+                                            $row=mysqli_fetch_array($result);
+                                        }
+                                    } 
+                                        echo "Empieza a añadir categorías favoritas para recibir recomendaciones";
+                                    
 
-                                        $i=$i+1;
-                                    }
+                                    
                                 
                                 
                                 ?>
- 
-                                </div>
-                                </center>
+                                    
+                            </div>
+                        </center>
                             
                         </div>
                     </div>

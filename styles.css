@@ -47,6 +47,11 @@ footer{
     font-weight: bold;
 }
 
+.div-login{
+    font-size: 20px;
+    border-bottom: 2px solid #dc3545;
+}
+
 .padding{
     padding-top: 10px;
 }
