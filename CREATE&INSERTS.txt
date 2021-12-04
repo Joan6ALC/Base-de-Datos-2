@@ -1,0 +1,131 @@
+# CREACIÓ DE LA BASE DE DADES
+
+CREATE DATABASE pelistube;
+
+USE pelistube;
+
+CREATE TABLE Tarifa(
+	nomTarifa varchar(15) PRIMARY KEY,
+	preu integer NOT NULL,
+	periodicitat varchar(15) NOT NULL,
+	estatTarifa boolean
+);
+
+CREATE TABLE Categoria(
+	nomCat varchar(20) PRIMARY KEY
+);
+
+CREATE TABLE Tipus(
+IdTipus integer AUTO_INCREMENT PRIMARY KEY,
+	edat varchar(15) NOT NULL # <9, 9-18 i >18
+	
+);
+
+CREATE TABLE Contingut(
+IdContingut integer AUTO_INCREMENT PRIMARY KEY,
+	titol varchar(20) NOT NULL,
+	html varchar(250) NOT NULL,
+	nomCat varchar(20),
+	FOREIGN KEY (nomCat) REFERENCES Categoria(nomCat)
+);
+
+CREATE TABLE R_Tipus_Contingut(
+	IdTipus integer,
+	IdContingut integer,
+	FOREIGN KEY (IdTipus) REFERENCES Tipus(IdTipus),
+	FOREIGN KEY (IdContingut) REFERENCES Contingut(IdContingut),
+	PRIMARY KEY (IdTipus,IdContingut)
+);
+
+CREATE TABLE Persona(
+	dataAlta DATE NOT NULL,
+	username varchar(15)PRIMARY KEY,
+	password varchar(45) NOT NULL,
+	nom varchar(25) NOT NULL,
+	llinatge1 varchar(20) NOT NULL,
+	llinatge2 varchar(20), # pot ser null, ja que moltes persones no tenen segon llinatge
+	dataNaixament DATE NOT NULL, 
+	administrador boolean,
+	IdTipus integer,
+	FOREIGN KEY (IdTipus) REFERENCES Tipus(IdTipus)
+);
+
+CREATE TABLE Contracte(
+	dataAlta DATE,
+	dataBaixa DATE,
+	estat boolean,
+	IdContracte integer AUTO_INCREMENT PRIMARY KEY,
+	nomTarifa varchar(15),
+	username varchar(15),
+	FOREIGN KEY (nomTarifa) REFERENCES Tarifa(nomTarifa),
+FOREIGN KEY (username) REFERENCES Persona(username)	
+);
+
+CREATE TABLE Factura(
+	import integer NOT NULL,
+	dataInici DATE, # període de la factura de dataInici a dataFinal
+	dataFinal DATE,
+	dataPagament DATE,
+	IdFactura integer AUTO_INCREMENT PRIMARY KEY,
+	IdContracte integer,
+	FOREIGN KEY (IdContracte) REFERENCES Contracte(IdContracte)
+);
+
+
+CREATE TABLE Missatge(
+	data DATE,
+	assumpte varchar(50),
+	descripcio varchar(50),
+	estatMissatge boolean,
+	IdMissatge integer AUTO_INCREMENT PRIMARY KEY,
+	username varchar(15),
+	IdContingut integer,
+	FOREIGN KEY (username) REFERENCES Persona(username),
+	FOREIGN KEY (IdContingut) REFERENCES Contingut(IdContingut)
+);
+
+CREATE TABLE ContingutFavorits(
+	IdContracte integer,
+	IdContingut integer,
+	FOREIGN KEY (IdContracte) REFERENCES Contracte(IdContracte),
+	FOREIGN KEY (IdContingut) REFERENCES Contingut(IdContingut),
+	PRIMARY KEY (IdContracte,IdContingut)
+);
+
+CREATE TABLE CategoriaFavorits(
+	IdContracte integer,
+	nomCat varchar(20),
+	FOREIGN KEY (IdContracte) REFERENCES Contracte(IdContracte),
+	FOREIGN KEY (nomCat) REFERENCES Categoria(nomCat),
+	PRIMARY KEY (IdContracte,nomCat)
+);
+
+# INSERTS NECESSARIS
+
+INSERT INTO tipus(edat) VALUES ("<9 anys"),  ("9-18 anys"),  ("+18 anys");
+
+INSERT INTO categoria(nomCat) VALUES ("Terror"), ("Comedia"), ("Intriga"),("Ciencia ficción"),("Aventuras"),("Drama"),("Fantasía"),("Suspense"),("Musical"),("Animación"),("Documental"),("Histórica"),("Bélica"),("Crimen"),("Policíaca"),("Acción");
+
+INSERT INTO tarifa(nomTarifa, preu, periodicitat, estatTarifa) VALUES('MENSUAL', 10, 30, 'VIGENT'),('TRIMESTRAL', 25, 90, 'VIGENT');
+
+INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR AMB PASSWORD= 1234
+
+# INSERTS PEL·LÍCULES
+#Ciencia ficción
+insert into contingut(titol, html, nomCat) values ("Avatar", '<iframe width="560" height="315" src="https://www.youtube.com/embed/5PSNL1qE6VY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Ciencia ficción");
+insert into contingut(titol, html, nomCat) values ("ZONE 414", '<iframe width="560" height="315" src="https://www.youtube.com/embed/Zn5kZwZ-l2g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Ciencia ficción");
+insert into contingut(titol, html, nomCat) values ("DUNE", '<iframe width="560" height="315" src="https://www.youtube.com/embed/1looWByWgW0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Ciencia ficción");
+insert into contingut(titol, html, nomCat) values ("Reminiscencia", '<iframe width="560" height="315" src="https://www.youtube.com/embed/5MvFknvMabU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Ciencia ficción");
+insert into contingut(titol, html, nomCat) values ("Chaos Walking", '<iframe width="560" height="315" src="https://www.youtube.com/embed/KJOd3poTq_I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Ciencia ficción");
+insert into contingut(titol, html, nomCat) values ("Ad Astra", '<iframe width="560" height="315" src="https://www.youtube.com/embed/gaf-zgnlNLg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Ciencia ficción");
+
+#Aventuras
+insert into contingut(titol, html, nomCat) values ("Jumanji: Bienvenidos a la jungla", '<iframe width="560" height="315" src="https://www.youtube.com/embed/leIrosWRbYQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Aventuras");
+insert into contingut(titol, html, nomCat) values ("Jungle Cruise", '<iframe width="560" height="315" src="https://www.youtube.com/embed/hIJUnZnvAzA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Aventuras");
+
+#Animación
+insert into contingut(titol, html, nomCat) values ("Los Simpson: La película", '<iframe width="560" height="315" src="https://www.youtube.com/embed/HRV6tMR-SSs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Animación");
+insert into contingut(titol, html, nomCat) values ("Soul", '<iframe width="560" height="315" src="https://www.youtube.com/embed/85hY9bninqU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Animación");
+insert into contingut(titol, html, nomCat) values ("Coco", '<iframe width="560" height="315" src="https://www.youtube.com/embed/htwlR51npL4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Animación");
+insert into contingut(titol, html, nomCat) values ("Del Revés", '<iframe width="560" height="315" src="https://www.youtube.com/embed/RbfKs_syius" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Animación");
+insert into contingut(titol, html, nomCat) values ("El Rey León", '<iframe width="560" height="315" src="https://www.youtube.com/embed/mb79ctR-E-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "Animación");
