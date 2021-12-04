@@ -52,19 +52,19 @@
                     <div class="col-md-1"></div> 
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <div class="d-grid gap-0">
                                 <center><h2>Hola 
                                     <?php // BENVINGUDA: Imprimir el nom del usuari
                                     echo "@".$_SESSION['username'].",";
                                     ?>
                                 </h2>
                                 </center>
-                                <br>
-                                <h5>Bandeja de entrada</h5>
+                                <div class="padding"></div>
+                                
+                                <h5 class=>Bandeja de entrada</h5>
                                 <center>
-                                <div class="row">
-                                    <div class="col-md-6"> <!-- MISSATGES -->
-                                        <div class="card" style="width: 27rem;">
+                                <div class="row justify-content-center gap-2">
+                                    <div class="col"> <!-- MISSATGES -->
+                                        <div class="card" style="width: 26rem;">
                                             <div class="card-body">
                                                 <img src="img/mensaje.png" height="24" width="24">
                                                 <div class="padding"></div>
@@ -91,8 +91,8 @@
                                                     mysqli_close($con);
                                                 ?>
                                     </div>
-                                    <div class="col-md-6"> <!-- FACTURES -->
-                                        <div class="card" style="width: 27rem;">
+                                    <div class="col"> <!-- FACTURES -->
+                                        <div class="card" style="width: 26rem;">
                                                 <div class="card-body">
                                                     <img src="img/factura.png" height="22" width="22">
                                                     <div class="padding"></div>
@@ -121,8 +121,8 @@
                                 <br>
                                 <h5>Novedades</h5>
                                 <center>
-                                <div class="row justify-content-center gap-1">
-                                    <div class="col-lg-3">
+                                <div class="row justify-content-center gap-2">
+                                    <div class="col">
                                         <div class="card" style="width: 12rem;">
                                             <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
                                             <div class="card-body">
@@ -132,7 +132,7 @@
                                             </div>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-3">
+                                    <div class="col">
                                         <div class="card" style="width: 12rem;">
                                             <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
                                             <div class="card-body">
@@ -142,7 +142,7 @@
                                             </div>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-3">
+                                    <div class="col">
                                         <div class="card" style="width: 12rem;">
                                             <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
                                             <div class="card-body">
@@ -152,7 +152,47 @@
                                             </div>
                                         </div>
                                     </div> 
-                                    <div class="col-lg-3">
+                                    <div class="col">
+                                        <div class="card" style="width: 12rem;">
+                                            <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
+                                            <div class="card-body">
+                                                <h6 class="Pelicula">Avatar</h6>
+                                                <div class="padding"></div>
+                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card" style="width: 12rem;">
+                                            <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
+                                            <div class="card-body">
+                                                <h5 class="Pelicula">Avatar</h5>
+                                                <div class="padding"></div>
+                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col">
+                                        <div class="card" style="width: 12rem;">
+                                            <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
+                                            <div class="card-body">
+                                                <h6 class="Pelicula">Avatar</h6>
+                                                <div class="padding"></div>
+                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col">
+                                        <div class="card" style="width: 12rem;">
+                                            <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
+                                            <div class="card-body">
+                                                <h6 class="Pelicula">Avatar</h6>
+                                                <div class="padding"></div>
+                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col">
                                         <div class="card" style="width: 12rem;">
                                             <img class="card-img-top" src="./img/avatar-cartel.png"  alt="avatar.png">
                                             <div class="card-body">
@@ -166,7 +206,7 @@
                                     
                                 </div>
                                 </center>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -1,24 +1,25 @@
 <div class="col-12">
     <nav class="navbar navbar-expand-md ml-auto navbar-light border-2 border-bottom border-danger" style="background-color: #FFFFFF;">
         <div class="container-fluid">
-        <!-- LOGO -->
+
+            <!-- LOGO -->
             <div class="mx-auto order-0">
                 <a href="#" class="navbar-brand">
                     <img src="img/navbar_logo.png" width="130" height="40">
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
-                    <span class="navbar-toggler-icon"></span> <!-- Icono desplegable para dispositivos pequeños -->
+                    <span class="navbar-toggler-icon"></span> <!-- Desplegable per a dispositius petits -->
                 </button>
             </div>
 
-            <!-- Opcions -->
+            <!-- Menú d'opcions -->
             <div class="collapse navbar-collapse" id="navbarNavDropdown">   
                 <div id="MenuNavegacion" class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto"> <!-- Alinear a la esquerra -->
                         <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Explorar</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
-                        <li class="nav-item dropdown"> <!-- Favoritos -->
+                        <li class="nav-item dropdown"> <!-- Favorits -->
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Favoritos
                             </a>
@@ -27,7 +28,7 @@
                                 <a class="dropdown-item" href="#">Categorias</a>
                             </div>
                         </li>
-                        <?php
+                        <?php // Si és administrador, afegim les opcions
                             if($_SESSION['administrador']==true){
                                 echo '  <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,10 +43,8 @@
                                             </div>
                                         </li>';
                             }
-
                         ?>
-                    </ul>
-                                    
+                    </ul>              
                 </div>
                                 
                 <!-- Perfil i tancar sessió -->
