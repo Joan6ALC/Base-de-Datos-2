@@ -15,7 +15,7 @@
         die();
     }
         
-    include "conexion.php"; // Connexió a bd
+    include "connection.php"; // Connexió a bd
 
     // Comprobam si l'username triat ja està en ús
     $query = 'select username from persona where username="'.$username.'"';

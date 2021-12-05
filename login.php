@@ -19,9 +19,15 @@
         header("Location: index.html");
         
     } else {
-        //session_start();
         $_SESSION['username']= $username; // Establim la variable de sessió (username)
         $_SESSION['administrador']=$row['administrador']; // Si es administrador o no (administrador)
+
+        $query = "select * from contracte where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
+        $result = mysqli_query($con,$query);
+        $row= mysqli_fetch_array($result);
+        
+        $_SESSION['IdContracte']=$row['IdContracte'];
+        $_SESSION['estatContracte']=$row['estat'];
     }
 
     mysqli_close($con);
@@ -129,24 +135,25 @@
                                 <div class="padding"></div>
                                 <h5>Novedades</h5>
                                 <center>
-                                <div class="row justify-content-center gap-2"> <!-- NOVETATS SEGONS MISSATGES (segons les categories favorites) -->
+                                <div class="row justify-content-center gap-2"> <!-- NOVETATS -->
                                 <?php 
                                     include "connection.php";
+
+                                    // NOVETATS SEGONS ELS MISSATGES QUE TÉ UN USUARI
                                     $query = "select * from missatge where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
                                     $result = mysqli_query($con,$query);
                                     $i=0;
 
                                     if($row=mysqli_fetch_array($result)){
-                                        
                                         while ($row and $i<8){
                                             $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agaf el contingut i l'imprimesc
                                             $result2 = mysqli_query($con,$query);
-                                            $contingut = mysqli_fetch_array($result2); 
+                                            $contingut = mysqli_fetch_array($result2);
                                             echo    '<div class="col">
                                                         <div class="card" style="width: 12rem;">
                                                             <img class="card-img-top" src=".'.$contingut['camiFoto'].'" alt="'.$contingut['titol'].'.png" height="250">
                                                             <div class="card-body">
-                                                                <h6 class="Pelicula">'.$contingut['titol'].'</h6>
+                                                                <h6>'.$contingut['titol'].'</h6>
                                                                 <div class="padding"></div>
                                                                 <a href="#" class="btn btn-danger btn-sm">Ver película</a>
                                                             </div>
@@ -156,8 +163,48 @@
                                             $i=$i+1;
                                             $row=mysqli_fetch_array($result);
                                         }
+                                    }
+                                    
+                                    // NOVETATS SEGONS LES CATEGORIES FAVORITES D'UN USUARI
+                                    $query = "select count(*) from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."'" ; // Calculam el nombre de categories favorites d'un contracte d'un usuari
+                                    $result = mysqli_query($con,$query);
+                                    $row = mysqli_fetch_array($result);
+
+                                    $nFalta=8-$i; // peliculas que falten per mostrar el total de 8 pel·lícules al login
+                                    $nCategories= $row['count(*)']; // num de categories favorites de l'usuari
+
+                                    if($nCategories>0){
+                                        $query = "select * from categoriafavorits join contingut on contingut.nomCat=categoriafavorits.nomCat and categoriafavorits.IdContracte=".$_SESSION['IdContracte']." ORDER BY RAND() LIMIT 8;" ; // Calculam el nombre de categories favorites d'un contracte d'un usuari
+                                        $result = mysqli_query($con,$query);
+
+                                        $it=0;
+                                        while($it<$nFalta){
+                                            $contingut = mysqli_fetch_array($result);
+                                            echo   '<div class="col">
+                                                    <div class="card" style="width: 12rem;">
+                                                        <img class="card-img-top" src=".'.$contingut['camiFoto'].'" alt="'.$contingut['titol'].'.png" height="250">
+                                                        <div class="card-body">
+                                                            <h6>'.$contingut['titol'].'</h6>
+                                                            <div class="padding"></div>
+                                                            <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                                        </div>
+                                                    </div>
+                                                </div>';
+
+                                            $it=$it+1;
+                                        }
+
                                     } else {
-                                        echo "<h6>Añade categorías favoritas para recibir recomendaciones</h6>";
+                                        echo   '<div class="col">
+                                                    <div class="card" style="width: 55rem;">
+                                                        <div class="card-body">
+                                                        <br>
+                                                        <h6>Añade categorías favoritas para empezar a recibir recomendaciones</h6>
+                                                        <div class="padding"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>';
+                                        
                                     }
 
                                     mysqli_close($con);
