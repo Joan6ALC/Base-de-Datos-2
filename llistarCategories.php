@@ -29,13 +29,10 @@
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="d-grid gap-0">
+                                
                             <center>
                             <?php 
 
-                            // Recollida de paràmetres del formulari
-                            //$nomCat= $_POST['nomCat'];
-
-                            // Connexió a bd
                             include "connection.php";
 
                             $consulta = "SELECT * FROM categoria";
@@ -45,9 +42,9 @@
                             echo "<table align='center'>";
                             echo "<tr><td>Categoria</td><td colspan='10' align='center'>Acción</td></tr>";
 
-                            while ($registre = mysqli_fetch_array($resultado)) {
-                                $fav = '<a href="afegirCategoriaFavorita.php?codi='.$registre['nomCat'].'">Añadir favoritos</a>';   
-                                echo "<tr><td>".$registre['nomCat']."</td><td>".$fav."</td><td>";
+                            while ($categoria = mysqli_fetch_array($resultado)) {
+                                $fav = '<a href="afegirCategoriaFavorita.php?categoria='.$categoria['nomCat'].'"><3</a>';   
+                                echo "<tr><td>".$categoria['nomCat']."</td><td>".$fav."</td><td>";
                             }
 
                         echo "</table>";
@@ -57,7 +54,7 @@
                         ?>
                                 
                                 </center>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
