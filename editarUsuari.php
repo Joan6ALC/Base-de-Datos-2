@@ -1,6 +1,13 @@
 <?php 
+    session_start();
+    if(!isset($_SESSION['username'])){
+        header("Location: index.html");
+        die();
+    }
+     // Connexió a bd
+    include "connection.php";
 
-
+    $user = $_SESSION['username'];
     $name= $_POST['name'];
     $surname1= $_POST['surname1'];
     $surname2= $_POST['surname2'];
@@ -9,21 +16,26 @@
     $password1 = $_POST['password'];
     $password2 = $_POST['password2'];
 
+    
     // Comprovam que les contrasenyes introduides coincideixen
     if($password1!=$password2){ // Si coincideixen, error 1
-        header("Location: registerform.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
-        
+        header("Location:editarUsuariForm.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
+        die();
     }
-        
-    include "connection.php"; // Connexió a bd
 
-    // Comprobam si l'username triat ja està en ús
-    $query = 'select username from persona where username="'.$username.'"';
-    $result=mysqli_query($con, $query);
-    $register = mysqli_fetch_array($result);
-    if (isset($register['username'])){ // Si ja existeix l'usuari, error 2
-        header("Location: registerform.php?error=2&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
+    $cons = "SELECT dataAlta,username,password,llinatge1,llinatge2,nom FROM persona WHERE username = '$user'";
+    $resultado = mysqli_query($con,$cons);
+    $registro = mysqli_fetch_array($resultado);
+
+
+    $hash=crypt($password1,"");
+    $query = "update persona set username ='".$username."', password ='".$hash."', nom ='".$name."', llinatge1 ='".$surname1."', llinatge2 ='".$surname2."', dataNaixament ='".$dob."'  where username ='".$user."'";
+    mysqli_query($con, $query);
+    $_SESSION['username'] = "'.$username.'";
+    if (isset($_SESSION['username'])){ 
+        header("Location: login.php");
     }
+    die();
 ?>
 <!DOCTYPE html>
 <html lang="es">

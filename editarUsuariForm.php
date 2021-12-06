@@ -6,7 +6,7 @@
         die();
     }
     $user = $_SESSION['username'];
-    $consulta = "SELECT dataAlta,username,password,llinatge1,llinatge2,nom FROM persona WHERE username = '$user'";
+    $consulta = "SELECT username,password,llinatge1,llinatge2,dataNaixament,nom FROM persona WHERE username = '$user'";
     $resultado = mysqli_query($con,$consulta);
     $registro = mysqli_fetch_array($resultado);
 
@@ -26,31 +26,35 @@
             <?php include "navbar.php"; ?>
         </header>
         <section> 
+       
             <div class="container">
-                <div class="row ">
+            
+                <div class="row">
                     <div class="col-md-3"></div> <!--primera columna vacía-->
                     <div class="col-md-6">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <form action="editarPerfil.php" method="post">
+                            <form action="editarUsuari.php" method="post">
                                 <div class="d-grid gap-2">
                                     <label>Nombre:</label>
-                                    <input name="name" class="form-control" placeholder="<?php echo $registro['nom'] ?>" <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?>required>
+                                    <input name="name" class="form-control" value="<?php echo $registro['nom']; ?>" 
+                                    <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?>>
+                                    <!-- ?php if(isset($_GET['name'] = null)) echo 'value="'.$registro['nom'].'"'; ? -->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Primer apellido:</label>
-                                            <input name="surname1" class="form-control" placeholder="<?php echo $registro['llinatge1']; ?>" <?php if(isset($_GET['surname1'])) echo 'value="'.$_GET['surname1'].'"'; ?> required>
+                                            <input name="surname1" class="form-control" value="<?php echo $registro['llinatge1']; ?>" <?php if(isset($_GET['surname1'])) echo 'value="'.$_GET['surname1'].'"'; ?>>
                                         </div> 
                                         <div class="col-md-6">
                                             <label>Segundo apellido:</label>
-                                            <input name="surname2" class="form-control" placeholder="<?php echo $registro['llinatge1']; ?>" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
+                                            <input name="surname2" class="form-control" value="<?php echo $registro['llinatge1']; ?>" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
                                         </div> 
                                     </div>
 
                                     
                                     <label>Fecha de nacimiento:</label>
-                                    <input type="date" name="dateofbirth" class="form-control" placeholder="<?php echo $registro['dataAlta']; ?>" min="1920-1-01" max="2023-12-31" <?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?> required>
+                                    <input type="date" name="dateofbirth" class="form-control" min="1920-1-01" max="2023-12-31" value ="<?php echo $registro['dataNaixament']; ?>"<?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?>>
                                     <label>Usuario:</label>
-                                    <input name="username" class="form-control" placeholder="<?php echo $user ?>" <?php if(isset($_GET['username'])) echo 'value="'.$_GET['username'].'"'; ?> required>
+                                    <input name="username" class="form-control" value="<?php echo $user ?>" <?php if(isset($_GET['username'])) echo 'value="'.$_GET['username'].'"'; ?>>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Contraseña:</label>
@@ -62,16 +66,8 @@
                                         </div>
                                         <a class="padding"></a>
                                         <?php if (isset($_GET['error'])){
-                                            switch ($_GET['error']) {
-                                                case 1:
-                                                    echo '<div class="error-message">Las contraseñas no coinciden</div>';
-                                                    break;
-                                                case 2:
-                                                    echo '<div class="error-message">El nombre de usuario elegido ya existe</div>';
-                                                    break;
-                                                default:
-                                            }
-                                        } ?>
+                                            echo '<div class="error-message">Las contraseñas no coinciden</div>';
+                                        }?>
                                     </div>
                                     
                                     <button type="submit" class="btn btn-danger">Aceptar cambios</button>
@@ -81,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
         </section>
         <!-- Frameworks -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
