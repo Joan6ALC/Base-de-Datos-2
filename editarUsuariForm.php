@@ -48,6 +48,8 @@
 
                                     
                                     <label>Fecha de nacimiento:</label>
+                                    <?php echo $registro['dataAlta']; ?>
+                                    <?php echo $registro['dataNaixament']; ?>
                                     <input type="date" name="dateofbirth" class="form-control" placeholder="<?php echo $registro['dataAlta']; ?>" min="1920-1-01" max="2023-12-31" <?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?> required>
                                     <label>Usuario:</label>
                                     <input name="username" class="form-control" placeholder="<?php echo $user ?>" <?php if(isset($_GET['username'])) echo 'value="'.$_GET['username'].'"'; ?> required>
