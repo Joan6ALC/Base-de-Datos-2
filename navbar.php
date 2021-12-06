@@ -55,7 +55,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">Ver perfil</a>
-                            <a class="dropdown-item" href="#">Editar perfil</a>
+                            <a class="dropdown-item" href="editarUsuariForm.php">Editar perfil</a>
                             <a class="dropdown-item" href="#">Mensajes</a>
                             <a class="dropdown-item" href="#">Facturas</a>
                         </div>
