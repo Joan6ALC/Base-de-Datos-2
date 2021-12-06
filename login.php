@@ -17,6 +17,7 @@
         // posible sol echo '<html> .... </html>
         echo "<center>Los datos introducidos no son correctos</center>";
         header("Location: index.html");
+        die();
         
     } else {
         $_SESSION['username']= $username; // Establim la variable de sessió (username)
@@ -25,13 +26,17 @@
         $query = "select * from contracte where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
         $result = mysqli_query($con,$query);
         $row= mysqli_fetch_array($result);
-        
-        $_SESSION['IdContracte']=$row['IdContracte'];
-        $_SESSION['estatContracte']=$row['estat'];
+
+        if(isset($row['IdContracte'])){
+            $_SESSION['IdContracte']=$row['IdContracte'];
+            $_SESSION['estatContracte']=$row['estat'];
+        } else {
+            $_SESSION['IdContracte']=null;
+            $_SESSION['estatContracte']=null;
+        }
     }
 
     mysqli_close($con);
-// Mostrar menú d'opcions
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +82,7 @@
                                                 <?php // MISSATGES: Comprovam si tenim missatges sense llegir
                                                     include "connection.php";
 
-                                                    $query = "select count(*) from missatge where username='".$username."'";
+                                                    $query = "select count(*) from missatge where username='".$username."' and estatMissatge=false";
                                                     $result = mysqli_query($con,$query);
                                                     $row = mysqli_fetch_array($result);
 
@@ -86,10 +91,10 @@
                                                         $query = "select * from missatge where username='".$username."'";
                                                         $result = mysqli_query($con,$query);
                                                         
-                                                        while($row = mysqli_fetch_array($result)){ // Obtenim la primera fila de la consulta
-                                                            echo $row['data']." - ".$row['assumpte']."<br>"; 
-                                                        }
-                                                        echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Ver mensajes</a>';
+                                                        $row = mysqli_fetch_array($result); // Obtenim la primera fila de la consulta
+                                                        echo $row['data']." - ".$row['assumpte']."<br>"; 
+                                                        
+                                                        echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Ver más</a>';
                                                     } else {
                                                         echo "<h6>No tienes mensajes nuevos</h6>";
                                                     }
@@ -118,7 +123,7 @@
                                                         if ($row['dataPagament']==null){
                                                             echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Pagar</a>';
                                                         } else {
-                                                            echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Vers</a>';;
+                                                            echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Consultar</a>';;
                                                         }
 
                                                     } else {
@@ -136,80 +141,98 @@
                                 <h5>Novedades</h5>
                                 <center>
                                 <div class="row justify-content-center gap-2"> <!-- NOVETATS -->
-                                <?php 
-                                    include "connection.php";
+                                    <?php
+                                        class contingut{
+                                            public $titol;
+                                            public $cami;
+                                            //public $html; 
 
-                                    // NOVETATS SEGONS ELS MISSATGES QUE TÉ UN USUARI
-                                    $query = "select * from missatge where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
-                                    $result = mysqli_query($con,$query);
-                                    $i=0;
+                                            public function __construct($titol, $cami){
+                                                $this->titol = $titol;
+                                                $this->cami = $cami;
+                                                //$this->html = $html;
+                                            }
+                                        }
 
-                                    if($row=mysqli_fetch_array($result)){
-                                        while ($row and $i<8){
-                                            $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agaf el contingut i l'imprimesc
-                                            $result2 = mysqli_query($con,$query);
-                                            $contingut = mysqli_fetch_array($result2);
-                                            echo    '<div class="col">
-                                                        <div class="card" style="width: 12rem;">
-                                                            <img class="card-img-top" src=".'.$contingut['camiFoto'].'" alt="'.$contingut['titol'].'.png" height="250">
+                                        include "connection.php";
+
+                                        $pelicules=array(); // Array de pel·lícules recomanades/novetats
+
+                                        // SEGONS MISSATGES: Guardam les pel·lícules recomanades segons els missatges (que venen donats segons les categories favorites)
+                                        $query = "select * from missatge where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
+                                        $result = mysqli_query($con,$query);
+                                        $i=0;
+
+                                        if($row=mysqli_fetch_array($result)){
+                                            while ($row=mysqli_fetch_array($result) and $i<8){ // Mostrrem un màxim de 8 continguts
+                                                $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agafo el contingut recomanat
+                                                $result2 = mysqli_query($con,$query);
+                                                $contingut = mysqli_fetch_array($result2);
+                                                $c=new contingut($contingut['titol'], $contingut['camiFoto']); // el guardo a l'array
+                                                array_push($pelicules, $c);
+                                                $i=$i+1;
+                                            }
+                                        }
+                                        
+                                        // NOVETATS SEGONS LES CATEGORIES FAVORITES D'UN USUARI
+                                        $query = "select count(*) from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."'" ; // Calculam el nombre de categories favorites d'un contracte d'un usuari
+                                        $result = mysqli_query($con,$query);
+                                        $row = mysqli_fetch_array($result);
+
+                                        $nFalta=8-$i; // peliculas que falten per mostrar el total de 8 pel·lícules al login
+                                        $nCategories= $row['count(*)']; // num de categories favorites de l'usuari
+
+                                        if($nCategories>0){
+                                            $query = "select * from categoriafavorits join contingut on contingut.nomCat=categoriafavorits.nomCat and categoriafavorits.IdContracte=".$_SESSION['IdContracte']." ORDER BY RAND() LIMIT 15;" ; // Obtenim 8 continguts aleatories que pertanyen a una categoria favorita de l'usuari
+                                            $result = mysqli_query($con,$query);
+
+                                            $it=0;
+                                            while($it<$nFalta){
+                                                $contingut = mysqli_fetch_array($result);
+                                                $c=new contingut($contingut['titol'], $contingut['camiFoto']);
+                                                if(!in_array($c,$pelicules)){ // Si és un contingut que ja es troba dins l'array, no l'afegirem a l'array i no iterarem (seguirem cercant)
+                                                    array_push($pelicules, $c);
+                                                    $it=$it+1;
+                                                }
+                                            }
+                                        }
+
+                                        // IMPRIMIM EL RESULTAT DE LA CERCA
+                                        $length=count($pelicules);
+                                        if (count($pelicules)>0){ // Hi ha pel·lícules per recomanar
+                                            shuffle($pelicules); // Es mesclen els continguts per mostrar-se de forma aleatòria
+                                            $it=0;
+                                            while ($it<$length){
+                                                echo   '<div class="col">
+                                                            <div class="card" style="width: 12rem;">
+                                                                <img class="card-img-top" src=".'.$pelicules[$it]->cami.'" alt="'.$pelicules[$it]->titol.'.png" height="250">
+                                                                <div class="card-body">
+                                                                    <h6>'.$pelicules[$it]->titol.'</h6>
+                                                                    <div class="padding"></div>
+                                                                    <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                                $it=$it+1;
+                                            }
+
+                                        } else { // Si no hem trobat cap pel·licula per recomanar, és perque l'usuari encara no ha afegit categories favorites
+                                            echo   '<div class="col">
+                                                        <div class="card" style="width: 40rem;">
                                                             <div class="card-body">
-                                                                <h6>'.$contingut['titol'].'</h6>
-                                                                <div class="padding"></div>
-                                                                <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                                            <br>
+                                                            <h6>Añade categorías favoritas para empezar a recibir recomendaciones</h6>
+                                                            <div class="padding"></div>
                                                             </div>
                                                         </div>
                                                     </div>';
-
-                                            $i=$i+1;
-                                            $row=mysqli_fetch_array($result);
-                                        }
-                                    }
-                                    
-                                    // NOVETATS SEGONS LES CATEGORIES FAVORITES D'UN USUARI
-                                    $query = "select count(*) from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."'" ; // Calculam el nombre de categories favorites d'un contracte d'un usuari
-                                    $result = mysqli_query($con,$query);
-                                    $row = mysqli_fetch_array($result);
-
-                                    $nFalta=8-$i; // peliculas que falten per mostrar el total de 8 pel·lícules al login
-                                    $nCategories= $row['count(*)']; // num de categories favorites de l'usuari
-
-                                    if($nCategories>0){
-                                        $query = "select * from categoriafavorits join contingut on contingut.nomCat=categoriafavorits.nomCat and categoriafavorits.IdContracte=".$_SESSION['IdContracte']." ORDER BY RAND() LIMIT 8;" ; // Calculam el nombre de categories favorites d'un contracte d'un usuari
-                                        $result = mysqli_query($con,$query);
-
-                                        $it=0;
-                                        while($it<$nFalta){
-                                            $contingut = mysqli_fetch_array($result);
-                                            echo   '<div class="col">
-                                                    <div class="card" style="width: 12rem;">
-                                                        <img class="card-img-top" src=".'.$contingut['camiFoto'].'" alt="'.$contingut['titol'].'.png" height="250">
-                                                        <div class="card-body">
-                                                            <h6>'.$contingut['titol'].'</h6>
-                                                            <div class="padding"></div>
-                                                            <a href="#" class="btn btn-danger btn-sm">Ver película</a>
-                                                        </div>
-                                                    </div>
-                                                </div>';
-
-                                            $it=$it+1;
                                         }
 
-                                    } else {
-                                        echo   '<div class="col">
-                                                    <div class="card" style="width: 55rem;">
-                                                        <div class="card-body">
-                                                        <br>
-                                                        <h6>Añade categorías favoritas para empezar a recibir recomendaciones</h6>
-                                                        <div class="padding"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>';
-                                        
-                                    }
-
-                                    mysqli_close($con);
-                                ?>   
-                            </center>
+                                        mysqli_close($con);
+                                    ?> 
+                                </div>
+                                </center>
+                            </div>
                         </div>
                     </div>
                 </div>
