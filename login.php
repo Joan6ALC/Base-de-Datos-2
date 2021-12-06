@@ -36,7 +36,6 @@
     }
 
     mysqli_close($con);
-// Mostrar menú d'opcions
 ?>
 
 <!DOCTYPE html>
