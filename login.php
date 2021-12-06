@@ -1,39 +1,40 @@
 <?php session_start();
-    // Recollida de paràmetres del formulari
-    $username= $_POST['username'];
-    $password= $_POST['password'];
-
-    // Connexió a bd
-    include "connection.php";
-    $query = "SELECT * FROM persona where username='".$username."'";
-    $result=mysqli_query($con, $query); 
-
-    
-    $row = mysqli_fetch_array($result); // Obtenim la primera fila de la consulta (només n'hi ha una)
-    $passbd = $row['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
-
-    if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
-        header("Location: index.html");
-        die();
+    if(!isset($_SESSION['username'])){
+        // Recollida de paràmetres del formulari
+        $username= $_POST['username'];
+        $password= $_POST['password'];
         
-    } else {
-        $_SESSION['username']= $username; // Establim la variable de sessió (username)
-        $_SESSION['administrador']=$row['administrador']; // Si es administrador o no (administrador)
+        // Connexió a bd
+        include "connection.php";
+        $query = "SELECT * FROM persona where username='".$username."'";
+        $result=mysqli_query($con, $query); 
 
-        $query = "select * from contracte where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
-        $result = mysqli_query($con,$query);
-        $row= mysqli_fetch_array($result);
+        $row = mysqli_fetch_array($result); // Obtenim la primera fila de la consulta (només n'hi ha una)
+        $passbd = $row['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
 
-        if(isset($row['IdContracte'])){
-            $_SESSION['IdContracte']=$row['IdContracte'];
-            $_SESSION['estatContracte']=$row['estat'];
+        if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
+            header("Location: index.html");
+            die();
+            
         } else {
-            $_SESSION['IdContracte']=null;
-            $_SESSION['estatContracte']=null;
-        }
-    }
+            $_SESSION['username']= $username; // Establim la variable de sessió (username)
+            $_SESSION['administrador']=$row['administrador']; // Si es administrador o no (administrador)
 
-    mysqli_close($con);
+            $query = "select * from contracte where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
+            $result = mysqli_query($con,$query);
+            $row= mysqli_fetch_array($result);
+
+            if(isset($row['IdContracte'])){
+                $_SESSION['IdContracte']=$row['IdContracte'];
+                $_SESSION['estatContracte']=$row['estat'];
+            } else {
+                $_SESSION['IdContracte']=null;
+                $_SESSION['estatContracte']=null;
+            }
+        }
+
+        mysqli_close($con);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -79,13 +80,13 @@
                                                 <?php // MISSATGES: Comprovam si tenim missatges sense llegir
                                                     include "connection.php";
 
-                                                    $query = "select count(*) from missatge where username='".$username."' and estatMissatge=false";
+                                                    $query = "select count(*) from missatge where username='".$_SESSION['username']."' and estatMissatge=false";
                                                     $result = mysqli_query($con,$query);
                                                     $row = mysqli_fetch_array($result);
 
                                                     if($row['count(*)']>0){
                                                         echo '<h6>Tienes '.$row['count(*)']." mensaje(s) nuevos:</h6>";
-                                                        $query = "select * from missatge where username='".$username."'";
+                                                        $query = "select * from missatge where username='".$_SESSION['username']."'";
                                                         $result = mysqli_query($con,$query);
                                                         
                                                         $row = mysqli_fetch_array($result); // Obtenim la primera fila de la consulta
@@ -112,7 +113,7 @@
                                                 <?php
                                                     include "connection.php";
 
-                                                    $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$username."'";
+                                                    $query = "select * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$_SESSION['username']."'";
                                                     $result = mysqli_query($con,$query);
                                                     if($row = mysqli_fetch_array($result)){
                                                         echo '<h6>Consulta tu última factura:</h6>';
@@ -142,12 +143,12 @@
                                         class contingut{
                                             public $titol;
                                             public $cami;
-                                            //public $html; 
+                                            public $id; 
 
-                                            public function __construct($titol, $cami){
+                                            public function __construct($titol, $cami, $id){
                                                 $this->titol = $titol;
                                                 $this->cami = $cami;
-                                                //$this->html = $html;
+                                                $this->id = $id;
                                             }
                                         }
 
@@ -165,28 +166,28 @@
                                                 $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agafo el contingut recomanat
                                                 $result2 = mysqli_query($con,$query);
                                                 $contingut = mysqli_fetch_array($result2);
-                                                $c=new contingut($contingut['titol'], $contingut['camiFoto']); // el guardo a l'array
+                                                
+                                                $c=new contingut($contingut['titol'], $contingut['camiFoto'], $contingut['IdContingut']); // el guardo a l'array
                                                 array_push($pelicules, $c);
                                                 $i=$i+1;
                                             }
                                         }
                                         
                                         // NOVETATS SEGONS LES CATEGORIES FAVORITES D'UN USUARI
-                                        $query = "select count(*) from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."'" ; // Calculam el nombre de categories favorites d'un contracte d'un usuari
+                                        $query = "select count(*) from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."'" ; // Calculam el nombre de categories favorites del usuari
                                         $result = mysqli_query($con,$query);
                                         $row = mysqli_fetch_array($result);
 
-                                        $nFalta=8-$i; // peliculas que falten per mostrar el total de 8 pel·lícules al login
+                                        $nFalta=8-$i; // Pel·lícules que falten per mostrar el màxim de 8 pel·lícules al login
                                         $nCategories= $row['count(*)']; // num de categories favorites de l'usuari
 
                                         if($nCategories>0){
                                             $query = "select * from categoriafavorits join contingut on contingut.nomCat=categoriafavorits.nomCat and categoriafavorits.IdContracte=".$_SESSION['IdContracte']." ORDER BY RAND() LIMIT 15;" ; // Obtenim 8 continguts aleatories que pertanyen a una categoria favorita de l'usuari
                                             $result = mysqli_query($con,$query);
-
+                                            
                                             $it=0;
-                                            while($it<$nFalta){
-                                                $contingut = mysqli_fetch_array($result);
-                                                $c=new contingut($contingut['titol'], $contingut['camiFoto']);
+                                            while($contingut = mysqli_fetch_array($result) and $it<$nFalta){
+                                                $c=new contingut($contingut['titol'], $contingut['camiFoto'], $contingut['IdContingut']);
                                                 if(!in_array($c,$pelicules)){ // Si és un contingut que ja es troba dins l'array, no l'afegirem a l'array i no iterarem (seguirem cercant)
                                                     array_push($pelicules, $c);
                                                     $it=$it+1;
@@ -206,7 +207,7 @@
                                                                 <div class="card-body">
                                                                     <h6>'.$pelicules[$it]->titol.'</h6>
                                                                     <div class="padding"></div>
-                                                                    <a href="#" class="btn btn-danger btn-sm">Ver película</a>
+                                                                    <a href="veureContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-danger btn-sm">Ver película</a>
                                                                 </div>
                                                             </div>
                                                         </div>';
