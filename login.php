@@ -13,9 +13,6 @@
     $passbd = $row['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
 
     if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
-        // PASSWORD INCORRECTE (Com mostram un html diferent si es produeix aquest error?) *****
-        // posible sol echo '<html> .... </html>
-        echo "<center>Los datos introducidos no son correctos</center>";
         header("Location: index.html");
         die();
         
