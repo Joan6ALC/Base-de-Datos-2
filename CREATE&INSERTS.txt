@@ -121,12 +121,31 @@ insert into contingut(titol, html, camiFoto, nomCat) values ("Chaos Walking", '<
 insert into contingut(titol, html, camiFoto, nomCat) values ("Ad Astra", '<iframe width="560" height="315" src="https://www.youtube.com/embed/gaf-zgnlNLg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/6-Ad Astra.jpg", "Ciencia ficción");
 
 #Aventuras
-insert into contingut(titol, html, camiFoto, nomCat) values ("Jumanji: Bienvenidos a la jungla", '<iframe width="560" height="315" src="https://www.youtube.com/embed/leIrosWRbYQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/7-Jumanji.jpg", "Aventuras");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Jumanji", '<iframe width="560" height="315" src="https://www.youtube.com/embed/leIrosWRbYQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/7-Jumanji.jpg", "Aventuras");
 insert into contingut(titol, html, camiFoto, nomCat) values ("Jungle Cruise", '<iframe width="560" height="315" src="https://www.youtube.com/embed/hIJUnZnvAzA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/8-Jungle Cruise.jpg", "Aventuras");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Animales fantásticos", '<iframe width="560" height="315" src="https://www.youtube.com/embed/US2LnWrrCq4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/14-Animales Fantásticos.jpg", "Aventuras");
 
 #Animación
-insert into contingut(titol, html, camiFoto, nomCat) values ("Los Simpson: La película", '<iframe width="560" height="315" src="https://www.youtube.com/embed/HRV6tMR-SSs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/9-Los Simpson.png", "Animación");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Los Simpson", '<iframe width="560" height="315" src="https://www.youtube.com/embed/HRV6tMR-SSs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/9-Los Simpson.png", "Animación");
 insert into contingut(titol, html, camiFoto, nomCat) values ("Soul", '<iframe width="560" height="315" src="https://www.youtube.com/embed/85hY9bninqU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/10-Soul.jpg", "Animación");
 insert into contingut(titol, html, camiFoto, nomCat) values ("Coco", '<iframe width="560" height="315" src="https://www.youtube.com/embed/htwlR51npL4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/11-Coco.jpg", "Animación");
 insert into contingut(titol, html, camiFoto, nomCat) values ("Del Revés", '<iframe width="560" height="315" src="https://www.youtube.com/embed/RbfKs_syius" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/12-Del reves.jpg", "Animación");
 insert into contingut(titol, html, camiFoto, nomCat) values ("El Rey León", '<iframe width="560" height="315" src="https://www.youtube.com/embed/mb79ctR-E-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/13-El Rey León.jpg", "Animación");
+
+#Acción
+insert into contingut(titol, html, camiFoto, nomCat) values ("Alerta Roja", '<iframe width="560" height="315" src="https://www.youtube.com/embed/UUZ_DITqers" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/15-Alerta Roja.jpg", "Acción");
+#Bélica
+insert into contingut(titol, html, camiFoto, nomCat) values ("1917", '<iframe width="560" height="315" src="https://www.youtube.com/embed/SBc69RKIqwg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/16-1917.jpg", "Bélica");
+#Comedia
+#Crimen
+#Documental
+insert into contingut(titol, html, camiFoto, nomCat) values ("The Last Dance", '<iframe width="560" height="315" src="https://www.youtube.com/embed/qQjYmZgB3QQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/17-The Last Dance.jpg", "Documental");
+#Drama
+#Fantasía
+#Histórica
+#Drama
+#Intriga
+#Musical
+#Policíaca
+#Suspense
+#Terror
