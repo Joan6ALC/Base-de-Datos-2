@@ -25,9 +25,14 @@
         $query = "select * from contracte where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
         $result = mysqli_query($con,$query);
         $row= mysqli_fetch_array($result);
-        
-        $_SESSION['IdContracte']=$row['IdContracte'];
-        $_SESSION['estatContracte']=$row['estat'];
+
+        if(isset($row['IdContracte'])){
+            $_SESSION['IdContracte']=$row['IdContracte'];
+            $_SESSION['estatContracte']=$row['estat'];
+        } else {
+            $_SESSION['IdContracte']=null;
+            $_SESSION['estatContracte']=null;
+        }
     }
 
     mysqli_close($con);
