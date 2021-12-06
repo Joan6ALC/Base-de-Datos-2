@@ -20,12 +20,13 @@
     while($Registre = mysqli_fetch_array($Resultado)){
         if($Categoria==$Registre['nomCat']){
             echo "La categoria ya esta dentro de la lista de favoritos";
+            header("Location: login.php?");
             die();
         }
-        echo "$Categoria a";
     }
-    $insert = "insert into categoriafavorits (idContracte, nomCat) values ('".$idcontracte."','".$Categoria."')";
+    $insert = "INSERT into categoriafavorits (idContracte, nomCat) values ('".$idcontracte."','".$Categoria."')";
     mysqli_query($con, $insert);
     echo "Se ha añadido la categoria a favoritos";
+    header("Location: login.php?");
     die();
 ?>
