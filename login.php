@@ -17,6 +17,7 @@
         // posible sol echo '<html> .... </html>
         echo "<center>Los datos introducidos no son correctos</center>";
         header("Location: index.html");
+        die();
         
     } else {
         $_SESSION['username']= $username; // Establim la variable de sessió (username)
