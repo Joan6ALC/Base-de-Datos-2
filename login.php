@@ -1,8 +1,8 @@
 <?php session_start();
     if(!isset($_SESSION['username'])){
         // Recollida de paràmetres del formulari
-        $username= $_POST['username'];
-        $password= $_POST['password'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
         
         // Connexió a bd
         include "connection.php";
@@ -11,14 +11,14 @@
         $row = mysqli_fetch_array($result);
 
         if (!isset($row['username'])){
-            header("Location: index.php?error=1");
+            header("Location: index.php?msg=1");
             die();
         }
 
         $passbd = $row['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
 
         if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
-            header("Location: index.php?error=2");
+            header("Location: index.php?msg=2");
             die();
             
         }

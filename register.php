@@ -32,6 +32,7 @@
     $query = "INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) VALUES ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
     mysqli_query($con, $query); // Registram el nou usuari
 
-    header("Location: login.php?username=$username&password=$password"); // Redirigim a l'usuari a la pàgina principal
+    // L'usuari s'ha registrat correctament, li permetem iniciar sessió
+    header("Location: index.php?msg=3"); // Redirigim a l'usuari a la pàgina principal
     die();
 ?>

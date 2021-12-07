@@ -41,6 +41,11 @@ footer{
     text-align: center;
 }
 
+.congrats-message{
+    color:#dc3545;
+    font-weight: bold;
+}
+
 .error-message{
     color:#dc3545;
     font-weight: bold;
