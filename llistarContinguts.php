@@ -48,13 +48,13 @@
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$row['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
                                         if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                            echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                            echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
                                                         </div>
                                                     </div>
                                                 </div>';
                                             
                                         }  else { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
+                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-success btn-sm" data-toggle="modal" data-show="false" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
                                                         </div>
                                                     </div>
                                                 </div>';
