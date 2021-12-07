@@ -24,7 +24,17 @@
                                 <div class="d-grid gap-2">
                                     <input name="username" class="form-control" placeholder="Usuario" required>
                                     <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
-                                    <!--<div class="error-message">Los datos introducidos no son correctos</div>-->
+                                    <?php if (isset($_GET['error'])){
+                                            switch ($_GET['error']) {
+                                                case 1:
+                                                    echo '<div class="error-message">El username introducido no existe</div>';
+                                                    break;
+                                                case 2:
+                                                    echo '<div class="error-message">Contraseña incorrecta</div>';
+                                                    break;
+                                                default:
+                                            }
+                                        } ?>
                                     <button type="submit" class="btn btn-danger">Iniciar Sesión</button>
                                     <a class="btn btn-outline-danger" href="registerform.php" role="button">Regístrate</a>
                                 </div>

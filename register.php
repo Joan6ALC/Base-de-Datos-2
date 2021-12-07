@@ -18,7 +18,7 @@
     include "connection.php"; // Connexió a bd
 
     // Comprobam si l'username triat ja està en ús
-    $query = 'select username from persona where username="'.$username.'"';
+    $query = 'SELECT username FROM persona WHERE username="'.$username.'"';
     $result=mysqli_query($con, $query);
     $row = mysqli_fetch_array($result);
 
@@ -29,7 +29,7 @@
     }
 
     $hash=crypt($password1,"");
-    $query = "insert into persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
+    $query = "INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) VALUES ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
     mysqli_query($con, $query); // Registram el nou usuari
 
     header("Location: login.php?username=$username&password=$password"); // Redirigim a l'usuari a la pàgina principal

@@ -6,31 +6,37 @@
         
         // Connexió a bd
         include "connection.php";
-        $query = "SELECT * FROM persona where username='".$username."'";
+        $query = "SELECT * FROM persona WHERE username='".$username."'";
         $result=mysqli_query($con, $query); 
+        $row = mysqli_fetch_array($result);
 
-        $row = mysqli_fetch_array($result); // Obtenim la primera fila de la consulta (només n'hi ha una)
+        if (!isset($row['username'])){
+            header("Location: index.php?error=1");
+            die();
+        }
+
         $passbd = $row['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
 
         if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
-            header("Location: index.html");
+            header("Location: index.php?error=2");
             die();
             
+        }
+
+        $_SESSION['username']= $username; // Establim la variable de sessió (username)
+        $_SESSION['administrador']=$row['administrador']; // Si es administrador o no (administrador)
+
+        $query = "SELECT * FROM contracte WHERE username='".$_SESSION['username']."'" ; // Cerc el contracte de l'usuari per tenir-lo com a variable de sessió
+        $result = mysqli_query($con,$query);
+        $row= mysqli_fetch_array($result);
+
+        // Es fa així amb IdContracte, perquè si no pot donar errors en cas de que no hi hagi contractes actius
+        if(isset($row['IdContracte'])){
+            $_SESSION['IdContracte']=$row['IdContracte'];
+            $_SESSION['estatContracte']=$row['estat'];
         } else {
-            $_SESSION['username']= $username; // Establim la variable de sessió (username)
-            $_SESSION['administrador']=$row['administrador']; // Si es administrador o no (administrador)
-
-            $query = "select * from contracte where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
-            $result = mysqli_query($con,$query);
-            $row= mysqli_fetch_array($result);
-
-            if(isset($row['IdContracte'])){
-                $_SESSION['IdContracte']=$row['IdContracte'];
-                $_SESSION['estatContracte']=$row['estat'];
-            } else {
-                $_SESSION['IdContracte']=null;
-                $_SESSION['estatContracte']=null;
-            }
+            $_SESSION['IdContracte']=null;
+            $_SESSION['estatContracte']=null;
         }
 
         mysqli_close($con);
