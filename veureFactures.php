@@ -37,37 +37,39 @@
                                     <label>Id del Contrato:</label>
                                     <input name="contrac" class="form-control" value=" <?php echo $registro['IdContracte']; ?>" readonly>
                                     
-                                    
-                                    <label>Factura:</label>
-                                    <input name="fac" class="form-control" value=" <?php echo $registro['IdFactura']; ?>" readonly>
-                                    
+                                    <form action="veureFactures.php" method="post">
+                                        <label>Factura:</label>
+                                            <select name="facturas">
+                                                <optgroup>
+                                                    <?php
+                                                        $facturastotal = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
+                                                        $res = mysqli_query($con,$facturastotal);
+                                                        if (mysqli_num_rows($res) > 0) {
+                                                            while($fila = mysqli_fetch_assoc($res)){
+                                                                echo "<option value = '".$fila['IdFactura']."'>".$fila1['IdFactura']."</option>";  
+                                                             }
+                                                        }  
+                                                    ?>
+                                                 </optgroup>
+                                            </select>
+                                    </form>
 
-                                    
-                                    <?php 
-                                        if($registro['estat'] == 1){
-                                            echo '<input name="est" class="form-control" value="Actiu" readonly>';
-                                        }else{
-                                            echo '<input name="est" class="form-control" value="Inactiu" readonly>';
-                                        }
-                                    ?>
+                                    <label>Data pagament:</label>
+                                    <input type="date" name="datapag" class="form-control" value ="<?php echo $fila['dataPagament']; ?>" readonly>
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Data pagament:</label>
-                                            <input type="date" name="datapag" class="form-control" value ="<?php echo $registro['dataPagament']; ?>" readonly>
-                                        </div>
-                                        <div class="col-md-6">
                                             <label>Data inici:</label>
-                                            <input type="date" name="datain" class="form-control" value ="<?php echo $registro['dataInici']; ?>" readonly>
+                                            <input type="date" name="datain" class="form-control" value ="<?php echo $fila['dataInici']; ?>" readonly>
                                         </div> 
                                         <div class="col-md-6">
-                                            <label>Fecha de baja:</label>
-                                            <input type="date" name="datafi" class="form-control" value ="<?php echo $registro['dataFi']; ?>"readonly>
+                                            <label>Data fi:</label>
+                                            <input type="date" name="datafi" class="form-control" value ="<?php echo $fila['dataFi']; ?>"readonly>
                                         </div> 
                                     </div>
 
                                     <label>Import:</label>
-                                    <input name="num" class="form-control" value=" <?php echo $registro['import']; ?>" readonly>
+                                    <input name="num" class="form-control" value=" <?php echo $fila['import']; ?>" readonly>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <button type="submit" class="btn btn-danger">Atras</button>
