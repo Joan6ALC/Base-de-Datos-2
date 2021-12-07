@@ -7,7 +7,7 @@
      // Connexió a bd
     include "connection.php";
 
-    $user = $_SESSION['username'];
+    $user = $_SESSION['username']; // Variable de sessió
     $name= $_POST['name'];
     $surname1= $_POST['surname1'];
     $surname2= $_POST['surname2'];
@@ -15,30 +15,37 @@
     $username = $_POST['username'];
     $password1 = $_POST['password'];
     $password2 = $_POST['password2'];
-
     
     // Comprovam que les contrasenyes introduides coincideixen
     if($password1!=$password2){ // Si coincideixen, error 1
-        header("Location:editarUsuariForm.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
+        header("Location: editarUsuariForm.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
         die();
     }
 
     $hash=crypt($password1,"");
 
+    echo $user." ";
+    echo $username;
 
-    if(property_exists($username)){
-        if($user == $username){
-            $query = "update persona set password ='".$hash."', nom ='".$name."', llinatge1 ='".$surname1."', llinatge2 ='".$surname2."', dataNaixament ='".$dob."'  where username ='".$user."'";
-        }else{
+
+    if($user == $username){ // Si el username es manté igual, només actualitz la resta d'atributs
+        $query = "update persona set password ='".$hash."', nom ='".$name."', llinatge1 ='".$surname1."', llinatge2 ='".$surname2."', dataNaixament ='".$dob."'  where username ='".$user."'";
+        
+    }else{ // L'username canvia, anem a mirar si el nou username és vàlid (no està encara utilitzat)
+        // CONSULTES SQL per comprovar si l'username existeix a la bd
+        if (!existeix_a_bd){
+            // podem actualitzar l'username antic pel nou i la resta de parámetres
+            $query = "update persona set username ='".$username."', password ='".$hash."', nom ='".$name."', llinatge1 ='".$surname1."', llinatge2 ='".$surname2."', dataNaixament ='".$dob."'  where username ='".$user."'";
+        } else {
+            // mostrar missatge d'error: l'username ja esta essent utilitzat
             header("Location: editarUsuariForm.php?error=2&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
             die();
-        }   
-    }else{
-        $query = "update persona set username ='".$username."', password ='".$hash."', nom ='".$name."', llinatge1 ='".$surname1."', llinatge2 ='".$surname2."', dataNaixament ='".$dob."'  where username ='".$user."'";
+        }
     }
-    
+
     mysqli_query($con, $query);
     $_SESSION['username'] = "'.$username.'";
+
     if (isset($_SESSION['username'])){ 
         header("Location: index.html");
         session_destroy();

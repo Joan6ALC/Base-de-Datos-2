@@ -45,7 +45,7 @@
                                         </div> 
                                         <div class="col-md-6">
                                             <label>Segundo apellido:</label>
-                                            <input name="surname2" class="form-control" value="<?php echo $registro['llinatge1']; ?>" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
+                                            <input name="surname2" class="form-control" value="<?php echo $registro['llinatge2']; ?>" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
                                         </div> 
                                     </div>
 
