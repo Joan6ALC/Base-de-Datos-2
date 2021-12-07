@@ -47,7 +47,7 @@
     }
 
     mysqli_query($con, $query);
-    //$_SESSION['username'] = "'.$username.'";
+    $_SESSION['username'] = "'.$username.'";
 
     if (isset($_SESSION['username'])){ 
         header("Location: index.html");
