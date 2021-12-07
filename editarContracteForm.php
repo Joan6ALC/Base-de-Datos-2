@@ -36,18 +36,49 @@
                             <form action="editarUsuari.php" method="post">
                                 <div class="d-grid gap-2">
                                     <label>Estado:</label>
-                                    <?php 
-                                        if($registro['estat'] == 1){
-                                            echo '<input type = "checkbox" name="est" class="form-control" value="Actiu" >';
-                                        }else{
-                                            echo '<input type = "checkbox" name="est" class="form-control" value="Inactiu" >';
-                                        }
-                                    ?>
-                                    
+                                    <select name="entrada1">
+                                        <optgroup label="Estado">
+                                        <?php 
+                                            if($registro['estat'] == 1){
+                                                echo '<option selected="selected">Actiu</option>';
 
-                                    
+                                                echo '<option>Inactiu</option>';
+                                             }else{
+                                                echo '<option selected="selected">Inactiu</option>';
+
+                                                echo '<option>Actiu</option>';
+                                            }
+                                        ?>
+                                        </optgroup>
+                                    </select>
                                     <label>Tipo de tarifa:</label>
-                                    <input name="nametar" class="form-control" value=" <?php echo $registro['nomTarifa']; ?>">
+                                    <select name="entrada2">
+                                        <optgroup label="Tipo de tarifa">
+                                        <?php
+                                            $consul = "select distinct (nomTarifa) from Tarifa";
+                                            $resul = mysqli_query($con,$consul);
+                                            //$regis = mysqli_fetch_array($resul);
+
+                                            if (mysqli_num_rows($resul) > 0) {
+                                                while($fila = mysqli_fetch_assoc($resul)){
+                                                    echo '<option>';
+                                                    $fila['nomTarifa'];
+                                                    echo '</option>';
+                                                }
+                                            }
+                                            //if($registro['estat'] == 1){
+                                                //echo '<option selected="selected">Actiu</option>';
+
+                                                //echo '<option>Inactiu</option>';
+                                            //}else{
+                                                //echo '<option selected="selected">Inactiu</option>';
+
+                                                //echo '<option>Actiu</option>';
+                                            //}
+                                        ?>
+                                        </optgroup>
+                                    </select>
+                                    <!--<input name="nametar" class="form-control" value=" <?php echo $registro['nomTarifa']; ?>">-->
                                     
                                     
                                     <button type="submit" class="btn btn-danger">Aceptar cambios</button>
