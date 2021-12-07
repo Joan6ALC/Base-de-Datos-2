@@ -33,7 +33,7 @@
                                                     echo '<div class="error-message">Contraseña incorrecta</div>';
                                                     break;
                                                 case 3: 
-                                                    echo '<div class="congrats-message">Registrado satisfactoriamente</div>';
+                                                    echo '<center>Te has registrado satisfactoriamente</center>';
                                                 default:
                                             }
                                         } ?>
