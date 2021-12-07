@@ -6,7 +6,7 @@
         die();
     }
     $user = $_SESSION['username'];
-    $consulta = "SELECT username,password,llinatge1,llinatge2,dataNaixament,nom FROM persona WHERE username = '$user'";
+    $consulta = "SELECT username,password,llinatge1,llinatge2,dataNaixament,nom FROM persona WHERE username = '".$user."'";
     $resultado = mysqli_query($con,$consulta);
     $registro = mysqli_fetch_array($resultado);
 
@@ -38,7 +38,6 @@
                                     <label>Nombre:</label>
                                     <input name="name" class="form-control" value="<?php echo $registro['nom']; ?>" 
                                     <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?>>
-                                    <!-- ?php if(isset($_GET['name'] = null)) echo 'value="'.$registro['nom'].'"'; ? -->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Primer apellido:</label>
@@ -66,8 +65,16 @@
                                         </div>
                                         <a class="padding"></a>
                                         <?php if (isset($_GET['error'])){
-                                            echo '<div class="error-message">Las contraseñas no coinciden</div>';
-                                        }?>
+                                            switch ($_GET['error']) {
+                                                case 1:
+                                                    echo '<div class="error-message">Las contraseñas no coinciden</div>';
+                                                    break;
+                                                case 2:
+                                                    echo '<div class="error-message">El nombre de usuario elegido ya existe</div>';
+                                                    break;
+                                                default:
+                                            }
+                                        } ?>
                                     </div>
                                     
                                     <button type="submit" class="btn btn-danger">Aceptar cambios</button>

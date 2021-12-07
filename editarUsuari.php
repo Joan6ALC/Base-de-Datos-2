@@ -22,20 +22,36 @@
         header("Location:editarUsuariForm.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
         die();
     }
+    $nomres = "nice";
+    $actuali1 = "update persona set username = '".$nomres."' WHERE username = '".$user."'";
+    $cons = "select * from persona where username = '".$user."'";
 
-    $cons = "SELECT dataAlta,username,password,llinatge1,llinatge2,nom FROM persona WHERE username = '$user'";
-    $resultado = mysqli_query($con,$cons);
+    $resul = mysqli_query($con,$actuali1);
+    $regis = mysqli_fetch_array($resul);
+    $resul = mysqli_query($con,$cons);
+    $regis = mysqli_fetch_array($resul);
+    if (isset($regis)){ // Si ja existeix l'usuari, error 2
+        //$actuali2 = "update persona set username = '".$user."' WHERE username = '".$nomres."'";
+        //$resul = mysqli_query($con,$actuali2);
+        //$regis = mysqli_fetch_array($resul);
+        header("Location: editarUsuariForm.php?error=2&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
+        die();
+    }
+
+    $consult = "SELECT dataAlta,username,password,llinatge1,llinatge2,nom,dataNaixament,administrador FROM persona WHERE username = '".$user."'";
+    $resultado = mysqli_query($con,$consult);
     $registro = mysqli_fetch_array($resultado);
-
 
     $hash=crypt($password1,"");
     $query = "update persona set username ='".$username."', password ='".$hash."', nom ='".$name."', llinatge1 ='".$surname1."', llinatge2 ='".$surname2."', dataNaixament ='".$dob."'  where username ='".$user."'";
     mysqli_query($con, $query);
     $_SESSION['username'] = "'.$username.'";
     if (isset($_SESSION['username'])){ 
-        header("Location: login.php");
+        header("Location: index.html");
+        session_destroy();
+        die();
     }
-    die();
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
