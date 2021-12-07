@@ -6,9 +6,7 @@
         die();
     }
     $user = $_SESSION['username'];
-    $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
-    $resultado = mysqli_query($con,$consulta);
-    $registro = mysqli_fetch_array($resultado);
+
 
 ?>
 <!DOCTYPE html>
@@ -38,15 +36,16 @@
                                     <label>Estado:</label>
                                     <select name="entrada1">
                                         <optgroup label="Estado">
-                                        <?php 
+                                        <?php
+                                            $consulta = "SELECT estat FROM contracte WHERE username = '".$user."'";
+                                            $resultado = mysqli_query($con,$consulta);
+                                            $registro = mysqli_fetch_array($resultado);
                                             if($registro['estat'] == 1){
-                                                echo '<option selected="selected">Actiu</option>';
-
-                                                echo '<option>Inactiu</option>';
-                                             }else{
-                                                echo '<option selected="selected">Inactiu</option>';
-
-                                                echo '<option>Actiu</option>';
+                                                echo "<option value = '1' selected='selected'>Actiu</option>";
+                                                echo "<option value = '0' >Inactiu</option>";
+                                             }elseif($registro['estat'] == 0){
+                                                echo "<option value = '0' selected='selected'>Inactiu</option>";
+                                                echo "<option value = '1' >Actiu</option>";
                                             }
                                         ?>
                                         </optgroup>
@@ -59,23 +58,16 @@
                                                 $resul1 = mysqli_query($con,$consul);
                                                 $trobat = 'select nomTarifa from contracte where username = "'.$user.'"';
                                                 $resul2 = mysqli_query($con,$trobat);
-                                                $fila2 =  mysqli_fetch_assoc($resul2);
-                                                //$regis = mysqli_fetch_array($resul);
+                                                $fila2 =  mysqli_fetch_array($resul2);
 
                                                 if (mysqli_num_rows($resul1) > 0) {
                                                     while($fila1 = mysqli_fetch_assoc($resul1)){
                                                         if($fila1['nomTarifa'] == $fila2['nomTarifa']){
-                                                            echo '<option selected="selected">';
-                                                            echo 'Mensual';
-                                                            echo '</option>';
+                                                            echo "<option value = '".$fila1['nomTarifa']."' selected='selected'>".$fila1['nomTarifa']."</option>";
                                                         }else{
-                                                            echo '<option selected="selected">';
-                                                            echo 'Trimestral';
-                                                            echo '</option>';
+                                                            echo "<option value = '".$fila1['nomTarifa']."'>".$fila1['nomTarifa']."</option>";
                                                         }
-                                                        //echo '<option selected="selected">';
-                                                            //echo '<input valor = $fila["nomTarifa"]>';
-                                                        //echo '</option>';
+                                                        
                                                     }
                                                 }
                                             ?>

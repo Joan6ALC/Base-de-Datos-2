@@ -7,6 +7,20 @@
      // Connexió a bd
     include "connection.php";
     
+    $estado = $_POST['entrada1'];
+    $tarifa = $_POST['entrada2'];
+    $user = $_SESSION['username'];
+    $localdate = date('y-m-d');
+    $notdate = null;
+    if($estado == 1){
+        $query = "update contracte set dataAlta = '".$localdate."', dataBaixa = '".$notdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
+    }elseif($estado == 0){
+        $query = "update contracte set dataBaixa = '".$localdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
+    }
+    
+    mysqli_query($con, $query);
+    header("Location: login.php?username=$username&estado=$estado&nomTarifa=$tarifa"); // Redirigim a l'usuari a la pàgina principal
+    die();
 ?>
 <!DOCTYPE html>
 <html lang="es">
