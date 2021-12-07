@@ -57,7 +57,7 @@
                             <a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>
                             <a class="dropdown-item" href="editarUsuariForm.php">Editar perfil</a>
                             <a class="dropdown-item" href="#">Mensajes</a>
-                            <a class="dropdown-item" href="#">Facturas</a>
+                            <a class="dropdown-item" href="veureFactures.php">Facturas</a>
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar sesión</a></li>
