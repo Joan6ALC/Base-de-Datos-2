@@ -2,7 +2,7 @@
     include "connection.php";
     session_start();
     if(!isset($_SESSION['username'])){
-        header("Location: index.html");
+        header("Location: index.php");
         die();
     }
     $contract = $_SESSION['IdContracte'];
@@ -42,7 +42,7 @@
                                     <input name="fac" class="form-control" value=" <?php echo $registro['IdFactura']; ?>" readonly>
                                     
 
-                                    <label>Data pagament:</label>
+                                    
                                     <?php 
                                         if($registro['estat'] == 1){
                                             echo '<input name="est" class="form-control" value="Actiu" readonly>';
@@ -53,20 +53,21 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Fecha de alta:</label>
-                                            <input type="date" name="dataalta" class="form-control" value ="<?php echo $registro['dataAlta']; ?>" readonly>
+                                            <label>Data pagament:</label>
+                                            <input type="date" name="datapag" class="form-control" value ="<?php echo $registro['dataPagament']; ?>" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Data inici:</label>
+                                            <input type="date" name="datain" class="form-control" value ="<?php echo $registro['dataInici']; ?>" readonly>
                                         </div> 
                                         <div class="col-md-6">
                                             <label>Fecha de baja:</label>
-                                            <input type="date" name="databaixa" class="form-control" value ="<?php echo $registro['dataBaixa']; ?>"readonly>
+                                            <input type="date" name="datafi" class="form-control" value ="<?php echo $registro['dataFi']; ?>"readonly>
                                         </div> 
                                     </div>
 
-                                    <label>Id de su contrato:</label>
-                                    <input name="id" class="form-control" value=" <?php echo $registro['IdContracte']; ?>" readonly>
-                                    
-
-                                    
+                                    <label>Import:</label>
+                                    <input name="num" class="form-control" value=" <?php echo $registro['import']; ?>" readonly>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <button type="submit" class="btn btn-danger">Atras</button>
