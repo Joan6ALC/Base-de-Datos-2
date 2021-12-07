@@ -33,7 +33,7 @@
                     <div class="col-md-3"></div> <!--primera columna vacía-->
                     <div class="col-md-6">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <form action="editarUsuari.php" method="post">
+                            <form action="editarContracte.php" method="post">
                                 <div class="d-grid gap-2">
                                     <label>Estado:</label>
                                     <select name="entrada1">
@@ -54,41 +54,40 @@
                                     <label>Tipo de tarifa:</label>
                                     <select name="entrada2">
                                         <optgroup label="Tipo de tarifa">
-                                        <?php
-                                            $consul = "select distinct (nomTarifa) from Tarifa";
-                                            $resul = mysqli_query($con,$consul);
-                                            //$regis = mysqli_fetch_array($resul);
+                                            <?php
+                                                $consul = 'select distinct (nomTarifa) from Tarifa';
+                                                $resul1 = mysqli_query($con,$consul);
+                                                $trobat = 'select nomTarifa from contracte where username = "'.$user.'"';
+                                                $resul2 = mysqli_query($con,$trobat);
+                                                $fila2 =  mysqli_fetch_assoc($resul2);
+                                                //$regis = mysqli_fetch_array($resul);
 
-                                            if (mysqli_num_rows($resul) > 0) {
-                                                while($fila = mysqli_fetch_assoc($resul)){
-                                                    echo '<option>';
-                                                    $fila['nomTarifa'];
-                                                    echo '</option>';
+                                                if (mysqli_num_rows($resul1) > 0) {
+                                                    while($fila1 = mysqli_fetch_assoc($resul1)){
+                                                        if($fila1['nomTarifa'] == $fila2['nomTarifa']){
+                                                            echo '<option selected="selected">';
+                                                            echo 'Mensual';
+                                                            echo '</option>';
+                                                        }else{
+                                                            echo '<option selected="selected">';
+                                                            echo 'Trimestral';
+                                                            echo '</option>';
+                                                        }
+                                                        //echo '<option selected="selected">';
+                                                            //echo '<input valor = $fila["nomTarifa"]>';
+                                                        //echo '</option>';
+                                                    }
                                                 }
-                                            }
-                                            //if($registro['estat'] == 1){
-                                                //echo '<option selected="selected">Actiu</option>';
-
-                                                //echo '<option>Inactiu</option>';
-                                            //}else{
-                                                //echo '<option selected="selected">Inactiu</option>';
-
-                                                //echo '<option>Actiu</option>';
-                                            //}
-                                        ?>
+                                            ?>
                                         </optgroup>
                                     </select>
-                                    <!--<input name="nametar" class="form-control" value=" <?php echo $registro['nomTarifa']; ?>">-->
-                                    
-                                    
-                                    <button type="submit" class="btn btn-danger">Aceptar cambios</button>
-                                    
+                                    <button type="submit" class="btn btn-danger">Aceptar cambios</button>          
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </section>
         <!-- Frameworks -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
