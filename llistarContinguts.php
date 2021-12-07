@@ -12,6 +12,7 @@
     <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- iconos bootstrap -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
 </head>
     <body>
@@ -35,16 +36,30 @@
                                     $query = "select * from contingut ORDER BY RAND()";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
+                                        $query2 = "select * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
+                                        $result2 = mysqli_query($con,$query2);
+                                        $fav = mysqli_fetch_array($result2);
+
                                         echo   '<div class="col">
                                                     <div class="card" style="width: 12rem;">
                                                         <img class="card-img-top" src=".'.$row['camiFoto'].'" alt="'.$row['titol'].'.png" height="250">
                                                         <div class="card-body">
                                                             <center><h6>'.$row['titol'].'</h6>
                                                             <div class="padding"></div>
-                                                            <a href="veureContingut.php?id='.$row['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a></center>
+                                                            <a href="veureContingut.php?id='.$row['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
+                                        if(isset($fav)){ // Imprimim el botó per eliminar favorit
+                                            echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
                                                         </div>
                                                     </div>
                                                 </div>';
+                                            
+                                        }  else { // Imprimim el botó per afegir favorit
+                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
+                                                        </div>
+                                                    </div>
+                                                </div>';
+                                        }             
+
                                     }
                                 ?>
                                 <div class="padding"></div>

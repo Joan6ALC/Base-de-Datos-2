@@ -51,6 +51,7 @@
     <title>Bienvenido <?php echo "@".$_SESSION['username'] ?></title> <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- iconos bootstrap -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
 </head>
     <body>
@@ -73,7 +74,6 @@
                                 </center>
                                 <div class="padding"></div>
                                 <div class="padding"></div>
-
                                 <div class="row justify-content-center gap-2">
                                     <div class="col"> <!-- MISSATGES -->
                                         <h5>Bandeja de entrada</h5>
@@ -81,8 +81,6 @@
                                         <center>
                                         <div class="card" style="width: 26rem;">
                                             <div class="card-body">
-                                                <img src="img/mensaje.png" height="24" width="24">
-                                                <div class="padding"></div>
                                                 <?php // MISSATGES: Comprovam si tenim missatges sense llegir
                                                     include "connection.php";
 
@@ -91,6 +89,7 @@
                                                     $row = mysqli_fetch_array($result);
 
                                                     if($row['count(*)']>0){
+                                                        echo '<img src="img/envelope-exclamation.svg" height="30" width="30"><div class="padding"></div>';
                                                         echo '<h6>Tienes '.$row['count(*)']." mensaje(s) nuevos:</h6>";
                                                         $query = "select * from missatge where username='".$_SESSION['username']."'";
                                                         $result = mysqli_query($con,$query);
@@ -100,6 +99,7 @@
                                                         
                                                         echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Ver más</a>';
                                                     } else {
+                                                        echo '<img src="img/envelope.svg" height="30" width="30"><div class="padding"></div>';
                                                         echo "<h6>No tienes mensajes nuevos</h6>";
                                                     }
                                                     mysqli_close($con);
@@ -114,7 +114,7 @@
                                         <center>
                                         <div class="card" style="width: 26rem;">
                                             <div class="card-body">
-                                                <img src="img/factura.png" height="22" width="22">
+                                                <img src="img/cash-stack.svg" height="30" width="30" style="color: white">
                                                 <div class="padding"></div>
                                                 <?php
                                                     include "connection.php";
@@ -207,16 +207,31 @@
                                             shuffle($pelicules); // Es mesclen els continguts per mostrar-se de forma aleatòria
                                             $it=0;
                                             while ($it<$length){
+                                                $query2 = "select * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$pelicules[$it]->id.""; // Per comprovar si ja està a la llista de favorits
+                                                $result2 = mysqli_query($con,$query2);
+                                                $fav = mysqli_fetch_array($result2);
+
                                                 echo   '<div class="col">
                                                             <div class="card" style="width: 12rem;">
                                                                 <img class="card-img-top" src=".'.$pelicules[$it]->cami.'" alt="'.$pelicules[$it]->titol.'.png" height="250">
                                                                 <div class="card-body">
                                                                     <h6>'.$pelicules[$it]->titol.'</h6>
                                                                     <div class="padding"></div>
-                                                                    <a href="veureContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-danger btn-sm">Ver película</a>
+                                                                    <a href="veureContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-danger btn-sm">Ver película</a> ';
+
+                                                if(isset($fav)){ // Imprimim el botó per eliminar favorit
+                                                    echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false"><i class="bi-star-fill" title="Eliminar favorito" style="font-size: 0.9rem;"></i></a>
                                                                 </div>
                                                             </div>
                                                         </div>';
+                                                                        
+                                                }  else { // Imprimim el botó per afegir favorit
+                                                    echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false"><i class="bi-star" title="Agregar favorito" style="font-size: 0.9rem;"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                                }
+
                                                 $it=$it+1;
                                             }
 
@@ -232,9 +247,12 @@
                                                     </div>';
                                         }
 
+                                        
+
                                         mysqli_close($con);
                                     ?> 
                                 </div>
+                                
                                 </center>
                             </div>
                         </div>
