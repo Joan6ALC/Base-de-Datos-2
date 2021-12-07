@@ -7,6 +7,13 @@
      // Connexió a bd
     include "connection.php";
     
+    $estado = $_POST['entrada1'];
+    $tarifa = $_POST['entrada2'];
+    $user = $_SESSION['username'];
+    $query = "update contracte set estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
+    mysqli_query($con, $query);
+    header("Location: login.php?username=$username&estado=$estado&nomTarifa=$tarifa"); // Redirigim a l'usuari a la pàgina principal
+    die();
 ?>
 <!DOCTYPE html>
 <html lang="es">
