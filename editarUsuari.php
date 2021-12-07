@@ -18,7 +18,7 @@
     
     // Comprovam que les contrasenyes introduides coincideixen
     if($password1!=$password2){ // Si coincideixen, error 1
-        header("Location: editarUsuariForm.php?error=1");
+        header("Location: editarUsuariForm.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
         die();
     }
 
@@ -41,7 +41,7 @@
             $query = "update persona set username ='".$username."', password ='".$hash."', nom ='".$name."', llinatge1 ='".$surname1."', llinatge2 ='".$surname2."', dataNaixament ='".$dob."'  where username ='".$user."'";
         } else {
             // mostrar missatge d'error: l'username ja esta essent utilitzat
-            header("Location: editarUsuariForm.php?error=2");
+            header("Location: editarUsuariForm.php?error=2&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
             die();
         }
     }
@@ -50,7 +50,7 @@
     $_SESSION['username'] = "'.$username.'";
 
     if (isset($_SESSION['username'])){ 
-        header("Location: index.html");
+        header("Location: index.php");
         session_destroy();
         die();
     }
