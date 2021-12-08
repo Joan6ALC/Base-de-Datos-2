@@ -219,18 +219,22 @@
                                                                     <div class="padding"></div>
                                                                     <a href="veureContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-danger btn-sm">Ver película</a> ';
 
+                                                if($_SESSION['administrador']==1){
+                                                    echo           '<a href="eliminarContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-danger btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';              
+                                                }
+
                                                 if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                                    echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>';
+                                                    echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-success btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';
+                                                                
                                                                         
                                                 }  else { // Imprimim el botó per afegir favorit
-                                                    echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-success btn-sm" data-toggle="modal" data-show="false"><i class="bi-star" title="Agregar a favoritos" style="font-size: 0.9rem;"></i></a>
-                                                                </div>
+                                                    echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-success btn-sm"><i class="bi-star" title="Agregar a favoritos" style="font-size: 0.9rem;"></i></a>';
+                                                                
+                                                }
+                                                
+                                                echo            '</div>
                                                             </div>
                                                         </div>';
-                                                }
 
                                                 $it=$it+1;
                                             }
@@ -247,7 +251,6 @@
                                                     </div>';
                                         }
 
-                                        
 
                                         mysqli_close($con);
                                     ?> 

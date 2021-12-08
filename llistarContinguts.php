@@ -27,8 +27,19 @@
                     <div class="col-md-1"></div> 
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <h5>Nuestras películas</h5>
+                            <div class="row"><h5>Nuestras películas
+
+                            <?php 
+                                if($_SESSION['administrador']==1){
+                                    echo '<a href="afegirContingut.php" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi-plus-circle" title="Añadir contenido" style="font-size: 0.9rem;"></i> Añadir contenido
+                                    </a>';
+                                }
+                            ?>
+                            </h5></div>
+
                             <div class="padding"></div>
+                            <center>
                             <div class="row justify-content-center gap-2">                                
                                 <?php
                                     include "connection.php";
@@ -49,28 +60,37 @@
                                                             <center><h6>'.$row['titol'].'</h6>
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$row['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
+
                                         if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                            echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
-                                                        </div>
-                                                    </div>
-                                                </div>';
+                                            echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                             
                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-success btn-sm" data-toggle="modal" data-show="false" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
-                                                        </div>
-                                                    </div>
-                                                </div>';
-                                        }  else {
-                                            echo       '</div>
-                                                    </div>
-                                                </div>';
-                                        }         
+                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-success btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
+                                        }  
+                                        
+                                        if($_SESSION['administrador']==1){
+                                            echo           '<div class="padding"></div>
+                                                            <div class="row gap-1">
+                                                            <div class="col">
+                                                                    <a href="editarContingutForm.php?id='.$row['IdContingut'].'" class="btn btn-outline-success btn-sm">
+                                                                        <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
+                                                                    </a>
+                                                                    <a href="eliminarContingut.php?id='.$row['IdContingut'].'" class="btn btn-outline-danger btn-sm">
+                                                                        <i class="bi-trash" title="Eliminar contenido" style="font-size: 0.9rem;"></i>
+                                                                    </a> 
+                                                                </div>
+                                                            </div>';  
+                                        }
 
+                                        // Tancam els div
+                                        echo        '</div>
+                                                    </div>
+                                                </div>';
                                     }
                                 ?>
                                 <div class="padding"></div>
-
-                            </div>  
+                            </div>
+                            </center>  
                         </div>
                     </div>
                 </div>
