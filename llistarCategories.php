@@ -23,6 +23,7 @@
         </header>
 
         <section>
+        <div class="padding"></div>
             <div class="container">
                 <div class="row ">
                     <div class="col-md-1"></div> 
