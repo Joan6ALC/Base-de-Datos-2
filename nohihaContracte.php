@@ -22,25 +22,28 @@
         <header>
             <?php include "navbar.php"; ?>
         </header>
-        
-        
             <section>
                 <div class = "container">
-                <div class = "padding"></div>
-                <div class="row ">
-                <div class="col-md-1"></div> 
-                <div class="col-md-10">
-                <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                <h1 class="title-large">
-                    <font fonts_face = "", size = "20", color = "red">
-                    <i>
-                    <center> No tens cap contracte </center>
-                    </i>
-                    </font>
-                </h1>
-                </div>
-                </div>
-                </div>
+                    <div class = "padding"><br><br><br></div>
+                        <div class="row ">
+                            <div class="col-md-1"></div> 
+                                <div class="col-md-10">
+                                    <div class="shadow-lg p-4 mb-5 bg-body rounded">
+                                        <form action="editarContracteForm.php" method="post">
+                                        <!--<form action="editarContracteForm.php" method="post">-->
+                                            <h1 class="title-small">
+                                                <center> No tens cap contracte </center>
+                                            </h1>
+                                            <br>
+                                            <center>
+                                            <button type="submit" class="btn btn-danger">Hacer contrato</button>
+                                            </center>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
             

@@ -6,6 +6,9 @@
         die();
     }
     $user = $_SESSION['username'];
+    //$comprovacio = "SELECT IdContracte FROM contracte WHERE username = '".$user."'";
+    //$aplicacio =  mysqli_query($con, $comprovacio);
+    //$resp = mysqli_fetch_array($aplicacio);
 
 
 ?>
@@ -40,13 +43,19 @@
                                             $consulta = "SELECT estat FROM contracte WHERE username = '".$user."'";
                                             $resultado = mysqli_query($con,$consulta);
                                             $registro = mysqli_fetch_array($resultado);
-                                            if($registro['estat'] == 1){
+                                            if(!isset($registro['estat'])){
+                                                //si no existia
                                                 echo "<option value = '1' selected='selected'>Actiu</option>";
-                                                echo "<option value = '0' >Inactiu</option>";
-                                             }elseif($registro['estat'] == 0){
-                                                echo "<option value = '0' selected='selected'>Inactiu</option>";
-                                                echo "<option value = '1' >Actiu</option>";
-                                            }
+                                            }else{
+                                                //si existia
+                                                if($registro['estat'] == 1){
+                                                    echo "<option value = '1' selected='selected'>Actiu</option>";
+                                                    echo "<option value = '0' >Inactiu</option>";
+                                                 }elseif($registro['estat'] == 0){
+                                                    echo "<option value = '0' selected='selected'>Inactiu</option>";
+                                                    echo "<option value = '1' >Actiu</option>";
+                                                }
+                                            } 
                                         ?>
                                         </optgroup>
                                     </select>
@@ -60,16 +69,27 @@
                                                 $resul2 = mysqli_query($con,$trobat);
                                                 $fila2 =  mysqli_fetch_array($resul2);
 
-                                                if (mysqli_num_rows($resul1) > 0) {
-                                                    while($fila1 = mysqli_fetch_assoc($resul1)){
-                                                        if($fila1['nomTarifa'] == $fila2['nomTarifa']){
+                                                if(!isset($fila2['nomTarifa'])){
+                                                    //si no existia
+                                                    if (mysqli_num_rows($resul1) > 0) {
+                                                        while($fila1 = mysqli_fetch_assoc($resul1)){
                                                             echo "<option value = '".$fila1['nomTarifa']."' selected='selected'>".$fila1['nomTarifa']."</option>";
-                                                        }else{
-                                                            echo "<option value = '".$fila1['nomTarifa']."'>".$fila1['nomTarifa']."</option>";
                                                         }
-                                                        
                                                     }
-                                                }
+                                                    
+                                                }else{
+                                                    //si ja existia
+                                                    if (mysqli_num_rows($resul1) > 0) {
+                                                        while($fila1 = mysqli_fetch_assoc($resul1)){
+                                                            if($fila1['nomTarifa'] == $fila2['nomTarifa']){
+                                                                echo "<option value = '".$fila1['nomTarifa']."' selected='selected'>".$fila1['nomTarifa']."</option>";
+                                                            }else{
+                                                                echo "<option value = '".$fila1['nomTarifa']."'>".$fila1['nomTarifa']."</option>";
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                }   
                                             ?>
                                         </optgroup>
                                     </select>
