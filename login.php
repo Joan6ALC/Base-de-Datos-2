@@ -66,11 +66,11 @@
                     <div class="col-md-1"></div> 
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                                <center><h2>Hola  <!-- BENVINGUDA: Imprimir el nom del usuari -->
+                                <center><h3>Hola  <!-- BENVINGUDA: Imprimir el nom del usuari -->
                                     <?php 
                                     echo "@".$_SESSION['username'].",";
                                     ?>
-                                </h2>
+                                </h3>
                                 </center>
                                 <div class="padding"></div>
                                 <div class="padding"></div>
