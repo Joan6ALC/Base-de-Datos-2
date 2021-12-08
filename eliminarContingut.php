@@ -29,7 +29,4 @@
     $query="DELETE FROM contingut WHERE IdContingut=".$IdContingut;
     echo $IdContingut;
     $result=mysqli_query($con, $query); 
-
-
-
 ?>
