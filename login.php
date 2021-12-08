@@ -61,6 +61,9 @@
         </header>
 
         <section>
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js">swal("Oops!", "Something went wrong on the page!", "error");</script>
+
         <div class="padding"></div>
             <div class="container">
                 <div class="row ">

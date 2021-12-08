@@ -22,7 +22,7 @@
             <?php include "navbar.php"; ?>
         </header>
 
-        <section>
+        <section>       
         <div class="padding"></div>
             <div class="container">
                 <div class="row ">

@@ -12,8 +12,9 @@
     <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- iconos bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- Iconos bootstrap -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
+    <script language="JavaScript" type="text/javascript" src="scripts.js"></script> <!-- Para importar mi hoja de scripts propia -->
 </head>
     <body>
 
@@ -23,10 +24,13 @@
             if(isset($_GET['msg']) and $_SESSION['administrador']==1){
                 switch($_GET['msg']){
                     case 1: // ELIMINACIÓ
-                        echo    '<div class="alert alert-danger d-flex align-items-center" role="alert">
-                                    <i class="bi-trash" style="font-size: 0.9rem;"></i>
-                                    &nbspContenido borrado correctamente
-                                <div>';
+                        echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                                    &nbspContenido editado correctamente
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>';
                         break;
                     
                     case 2: // ADDICIÓ
@@ -105,20 +109,23 @@
                                                                     <a href="editarContingutForm.php?id='.$row['IdContingut'].'" class="btn btn-outline-success btn-sm">
                                                                         <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
                                                                     </a>
-                                                                    <a href="eliminarContingut.php?id='.$row['IdContingut'].'" class="btn btn-outline-danger btn-sm">
-                                                                        <i class="bi-trash" title="Eliminar contenido" style="font-size: 0.9rem;"></i>
+                                                                    <a href="eliminarContingut.php?id='.$row['IdContingut'].'" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
+                                                                        <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
                                                                     </a> 
                                                                 </div>
                                                             </div>';  
                                         }
 
-                                        // Tancam els div
+                                        // Tancam els div :href="eliminarContingut.php?id='.$row['IdContingut'].'"
                                         echo        '</div>
                                                     </div>
                                                 </div>';
                                     }
                                 ?>
                                 <div class="padding"></div>
+                                <script>
+
+                                </script>
                             </div>
                             </center>  
                         </div>
