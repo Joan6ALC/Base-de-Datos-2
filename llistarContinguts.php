@@ -18,16 +18,46 @@
     <body>
 
         <header>
-            <?php include "navbar.php"; ?>
+            <?php include "navbar.php"; 
+
+            if(isset($_GET['msg']) and $_SESSION['administrador']==1){
+                switch($_GET['msg']){
+                    case 1: // ELIMINACIÓ
+                        echo    '<div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <i class="bi-trash" style="font-size: 0.9rem;"></i>
+                            &nbspContenido borrado correctamente
+                        <div>';
+                        break;
+                    
+                    case 2: // ADDICIÓ
+                        echo    '<div class="alert alert-success d-flex align-items-center" role="alert">
+                            <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                            &nbspContenido editado correctamente
+                        <div>';
+                        break;
+                    case 3:
+                        echo    '<div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <i class="bi-plus-circle" style="font-size: 0.9rem;"></i>
+                            &nbspContenido añadido correctamente
+                        <div>';
+                        break;
+                    
+                    default: 
+                }
+            }
+            
+            ?>
         </header>
 
         <section>
+
             <div class="container">
                 <div class="row ">
-                    <div class="col-md-1"></div> 
+                    <div class="col-md-1"></div>                    
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <div class="row"><h5>Nuestras películas
+                            <div class="row">
+                            <h5>Nuestras películas
 
                             <?php 
                                 if($_SESSION['administrador']==1){

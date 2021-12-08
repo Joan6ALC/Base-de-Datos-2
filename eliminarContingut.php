@@ -31,7 +31,7 @@
     $result=mysqli_query($con, $query); 
 
     if (!isset($row['username'])){
-        header("Location: llistarContinguts.php?");
+        header("Location: llistarContinguts.php?msg=1");
         die();
     }
 ?>
