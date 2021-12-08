@@ -23,27 +23,35 @@
 
             if(isset($_GET['msg']) and $_SESSION['administrador']==1){
                 switch($_GET['msg']){
+
                     case 1: // ELIMINACIÓ
-                        echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
-                                    &nbspContenido editado correctamente
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="bi-trash" style="font-size: 0.9rem;"></i>
+                                    &nbspContenido eliminado correctamente
+                                    <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>';
                         break;
                     
-                    case 2: // ADDICIÓ
-                        echo    '<div class="alert alert-success d-flex align-items-center" role="alert">
+                    case 2: // EDICIÓ
+                        echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
                                     &nbspContenido editado correctamente
-                                <div>';
+                                    <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>';
                         break;
-                    case 3:
-                        echo    '<div class="alert alert-primary d-flex align-items-center" role="alert">
+
+                    case 3: // ADDICCIÓ
+                        echo    '<div class="padding"></div><div class="alert alert-primary alert-dismissible fade show" role="alert">
                                     <i class="bi-plus-circle" style="font-size: 0.9rem;"></i>
                                     &nbspContenido añadido correctamente
-                                <div>';
+                                    <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>';
                         break;
                     
                     default: 
@@ -62,11 +70,10 @@
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="row">
                             <h5>Nuestras películas
-
                             <?php 
                                 if($_SESSION['administrador']==1){
-                                    echo '<a href="afegirContingut.php" class="btn btn-outline-primary btn-sm">
-                                    <i class="bi-plus-circle" title="Añadir contenido" style="font-size: 0.9rem;"></i> Añadir contenido
+                                    echo '&nbsp&nbsp<a href="afegirContingut.php" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi-plus-circle" title="Añadir contenido" style="font-size: 0.9rem;"></i>Añadir contenido
                                     </a>';
                                 }
                             ?>

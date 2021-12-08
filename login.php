@@ -48,11 +48,12 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width">
-    <title>Bienvenido <?php echo "@".$_SESSION['username'] ?></title> <!--Título que aparecerá en la pestaña del navegador-->
+    <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- iconos bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- Iconos bootstrap -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
+    <script language="JavaScript" type="text/javascript" src="scripts.js"></script> <!-- Para importar mi hoja de scripts propia -->
 </head>
     <body>
 
@@ -61,24 +62,13 @@
         </header>
 
         <section>
-
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js">swal("Oops!", "Something went wrong on the page!", "error");</script>
-
         <div class="padding"></div>
             <div class="container">
                 <div class="row ">
                     <div class="col-md-1"></div> 
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                                <center><h3>Hola  <!-- BENVINGUDA: Imprimir el nom del usuari -->
-                                    <?php 
-                                    echo "@".$_SESSION['username'].",";
-                                    ?>
-                                </h3>
-                                </center>
-                                <div class="padding"></div>
-                                <div class="padding"></div>
-                                <div class="row justify-content-center gap-2">
+                                <div class="row gap-2">
                                     <div class="col"> <!-- MISSATGES -->
                                         <h5>Bandeja de entrada</h5>
                                         <div class="padding"></div>

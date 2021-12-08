@@ -6,16 +6,16 @@
             </button>
 
             <!-- LOGO -->
-            <div class="mx-auto order-0">
+            <div class="mx-auto">
                 <a href="login.php" class="navbar-brand">
                     <img src="img/logo.png" width="130" height="40">
                 </a>
-                
-            </div>
+            </div>    
+            
 
             <!-- Menú d'opcions -->
             <div class="collapse navbar-collapse" id="menu">   
-                <ul class="navbar-nav mr-auto"> <!-- Alinear a la esquerra -->
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link active" href="login.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="llistarContinguts.php">Explorar</a></li>
                     <li class="nav-item"><a class="nav-link" href="llistarCategories.php">Categorías</a></li>
@@ -44,11 +44,10 @@
                                     </li>';
                             }
                         ?>
-                </ul>              
-                
+                </ul>  
                                 
                 <!-- Perfil i tancar sessió -->
-                <ul class="nav navbar-nav ml-auto"> <!-- Alinear la dreta-->
+                <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Mi perfil
