@@ -24,6 +24,7 @@
         <header>
             <?php include "navbar.php"; ?>
         </header>
+        
         <?php
         if(!isset($consulta['IdFactura'])){
             echo 'xd';
@@ -43,8 +44,9 @@
                     $importfila = $fila["import"]; 
                 }
             }
-            echo <<< FRA
-            <section> 
+        }
+        ?>
+        <section> 
             <div class="container">
             <div class = "padding"><br></div>
             <div class = "row">
@@ -54,29 +56,29 @@
                             <form action="login.php" method="post">
                                 <div class="d-grid gap-2">
                                     <label>Id del Contrato:</label>
-                                    <input name="contrac" class="form-control" value="$contract" readonly>
+                                    <input name="contrac" class="form-control" value=<?php echo "'".$contract."'" ?> readonly>
                                     <form action="veureFactures.php" method="post">
                                         <label>Factura:</label>
                                             <select name="facturas">
                                                 <optgroup>
-                                                <option value = "$trob">$trob</option> 
+                                                <option value=<?php echo "'".$trob."'" ?>><?php echo "'".$trob."'" ?></option> 
                                                 </optgroup>
                                             </select>
                                     </form>
                                     <label>Data pagament:</label>
-                                    <input type="date" name="datapag" class="form-control" value ="$datapagfila" readonly>
+                                    <input type="date" name="datapag" class="form-control" value =<?php echo "'".$datapagfila."'" ?> readonly>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Data inici:</label>
-                                            <input type="date" name="datain" class="form-control" value ="$dataInfila" readonly>
+                                            <input type="date" name="datain" class="form-control" value =<?php echo "'".$dataInfila."'" ?> readonly>
                                         </div> 
                                         <div class="col-md-6">
                                             <label>Data fi:</label>
-                                            <input type="date" name="datafi" class="form-control" value ="$dataFifila" readonly>
+                                            <input type="date" name="datafi" class="form-control" value =<?php echo "'".$dataFifila."'" ?> readonly>
                                         </div> 
                                     </div>
                                     <label>Import:</label>
-                                    <input name="num" class="form-control" value="$importfila" readonly>
+                                    <input name="num" class="form-control" value=<?php echo "'".$importfila."'" ?> readonly>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <button type="submit" class="btn btn-danger">Atras</button>
@@ -84,15 +86,11 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                         </div>
                     </div>
                 </div>  
             </div>
         </section>
-        FRA;
-        }
-        
-        ?>
         <!-- Frameworks -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
