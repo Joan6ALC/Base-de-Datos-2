@@ -1,54 +1,54 @@
 <div class="col-12">
-    <nav class="navbar navbar-expand-md ml-auto navbar-light border-2 border-bottom border-danger" style="background-color: #FFFFFF;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-2 border-bottom border-danger">
         <div class="container-fluid">
+            <button class="navbar-toggler" data-target="#menu"  data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span> <!-- Desplegable per a dispositius petits -->
+            </button>
 
             <!-- LOGO -->
             <div class="mx-auto order-0">
-                <a href="#" class="navbar-brand">
-                    <img src="img/navbar_logo.png" width="130" height="40">
+                <a href="login.php" class="navbar-brand">
+                    <img src="img/logo.png" width="130" height="40">
                 </a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
-                    <span class="navbar-toggler-icon"></span> <!-- Desplegable per a dispositius petits -->
-                </button>
+                
             </div>
 
             <!-- Menú d'opcions -->
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">   
-                <div id="MenuNavegacion" class="collapse navbar-collapse">
-                    <ul class="navbar-nav mr-auto"> <!-- Alinear a la esquerra -->
-                        <li class="nav-item"><a class="nav-link active" href="login.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="llistarContinguts.php">Explorar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="llistarCategories.php">Categorías</a></li>
-                        <li class="nav-item dropdown"> <!-- Favorits -->
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Favoritos
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Contenidos</a>
-                                <a class="dropdown-item" href="#">Categorias</a>
-                            </div>
-                        </li>
-                        <?php // Si és administrador, afegim les opcions
-                            if($_SESSION['administrador']==true){
-                                echo '  <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Administrador
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Añadir contenido</a>
-                                                <a class="dropdown-item" href="#">Editar/Borrar contenido</a>
-                                                <a class="dropdown-item" href="#">Añadir categoria</a>
-                                                <a class="dropdown-item" href="#">Editar/Borrar categoria</a>
-                                                <a class="dropdown-item" href="#">Visualizar usuarios</a>
-                                            </div>
-                                        </li>';
+            <div class="collapse navbar-collapse" id="menu">   
+                <ul class="navbar-nav mr-auto"> <!-- Alinear a la esquerra -->
+                    <li class="nav-item"><a class="nav-link active" href="login.php">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="llistarContinguts.php">Explorar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="llistarCategories.php">Categorías</a></li>
+                    <li class="nav-item dropdown"> <!-- Favorits -->
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Favoritos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Contenidos</a>
+                            <a class="dropdown-item" href="#">Categorias</a>
+                        </div>
+                    </li>
+                    <?php // Si és administrador, afegim les opcions
+                        if($_SESSION['administrador']==true){
+                            echo '  <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Administrador
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Añadir contenido</a>
+                                            <a class="dropdown-item" href="#">Editar/Borrar contenido</a>
+                                            <a class="dropdown-item" href="#">Añadir categoria</a>
+                                            <a class="dropdown-item" href="#">Editar/Borrar categoria</a>
+                                            <a class="dropdown-item" href="#">Visualizar usuarios</a>
+                                        </div>
+                                    </li>';
                             }
                         ?>
-                    </ul>              
-                </div>
+                </ul>              
+                
                                 
                 <!-- Perfil i tancar sessió -->
-                <ul class="navbar-nav ml-auto"> <!-- Alinear la dreta-->
+                <ul class="nav navbar-nav ml-auto"> <!-- Alinear la dreta-->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Mi perfil
