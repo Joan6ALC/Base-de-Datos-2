@@ -24,7 +24,17 @@
         </header>
         <?php
         if(!isset($_SESSION['IdContracte'])){
-            echo 'xd';
+            echo <<<FRA
+                <div class = "container">
+                <div class = "padding"><br><br><br><br><br><br><br></div>
+                    <font fonts_face = "", size = "20", color = "blue">
+                    <i>
+                    <center> No tens cap contracte </center>
+                    </i>
+                    </font>
+                </div>
+            FRA;
+            
         }else{
             $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
             $resultado = mysqli_query($con,$consulta);

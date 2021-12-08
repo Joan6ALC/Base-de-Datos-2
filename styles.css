@@ -62,4 +62,11 @@ footer{
 @font-face {
     font-family: manis;
     src: url(fonts/Manis\ Banget.otf);
+    
 }
+
+@font-face {
+    font-family: letr;
+    src: url(fonts\Circus.ttf);
+}
+
