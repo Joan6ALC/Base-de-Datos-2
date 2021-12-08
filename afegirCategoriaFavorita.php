@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <body>
 
-        <section>       
+    <section>       
         
                                 
     <header>
@@ -21,25 +21,17 @@
     echo "Aun no ha entrado";
     if(isset($_SESSION['IdContracte'])){
         echo "Ha entrado";
-    $consulta = "SELECT nomCat FROM CategoriaFavorits WHERE idContracte = '".$_SESSION['IdContracte']."'";
+    $consulta = "SELECT nomCat FROM CategoriaFavorits WHERE IdContracte = ".$_SESSION['IdContracte']." AND nomCat = ".$Categoria."";
     $Resultado = mysqli_query($con, $consulta);
-
-    while($Registre = mysqli_fetch_array($Resultado)){
-        if($Categoria==$Registre['nomCat']){
-            echo "La categoria ya estaba dentro";
-            
-        }
-    }
+    if($Resultado){
+        die();
+    }else{
     $insert = "INSERT into CategoriaFavorits set";
     $insert = $insert."IdContracte='".$_SESSION['IdContracte']."',";
     $insert = $insert."nomCat='".$Categoria."'";
     mysqli_query($con, $insert);
-    echo "Se ha añadido la categoria a favoritos";
-    
-    }else{
-        echo "Sesion no iniciada";
-        
     }
+    die();  
 
     
 ?>
