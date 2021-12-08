@@ -12,12 +12,15 @@
     $user = $_SESSION['username'];
     $localdate = date('y-m-d');
     $notdate = null;
-    if($estado == 1){
-        $query = "update contracte set dataAlta = '".$localdate."', dataBaixa = '".$notdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
-    }elseif($estado == 0){
-        $query = "update contracte set dataBaixa = '".$localdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
+    if($_SESSION['IdContracte'] == null){
+        $query = "INSERT INTO contracte(dataAlta,dataBaixa,estat,nomTarifa,username) VALUES ('".$localdate."', '".$notdate."','".$estado."', '".$tarifa."','".$user."')";
+    }else{
+        if($estado == 1){
+            $query = "update contracte set dataAlta = '".$localdate."', dataBaixa = '".$notdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
+        }elseif($estado == 0){
+            $query = "update contracte set dataBaixa = '".$localdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
+        }
     }
-    
     mysqli_query($con, $query);
     header("Location: login.php?username=$username&estado=$estado&nomTarifa=$tarifa"); // Redirigim a l'usuari a la pàgina principal
     die();
