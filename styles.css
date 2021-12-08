@@ -46,6 +46,7 @@ footer{
     font-weight: bold;
 }
 
+
 .error-message{
     color:#dc3545;
     font-weight: bold;
@@ -53,10 +54,6 @@ footer{
 
 .padding{
     padding-top: 10px;
-}
-
-.padding3{
-    padding-top: 20px;
 }
 
 @font-face {

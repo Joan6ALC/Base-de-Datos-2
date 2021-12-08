@@ -15,8 +15,10 @@
 
 
 
-
-
-
+    // Connexió a bd
+    include "connection.php";
+    $query = "SELECT * FROM persona WHERE username='".$_SESSION['username']."'";
+    $result=mysqli_query($con, $query); 
+    $row = mysqli_fetch_array($result);
 
 ?>
