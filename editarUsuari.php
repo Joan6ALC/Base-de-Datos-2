@@ -36,7 +36,7 @@
         
     }else{ // L'username canvia, anem a mirar si el nou username és vàlid (no està encara utilitzat)
         // CONSULTES SQL per comprovar si l'username existeix a la bd
-        if ($registro != $username){
+        if ($registro['username'] != $username){
             // podem actualitzar l'username antic pel nou i la resta de parámetres
             $query = "update persona set username ='".$username."', password ='".$hash."', nom ='".$name."', llinatge1 ='".$surname1."', llinatge2 ='".$surname2."', dataNaixament ='".$dob."'  where username ='".$user."'";
         } else {
