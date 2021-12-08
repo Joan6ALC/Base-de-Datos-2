@@ -6,9 +6,6 @@
         die();
     }
     $user = $_SESSION['username'];
-    $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
-    $resultado = mysqli_query($con,$consulta);
-    $registro = mysqli_fetch_array($resultado);
 
 ?>
 <!DOCTYPE html>
@@ -25,8 +22,27 @@
         <header>
             <?php include "navbar.php"; ?>
         </header>
+        <?php
+        if(!isset($_SESSION['IdContracte'])){
+            echo 'xd';
+        }else{
+            $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
+            $resultado = mysqli_query($con,$consulta);
+            $registro = mysqli_fetch_array($resultado);
+            $tar = $registro['nomTarifa'];
+            $datalt = $registro['dataAlta'];
+            $databaix = $registro['dataBaixa'];
+            $idcontract = $registro['IdContracte'];
+        
+            function est(){
+                if($registro['estat'] == 1){
+                    echo '<input name="est" class="form-control" value="Actiu" readonly>';
+                }else{
+                    echo '<input name="est" class="form-control" value="Inactiu" readonly>';
+                }
+            }
+            echo <<< FRA
         <section> 
-       
             <div class="container">
             <div class = "row">
             <div class="col-md-3"></div> <!--primera columna vacía-->
@@ -35,38 +51,23 @@
                             <form action="editarContracteForm.php" method="post">
                                 <div class="d-grid gap-2">
                                     <label>Nombre de usuario:</label>
-                                    <input name="nameus" class="form-control" value=" <?php echo $registro['username']; ?>" readonly>
-                                    
-                                    
+                                    <input name="nameus" class="form-control" value="$user" readonly>
                                     <label>Tipo de tarifa:</label>
-                                    <input name="nametar" class="form-control" value=" <?php echo $registro['nomTarifa']; ?>" readonly>
-                                    
-
+                                    <input name="nametar" class="form-control" value="$tar" readonly>
                                     <label>Estado:</label>
-                                    <?php 
-                                        if($registro['estat'] == 1){
-                                            echo '<input name="est" class="form-control" value="Actiu" readonly>';
-                                        }else{
-                                            echo '<input name="est" class="form-control" value="Inactiu" readonly>';
-                                        }
-                                    ?>
-
+                                    est();
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Fecha de alta:</label>
-                                            <input type="date" name="dataalta" class="form-control" value ="<?php echo $registro['dataAlta']; ?>" readonly>
+                                            <input type="date" name="dataalta" class="form-control" value ="$datalt" readonly>
                                         </div> 
                                         <div class="col-md-6">
                                             <label>Fecha de baja:</label>
-                                            <input type="date" name="databaixa" class="form-control" value ="<?php echo $registro['dataBaixa']; ?>"readonly>
+                                            <input type="date" name="databaixa" class="form-control" value ="$databaix"readonly>
                                         </div> 
                                     </div>
-
                                     <label>Id de su contrato:</label>
-                                    <input name="id" class="form-control" value=" <?php echo $registro['IdContracte']; ?>" readonly>
-                                    
-
-                                    
+                                    <input name="id" class="form-control" value="$idcontract" readonly>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <button type="submit" class="btn btn-danger">Editar Contrato</button>
@@ -80,6 +81,10 @@
                 
             </div>
         </section>
+        FRA;
+        }
+        
+        ?>
         <!-- Frameworks -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
