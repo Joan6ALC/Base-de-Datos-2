@@ -6,10 +6,29 @@
     <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- Iconos bootstrap -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
+    <script language="JavaScript" type="text/javascript" src="scripts.js"></script> <!-- Para importar mi hoja de scripts propia -->
 </head>
     <body>
         <header>
+        <?php if (isset($_GET['error'])){
+            switch ($_GET['error']) {
+                case 1:
+                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi-person-x" style="font-size: 0.9rem;"></i>
+                                &nbspLas contraseñas no coinciden
+                            </div>';
+                    break;
+                case 2:
+                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi-person-x" style="font-size: 0.9rem;"></i>
+                                &nbspEl nombre de usuario elegido ya existe
+                            </div>';
+                    break;
+                default:
+                }
+        } ?>
             <h1 class="title-small">Pelistube</h1>
             <h2 class="subtitle-small">Tu plataforma de streaming</h2>
         </header>
@@ -48,17 +67,6 @@
                                             <input type="password" name="password2" class="form-control" placeholder="Contraseña" required>    
                                         </div>
                                         <a class="padding"></a>
-                                        <?php if (isset($_GET['error'])){
-                                            switch ($_GET['error']) {
-                                                case 1:
-                                                    echo '<div class="error-message">Las contraseñas no coinciden</div>';
-                                                    break;
-                                                case 2:
-                                                    echo '<div class="error-message">El nombre de usuario elegido ya existe</div>';
-                                                    break;
-                                                default:
-                                            }
-                                        } ?>
                                     </div>
                                     <button type="submit" class="btn btn-danger">Registrarse</button>
                                 </div>
