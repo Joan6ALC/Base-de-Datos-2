@@ -9,6 +9,26 @@
     $contract = $_SESSION['IdContracte'];
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
 
+    if(!isset($consulta['IdFactura'])){
+        echo 'xd';
+    }else{
+        $resultado = mysqli_query($con,$consulta);
+        $registro = mysqli_fetch_array($resultado);
+        //".$fila['IdFactura']."
+
+        $facturastotal = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
+        $res = mysqli_query($con,$facturastotal);
+        if (mysqli_num_rows($res) > 0) {
+            while($fila = mysqli_fetch_assoc($res)){
+                $trob = $fila["IdFactura"];
+                $datapagfila = $fila["dataPagament"];
+                $dataInfila = $fila["dataInici"];
+                $dataFifila = $fila["dataFi"];                                                
+                $importfila = $fila["import"]; 
+            }
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,28 +44,6 @@
         <header>
             <?php include "navbar.php"; ?>
         </header>
-        
-        <?php
-        if(!isset($consulta['IdFactura'])){
-            echo 'xd';
-        }else{
-            $resultado = mysqli_query($con,$consulta);
-            $registro = mysqli_fetch_array($resultado);
-            //".$fila['IdFactura']."
-
-            $facturastotal = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
-            $res = mysqli_query($con,$facturastotal);
-            if (mysqli_num_rows($res) > 0) {
-                while($fila = mysqli_fetch_assoc($res)){
-                    $trob = $fila["IdFactura"];
-                    $datapagfila = $fila["dataPagament"];
-                    $dataInfila = $fila["dataInici"];
-                    $dataFifila = $fila["dataFi"];                                                
-                    $importfila = $fila["import"]; 
-                }
-            }
-        }
-        ?>
         <section> 
             <div class="container">
             <div class = "padding"><br></div>
