@@ -42,13 +42,15 @@ footer{
 }
 
 .congrats-message{
-    color:#dc3545;
+    color:green;
+    text-align:center;
     font-weight: bold;
 }
 
 
 .error-message{
     color:#dc3545;
+    text-align: center;
     font-weight: bold;
 }
 
