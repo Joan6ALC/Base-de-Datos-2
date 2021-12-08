@@ -1,3 +1,11 @@
+<?php session_start();
+
+    if(isset($_SESSION['username'])){
+        header("Location: login.php");
+        die();
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,7 +41,7 @@
                                                     echo '<div class="error-message">Contraseña incorrecta</div>';
                                                     break;
                                                 case 3: 
-                                                    echo '<center>Te has registrado satisfactoriamente</center>';
+                                                    echo '<div class="congrats-message">Te has registrado satisfactoriamente</div>';
                                                 default:
                                             }
                                         } ?>
