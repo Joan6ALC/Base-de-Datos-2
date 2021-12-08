@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- Iconos bootstrap -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
     <script language="JavaScript" type="text/javascript" src="scripts.js"></script> <!-- Para importar mi hoja de scripts propia -->
+    
 </head>
     <body>
 
@@ -218,11 +219,11 @@
                                                 }
 
                                                 if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                                    echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-success btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';
+                                                    echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-dark btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';
                                                                 
                                                                         
                                                 }  else { // Imprimim el botó per afegir favorit
-                                                    echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-success btn-sm"><i class="bi-star" title="Agregar a favoritos" style="font-size: 0.9rem;"></i></a>';
+                                                    echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-dark btn-sm"><i class="bi-star" title="Agregar a favoritos" style="font-size: 0.9rem;"></i></a>';
                                                                 
                                                 }
                                                 
