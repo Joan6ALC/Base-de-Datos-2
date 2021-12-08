@@ -8,68 +8,147 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
-    <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
-    <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
+    <title>PelisTube - Tu plataforma de streaming</title>
+    <!--Título que aparecerá en la pestaña del navegador-->
+    <link rel="stylesheet" href="css/bootstrap.min.css" /> <!-- Importamos hoja de estilos de bootrstrap-->
+    <link rel="stylesheet" href="styles.css" /> <!-- Nuestra propia hoja de estilos-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- iconos bootstrap -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
 </head>
-    <body>
 
-        <header>
-            <?php include "navbar.php"; ?>
-        </header>
+<body>
 
         <section>       
-        <div class="padding"></div>
-            <div class="container">
-                <div class="row ">
-                    <div class="col-md-1"></div> 
-                    <div class="col-md-10">
-                        <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <div class="d-grid gap-0">
-                                
-                            <center>
-                            <?php 
-
-                            include "connection.php";
-
-                            $consulta = "SELECT * FROM categoria";
-
-                            $resultado=mysqli_query($con, $consulta); 
-
-                            echo "<table align='center'>";
-                            echo "<tr><td>Categoria</td><td colspan='10' align='center'>Acción</td></tr>";
-
-                            while ($categoria = mysqli_fetch_array($resultado)) {
-                                $fav = '<a href="afegirCategoriaFavorita.php?categoria='.$categoria['nomCat'].'"><3</a>';   
-                                echo "<tr><td>".$categoria['nomCat']."</td><td>".$fav."</td><td>";
-                            }
-
-                        echo "</table>";
-
-                        mysqli_close($con);
-                        // Mostrar menú d'opcions
-                        ?>
-                                
-                                </center>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         
+                                
+    <header>
+        <?php include "navbar.php"; ?>
+    </header>
 
-        <footer>
-            PelisTube &copy; 2021
-        </footer>
+    <section>
+            <div class="padding"></div>
+            <center>
+                <div class="container">
+                    <div class="col-md-1"></div> 
+                        <div class="col-md-10">
+                            <div class="shadow-lg p-4 mb-5 bg-body rounded">
+                                <div class="d-grid gap-0">
+
+        <?php
+        include "connection.php";
+        $query = "SELECT * from categoria ORDER BY nomCat ASC";
+                                    $result = mysqli_query($con,$query);
+                                    while($row = mysqli_fetch_array($result)){
+                                        if(isset($_SESSION['IdContracte'])){
+                                            $query2 = "SELECT * from categoriafavorits where IdContracte=".$_SESSION['IdContracte']." AND nomCat=".$row['nomCat'].""; // Per comprovar si ja està a la llista de favorits
+                                            $result2 = mysqli_query($con,$query2);
+                                            if(($result2)){
+                                                $fav = mysqli_fetch_array($result2);
+                                            }
+                                        }
+                                        echo  
+                                        '<div class="row ">
+                                        <div class="row justify-content-center gap-2">       
+                                        <div class="card" style="width: 65rem;">
+                                                        <div class="card-body">
+                                                            <center><h6>'.$row['nomCat'].'</h6>
+                                                            <div class="padding"></div>';
+
+                                        if(isset($fav)){ // Imprimim el botó per eliminar favorit
+                                            echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                            </div>
+                                            </div>            
+                                                </div>';
+                                            
+                                        }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
+                                            echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'" class="btn btn-outline-success btn-sm" data-toggle="modal" data-show="false" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
+                                            </div>
+                                            </div>
+                                            </div>
+                                                    ';
+                                        }  else {
+                                            echo       
+                                            '</div>
+                                            </div>
+                                            </div>
+                                                    ';
+                                        }
+                                        echo '<div class="row justify-content-center gap-2">'; 
+                                        $query3 = "SELECT * from contingut ORDER BY RAND()";
+                                            $result3 = mysqli_query($con,$query3);
+                                                while($row2 = mysqli_fetch_array($result3)){
+                                                    if(isset($_SESSION['IdContracte'])){
+                                                        $query4 = "SELECT * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row2['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
+                                                        $result4 = mysqli_query($con,$query4);
+                                                        $fav2 = mysqli_fetch_array($result4);
+                                                    }
+
+                                        
+                                        
+                                                    echo   '
+                                                    
+                                                    <div class="card" style="width: 12rem;">
+                                                        <img class="card-img-top" src=".'.$row2['camiFoto'].'" alt="'.$row2['titol'].'.png" height="250">
+                                                            <div class="card-body">
+                                                            <center><h6>'.$row2['titol'].'</h6>
+                                                            <div class="padding"></div>
+                                                            <a href="veureContingut.php?id='.$row2['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
+                                                        if(isset($fav2)){ // Imprimim el botó per eliminar favorit
+                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                                                </div>
+                                                            </div>';
+                                                                            
+                                                        }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
+                                                            echo            '<a href="afegirContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-outline-success btn-sm" data-toggle="modal" data-show="false" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
+                                                                </div>
+                                                            </div>';
+                                                        }  else {
+                                                                echo   
+                                                                '</div>
+                                                            </div>';
+                                                        }         
+                                
+                                            }
+                                
+                                             
+                                                        echo '<div class="padding"></div>
+                                                        ';
+                                
+
+                                    }
+                                    
+
+        ?>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+                                </center>
+        </div>
+
+    </section>
+
+
+    <footer>
+        PelisTube &copy; 2021
+    </footer>
 
     <!-- Frameworks -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+</body>
+
 </html>

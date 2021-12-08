@@ -43,7 +43,7 @@
                                 </div>';
                         break;
 
-                    case 3: // ADDICCIÓ
+                    case 3: // ADDICIÓ
                         echo    '<div class="padding"></div><div class="alert alert-primary alert-dismissible fade show" role="alert">
                                     <i class="bi-plus-circle" style="font-size: 0.9rem;"></i>
                                     &nbspContenido añadido correctamente
@@ -84,11 +84,11 @@
                                 <?php
                                     include "connection.php";
 
-                                    $query = "select * from contingut ORDER BY RAND()";
+                                    $query = "SELECT * from contingut ORDER BY RAND()";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
-                                            $query2 = "select * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
+                                            $query2 = "SELECT * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
                                             $result2 = mysqli_query($con,$query2);
                                             $fav = mysqli_fetch_array($result2);
                                         }

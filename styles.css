@@ -1,6 +1,7 @@
 body{
     background-image: url("../../img/background.jpg");
     background-color:white;
+    overflow: auto;
 }
 
 header{
@@ -56,11 +57,10 @@ footer{
 
 .padding{
     padding-top: 10px;
+    
 }
 
-.padding-right{
-    padding-right: 10px;
-}
+
 
 @font-face {
     font-family: manis;

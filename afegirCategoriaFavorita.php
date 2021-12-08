@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<body>
+
+        <section>       
+        
+                                
+    <header>
+        <?php include "navbar.php"; ?>
+    </header>
 <?php 
     
     session_start();
@@ -7,26 +16,33 @@
     }
 
     include "connection.php";
-    $Categoria = $_GET['categoria'];
-    $username = $_SESSION['username'];
+    $Categoria = $_GET['id'];
 
-    $ConsultaContrato = "SELECT idContracte FROM contracte WHERE username = '".$username."'"; 
-    $ResultadoContrato = mysqli_query($con, $ConsultaContrato);
-    $idcontracte = mysqli_fetch_array($ResultadoContrato);
-
-    $consulta = "SELECT nomCat FROM categoriafavorits WHERE idContracte = '".$idcontracte."'";
+    echo "Aun no ha entrado";
+    if(isset($_SESSION['IdContracte'])){
+        echo "Ha entrado";
+    $consulta = "SELECT nomCat FROM CategoriaFavorits WHERE idContracte = '".$_SESSION['IdContracte']."'";
     $Resultado = mysqli_query($con, $consulta);
 
     while($Registre = mysqli_fetch_array($Resultado)){
         if($Categoria==$Registre['nomCat']){
-            echo "La categoria ya esta dentro de la lista de favoritos";
-            header("Location: login.php?");
-            die();
+            echo "La categoria ya estaba dentro";
+            
         }
     }
-    $insert = "INSERT into categoriafavorits (idContracte, nomCat) values ('".$idcontracte."','".$Categoria."')";
+    $insert = "INSERT into CategoriaFavorits set";
+    $insert = $insert."IdContracte='".$_SESSION['IdContracte']."',";
+    $insert = $insert."nomCat='".$Categoria."'";
     mysqli_query($con, $insert);
     echo "Se ha añadido la categoria a favoritos";
-    header("Location: login.php?");
-    die();
+    
+    }else{
+        echo "Sesion no iniciada";
+        
+    }
+
+    
 ?>
+</section>
+</body>
+</html>
