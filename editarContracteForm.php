@@ -6,11 +6,16 @@
         die();
     }
     $user = $_SESSION['username'];
-    //$comprovacio = "SELECT IdContracte FROM contracte WHERE username = '".$user."'";
-    //$aplicacio =  mysqli_query($con, $comprovacio);
-    //$resp = mysqli_fetch_array($aplicacio);
 
+    $consulta = "SELECT estat FROM contracte WHERE username = '".$user."'";
+    $resultado = mysqli_query($con,$consulta);
+    $registro = mysqli_fetch_array($resultado);
 
+    $consul = 'select distinct (nomTarifa) from Tarifa';
+    $resul1 = mysqli_query($con,$consul);
+    $trobat = 'select nomTarifa from contracte where username = "'.$user.'"';
+    $resul2 = mysqli_query($con,$trobat);
+    $fila2 =  mysqli_fetch_array($resul2);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,9 +45,6 @@
                                     <select name="entrada1">
                                         <optgroup label="Estado">
                                         <?php
-                                            $consulta = "SELECT estat FROM contracte WHERE username = '".$user."'";
-                                            $resultado = mysqli_query($con,$consulta);
-                                            $registro = mysqli_fetch_array($resultado);
                                             if(!isset($registro['estat'])){
                                                 //si no existia
                                                 echo "<option value = '1' selected='selected'>Actiu</option>";
@@ -63,13 +65,7 @@
                                     <select name="entrada2">
                                         <optgroup label="Tipo de tarifa">
                                             <?php
-                                                $consul = 'select distinct (nomTarifa) from Tarifa';
-                                                $resul1 = mysqli_query($con,$consul);
-                                                $trobat = 'select nomTarifa from contracte where username = "'.$user.'"';
-                                                $resul2 = mysqli_query($con,$trobat);
-                                                $fila2 =  mysqli_fetch_array($resul2);
-
-                                                if(!isset($fila2['nomTarifa'])){
+                                                if(!isset($registro['estat'])){
                                                     //si no existia
                                                     if (mysqli_num_rows($resul1) > 0) {
                                                         while($fila1 = mysqli_fetch_assoc($resul1)){

@@ -8,25 +8,15 @@
       
     $contract = $_SESSION['IdContracte'];
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
+    $cerca = mysqli_query($con,$consulta);
+    $def = mysqli_fetch_array($cerca);
 
-    if(!isset($consulta['IdFactura'])){
-        echo 'xd';
+    if($def['import'] == null){
+        header("Location: nohihaFactures.php");
+        die();
     }else{
         $resultado = mysqli_query($con,$consulta);
-        $registro = mysqli_fetch_array($resultado);
-        //".$fila['IdFactura']."
-
-        $facturastotal = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
-        $res = mysqli_query($con,$facturastotal);
-        if (mysqli_num_rows($res) > 0) {
-            while($fila = mysqli_fetch_assoc($res)){
-                $trob = $fila["IdFactura"];
-                $datapagfila = $fila["dataPagament"];
-                $dataInfila = $fila["dataInici"];
-                $dataFifila = $fila["dataFi"];                                                
-                $importfila = $fila["import"]; 
-            }
-        }
+        $registro = mysqli_fetch_array($resultado); 
     }
 
 ?>
@@ -59,7 +49,20 @@
                                         <label>Factura:</label>
                                             <select name="facturas">
                                                 <optgroup>
-                                                <option value=<?php echo "'".$trob."'" ?>><?php echo "'".$trob."'" ?></option> 
+                                                <?php
+                                                    $facturastotal = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
+                                                    $res = mysqli_query($con,$facturastotal);
+                                                    if (mysqli_num_rows($res) > 0) {
+                                                        while($fila = mysqli_fetch_assoc($res)){
+                                                            $trob = $fila["IdFactura"];
+                                                            echo "<option value='".$trob."'>'".$trob."'</option>";
+                                                            $datapagfila = $fila["dataPagament"];
+                                                            $dataInfila = $fila["dataInici"];
+                                                            $dataFifila = $fila["dataFi"];                                                
+                                                            $importfila = $fila["import"]; 
+                                                        }
+                                                    }
+                                                ?>
                                                 </optgroup>
                                             </select>
                                     </form>

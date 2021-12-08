@@ -56,7 +56,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <?php
                                 if($_SESSION['IdContracte'] == null){
-                                    echo '<a class="dropdown-item" href="nohihaContracte.php">Hacer contrato</a>';
+                                    echo '<a class="dropdown-item" href="editarContracteForm.php">Hacer contrato</a>';
                                 }else{
                                     echo '<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>';
                                 }
