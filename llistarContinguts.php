@@ -36,9 +36,11 @@
                                     $query = "select * from contingut ORDER BY RAND()";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
-                                        $query2 = "select * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
-                                        $result2 = mysqli_query($con,$query2);
-                                        $fav = mysqli_fetch_array($result2);
+                                        if(isset($_SESSION['IdContracte'])){
+                                            $query2 = "select * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
+                                            $result2 = mysqli_query($con,$query2);
+                                            $fav = mysqli_fetch_array($result2);
+                                        }
 
                                         echo   '<div class="col">
                                                     <div class="card" style="width: 12rem;">
@@ -53,12 +55,16 @@
                                                     </div>
                                                 </div>';
                                             
-                                        }  else { // Imprimim el botó per afegir favorit
+                                        }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
                                             echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-success btn-sm" data-toggle="modal" data-show="false" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
                                                         </div>
                                                     </div>
                                                 </div>';
-                                        }             
+                                        }  else {
+                                            echo       '</div>
+                                                    </div>
+                                                </div>';
+                                        }         
 
                                     }
                                 ?>
