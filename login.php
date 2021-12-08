@@ -57,7 +57,6 @@
     
 </head>
     <body>
-
         <header>
             <?php include "navbar.php"; ?>
         </header>
@@ -235,17 +234,8 @@
                                             }
 
                                         } else { // Si no hem trobat cap pel·licula per recomanar, és perque l'usuari encara no ha afegit categories favorites
-                                            echo   '<div class="col">
-                                                        <div class="card" style="width: 40rem;">
-                                                            <div class="card-body">
-                                                            <br>
-                                                            <h6>Añade categorías favoritas para empezar a recibir recomendaciones</h6>
-                                                            <div class="padding"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>';
+                                            echo '<div class="padding"></div><h6><img src="img/tags.svg" height="15" width="15" style="color: white">&nbsp&nbspAñade categorías favoritas para empezar a recibir recomendaciones</h6><div class="padding"></div>';  
                                         }
-
 
                                         mysqli_close($con);
                                     ?> 

@@ -72,7 +72,7 @@
                             <?php 
                                 if($_SESSION['administrador']==1){
                                     echo '&nbsp&nbsp<a href="afegirContingut.php" class="btn btn-outline-primary btn-sm">
-                                    <i class="bi-plus-circle" title="Añadir contenido" style="font-size: 0.9rem;"></i>Añadir contenido
+                                    <i class="bi-plus-circle" title="Añadir contenido" style="font-size: 0.9rem;"></i> Añadir contenido
                                     </a>';
                                 }
                             ?>
