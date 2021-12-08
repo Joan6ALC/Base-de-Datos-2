@@ -29,14 +29,14 @@
                             <div class="col-md-1"></div> 
                                 <div class="col-md-10">
                                     <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                                        <form action="editarContracteForm.php" method="post">
+                                        <form action="login.php" method="post">
                                         <!--<form action="editarContracteForm.php" method="post">-->
                                             <h1 class="title-small">
-                                                <center> No tens cap contracte </center>
+                                                <center> No tens cap factura </center>
                                             </h1>
                                             <br>
                                             <center>
-                                            <button type="submit" class="btn btn-danger">Hacer contrato</button>
+                                            <button type="submit" class="btn btn-danger">Volver atrás</button>
                                             </center>
                                         </form>
                                     </div>
