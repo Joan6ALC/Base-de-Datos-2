@@ -9,7 +9,7 @@
     $user = $_SESSION['username'];
 
     if(!isset($_SESSION['IdContracte'])){
-        header("Location: nouContracte.php");
+        header("Location: nohihaContracte.php");
         die();
     }else{
         $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";

@@ -54,6 +54,13 @@
                         Mi perfil
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <!--<?php
+                                //if(!isset($_SESSION['IdContracte']){
+                                    //echo '<a class="dropdown-item" href="nouContracte.php">Hacer contrato</a>';
+                                //}else{
+                                    //echo '<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>';
+                                //}
+                            ?>-->
                             <a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>
                             <a class="dropdown-item" href="veureUsuariForm.php">Ver perfil</a>
                             <a class="dropdown-item" href="editarUsuariForm.php">Editar perfil</a>

@@ -1,27 +1,12 @@
 <?php 
+    include "connection.php";
     session_start();
     if(!isset($_SESSION['username'])){
         header("Location: index.php");
         die();
     }
-     // Connexió a bd
-    include "connection.php";
-    
-    $estado = $_POST['entrada1'];
-    $tarifa = $_POST['entrada2'];
     $user = $_SESSION['username'];
-    $localdate = date('y-m-d');
-    $notdate = null;
-    if($estado == 1){
-        $query = "insert into contracte (dataAlta,dataBaixa,estat,nomTarifa,username) VALUES ('".$localdate."', '".$notdate."','".$estado."', '".$tarifa."','".$user."'";
-    }//elseif($estado == 0){
-        //$query = "insert into contracte (dataAlta,dataBaixa,estat,nomTarifa,username) VALUES ('".$localdate."', '".$notdate."','".$estado."', '".$tarifa."','".$user."'";
-        //$query = "update contracte set dataBaixa = '".$localdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
-    //}
-    
-    mysqli_query($con, $query);
-    header("Location: login.php?username=$username&estado=$estado&nomTarifa=$tarifa"); // Redirigim a l'usuari a la pàgina principal
-    die();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,6 +22,30 @@
         <header>
             <?php include "navbar.php"; ?>
         </header>
+            <section>
+                <div class = "container">
+                    <div class = "padding"><br><br><br></div>
+                        <div class="row ">
+                            <div class="col-md-1"></div> 
+                                <div class="col-md-10">
+                                    <div class="shadow-lg p-4 mb-5 bg-body rounded">
+                                        <form action="nouContracteForm.php" method="post">
+                                            <h1 class="title-small">
+                                                <center> No tens cap contracte </center>
+                                            </h1>
+                                            <br>
+                                            <center>
+                                            <button type="submit" class="btn btn-danger">Hacer contrato</button>
+                                            </center>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
         <!-- Frameworks -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
