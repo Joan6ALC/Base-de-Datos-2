@@ -33,52 +33,30 @@
                     <div class="col-md-3"></div> <!--primera columna vacía-->
                     <div class="col-md-6">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <form action="editarUsuari.php" method="post">
+                            <form action="editarUsuariForm.php" method="post">
                                 <div class="d-grid gap-2">
+                                <label>Usuario:</label>
+                                    <input name="username" class="form-control" value="<?php echo $user ?>" readonly>
+
                                     <label>Nombre:</label>
-                                    <input name="name" class="form-control" value="<?php echo $registro['nom']; ?>" 
-                                    <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?>>
+                                    <input name="name" class="form-control" value="<?php echo $registro['nom']; ?>" readonly>
+        
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Primer apellido:</label>
-                                            <input name="surname1" class="form-control" value="<?php echo $registro['llinatge1']; ?>" <?php if(isset($_GET['surname1'])) echo 'value="'.$_GET['surname1'].'"'; ?>>
+                                            <input name="surname1" class="form-control" value="<?php echo $registro['llinatge1']; ?>" readonly>
                                         </div> 
                                         <div class="col-md-6">
                                             <label>Segundo apellido:</label>
-                                            <input name="surname2" class="form-control" value="<?php echo $registro['llinatge2']; ?>" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
+                                            <input name="surname2" class="form-control" value="<?php echo $registro['llinatge2']; ?>" readonly>       
                                         </div> 
                                     </div>
-
                                     
                                     <label>Fecha de nacimiento:</label>
-                                    <input type="date" name="dateofbirth" class="form-control" min="1920-1-01" max="2023-12-31" value ="<?php echo $registro['dataNaixament']; ?>"<?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?>>
-                                    <label>Usuario:</label>
-                                    <input name="username" class="form-control" value="<?php echo $user ?>" <?php if(isset($_GET['username'])) echo 'value="'.$_GET['username'].'"'; ?>>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Contraseña:</label>
-                                            <input type="password" name="password" class="form-control" placeholder="Contraseña" required>   
-                                        </div> 
-                                        <div class="col-md-6">
-                                            <label>Repite la contraseña:</label>
-                                            <input type="password" name="password2" class="form-control" placeholder="Contraseña" required>    
-                                        </div>
-                                        <a class="padding"></a>
-                                        <?php if (isset($_GET['error'])){
-                                            switch ($_GET['error']) {
-                                                case 1:
-                                                    echo '<div class="error-message">Las contraseñas no coinciden</div>';
-                                                    break;
-                                                case 2:
-                                                    echo '<div class="error-message">El nombre de usuario elegido ya existe</div>';
-                                                    break;
-                                                default:
-                                            }
-                                        } ?>
+                                    <input type="date" name="dateofbirth" class="form-control" min="1920-1-01" max="2023-12-31" value ="<?php echo $registro['dataNaixament']; ?>" readonly>
+                                    <div class="col-md-6">
+                                    <button type="submit" class="btn btn-danger">Editar</button>
                                     </div>
-                                    
-                                    <button type="submit" class="btn btn-danger">Aceptar cambios</button>
-                                    
                                 </div>
                             </form>
                         </div>

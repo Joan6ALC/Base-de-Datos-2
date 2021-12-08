@@ -46,6 +46,7 @@
             echo <<< FRA
             <section> 
             <div class="container">
+            <div class = "padding"><br></div>
             <div class = "row">
             <div class="col-md-3"></div> <!--primera columna vacía-->
                     <div class="col-md-6">

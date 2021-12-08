@@ -55,6 +55,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>
+                            <a class="dropdown-item" href="veureUsuariForm.php">Ver perfil</a>
                             <a class="dropdown-item" href="editarUsuariForm.php">Editar perfil</a>
                             <a class="dropdown-item" href="#">Mensajes</a>
                             <a class="dropdown-item" href="veureFactures.php">Facturas</a>
