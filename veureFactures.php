@@ -55,7 +55,7 @@
                                                     if (mysqli_num_rows($res) > 0) {
                                                         while($fila = mysqli_fetch_assoc($res)){
                                                             $trob = $fila["IdFactura"];
-                                                            echo "<option value='".$trob."'>'".$trob."'</option>";
+                                                            echo "<option value='".$trob."'>".$trob."</option>";
                                                             $datapagfila = $fila["dataPagament"];
                                                             $dataInfila = $fila["dataInici"];
                                                             $dataFifila = $fila["dataFi"];                                                
@@ -81,10 +81,27 @@
                                     <label>Import:</label>
                                     <input name="num" class="form-control" value=<?php echo "'".$importfila."'" ?> readonly>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <button type="submit" class="btn btn-danger">Atras</button>
-                                        </div> 
+                                        <div class="col-md-9">
+                                            <button type="submit" class="btn btn-danger">Ver facturas pagadas</button>
+                                        </div>
+                                            <?php
+                                                if($datapagfila == null){
+                                                    echo '<div class="col">';
+                                                    //echo '<center>';
+                                                    echo '<button type="submit" class="btn btn-danger">Pagar</button>';
+                                                    //echo '</center>';
+                                                    echo '</div>';
+                                                }
+                                            ?>
                                     </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-danger">Ver pendientes de pago</button>
+                                        </div>
+                                    </div>
+
+                        
+                                    
                                 </div>
                             </form>
                          </div>
