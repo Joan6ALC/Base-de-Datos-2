@@ -12,7 +12,8 @@
     $actualitzar = "update factura set dataPagament = '".$localdate."' where IdFactura = '".$factura."'";
 
     mysqli_query($con, $actualitzar);  
-    header("Location:veureFactures.php?datapag=$localdate"); 
+    //$redirect = $_GET['redir'];
+    header("Location: veureFactures.php?datapag=$localdate"); 
     die();
 ?>
 <!DOCTYPE html>

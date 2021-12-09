@@ -9,7 +9,7 @@
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."' AND dataPagament IS NOT NULL";
     $cerca = mysqli_query($con,$consulta);
     if (mysqli_num_rows($cerca) < 1) {
-        header("Location: nohihaFactures.php");
+        header("Location: nohihaFactures.php?redir=veureFactures.php");
         die();
     }
       
@@ -36,7 +36,7 @@
                 $trob = $fila["IdFactura"];
                 $datapagfila = $fila["dataPagament"];
                 $dataInfila = $fila["dataInici"];
-                $dataFifila = $fila["dataFi"];
+                $dataFifila = $fila["dataFinal"];
                 $importfila = $fila["import"];
 
                 echo '<div class="container">

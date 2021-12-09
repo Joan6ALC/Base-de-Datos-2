@@ -12,7 +12,7 @@
     $def = mysqli_fetch_array($cerca);
 
     if($def['import'] == null){
-        header("Location: nohihaFactures.php");
+        header("Location: nohihaFactures.php?redir=login.php");
         die();
     }
 
