@@ -102,7 +102,9 @@
                                         </div>
                                     </div>
                                     </center>
-                                    <div class="col"> <!-- FACTURES -->
+                                    <div class="col">
+                                        <!-- **** FACTURES **** -->
+                                        <!-- Es mostra la última factura disponible de l'usuari, en cas de tenir-ne i per a que la pagui -->
                                         <h5>Facturación</h5>
                                         <div class="padding"></div>
                                         <center>
@@ -138,7 +140,15 @@
                                 <div class="padding"></div>
                                 <h5>Novedades</h5>
                                 <center>
-                                <div class="row justify-content-center gap-2"> <!-- NOVETATS -->
+                                <div class="row justify-content-center gap-2"> 
+                                <!-- **** SISTEMA DE RECOMANACIÓ **** -->
+                                <!-- Es mostren continguts segons els missatges rebuts i no llegits pels usuaris (recordem que els missatges van associats
+                                a un nou contingut que s'acaba de pujar a la plataforma). Així doncs, si l'usuari té pel·lícules noves per veure (missatges)
+                                li surtiran tants de continguts com missatges associats a cada un d'ells tengui, fins a un màxim de 8. Si un usuari no té 
+                                missatges pendents de llegir o en té menys de 8, es llistaran continguts de forma aleatòria de les categories favorites de
+                                l'usuari fins al màxim de 8 continguts (sense que es repeteixi cap contingut). En cas de no tenir cap categoria favorita es
+                                mostrarà un missatge indicant-li a l'usuari que afegueixi marqui alguna categoria com a favorita per començar a rebre
+                                recomanacions. El sistema de recomanació està també explicat al video. -->
                                     <?php
                                         class contingut{
                                             public $titol;
