@@ -19,6 +19,9 @@
         $registro = mysqli_fetch_array($resultado); 
     }
 
+   
+     
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +44,7 @@
             <div class="col-md-3"></div> <!--primera columna vacía-->
                     <div class="col-md-6">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <form action="login.php" method="post">
+                            
                                 <div class="d-grid gap-2">
                                     <label>Id del Contrato:</label>
                                     <input name="contrac" class="form-control" value=<?php echo "'".$contract."'" ?> readonly>
@@ -55,11 +58,11 @@
                                                     if (mysqli_num_rows($res) > 0) {
                                                         while($fila = mysqli_fetch_assoc($res)){
                                                             $trob = $fila["IdFactura"];
-                                                            
+
                                                             echo "<option value='".$trob."'>".$trob."</option>";
                                                             $datapagfila = $fila["dataPagament"];
                                                             $dataInfila = $fila["dataInici"];
-                                                            $dataFifila = $fila["dataFi"];                                                
+                                                            $dataFifila = $fila["dataFi"];
                                                             $importfila = $fila["import"]; 
                                                         }
                                                     }
@@ -68,7 +71,7 @@
                                             </select>
                                     </form>
                                     <label>Data pagament:</label>
-                                    <input type="date" name="datapag" class="form-control" value =<?php echo "'".$datapagfila."'" ?> readonly>
+                                    <input type="date" name="datapag" class="form-control" value =<?php "'".$datapagfila."'" ?> readonly>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Data inici:</label>
@@ -83,14 +86,19 @@
                                     <input name="num" class="form-control" value=<?php echo "'".$importfila."'" ?> readonly>
                                     <div class="row">
                                         <div class="col-md-9">
+                                        <form action="pagar.php" method="post" id="$trob">
                                             <button type="submit" class="btn btn-danger">Ver facturas pagadas</button>
+                                        </form>
                                         </div>
                                             <?php
                                                 if($datapagfila == null){
                                                     echo '<div class="col">';
                                                     //echo '<center>';
-                                                    echo '<button type="submit" class="btn btn-danger">Pagar</button>';
-                                                    echo pagar.php?id=$trob
+                                                    //echo '<form action="pagar.php" method="post">';
+                                                    echo '<a href="pagar.php?value='.$trob.'" class="btn btn-danger">Pagar</a>';
+                                                    //echo '<button type="submit" value="$trob" class="btn btn-danger">Pagar</button>';
+                                                    //echo '</form>';
+                                                    //echo (Locationpagar.php?id=$trob
                                                     //echo '</center>';
                                                     echo '</div>';
                                                 }
@@ -98,14 +106,12 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
+                                        <form action="pagar.php" method="post" id="$trob">
                                             <button type="submit" class="btn btn-danger">Ver pendientes de pago</button>
+                                        </form>
                                         </div>
                                     </div>
-
-                        
-                                    
-                                </div>
-                            </form>
+                                </div>  
                          </div>
                     </div>
                 </div>  

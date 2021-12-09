@@ -6,13 +6,13 @@
         die();
     }
      
-    $factura = $_GET['id'];
+    $factura = $_GET['value'];
     $localdate = date('y-m-d');
     $contract = $_SESSION['IdContracte'];
-    $actualitzar = "update from factura set dataPagament = '".$localdate."' where IdFactura = '".$factura."'";
+    $actualitzar = "update factura set dataPagament = '".$localdate."' where IdFactura = '".$factura."'";
 
     mysqli_query($con, $actualitzar);  
-    header("Location: veureFactures.php"); 
+    header("Location:veureFactures.php?datapag=$localdate"); 
     die();
 ?>
 <!DOCTYPE html>
