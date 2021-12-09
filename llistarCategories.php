@@ -32,7 +32,13 @@
 
     <section>
             <div class="padding"></div>
-            
+            <center>
+                <div class="container">
+                    <div class="col-md-1"></div> 
+                        <div class="col-md-10">
+                            <div class="shadow-lg p-4 mb-5 bg-body rounded">
+                                <div class="d-grid gap-0">
+
         <?php
         include "connection.php";
         $query = "SELECT * from categoria ORDER BY nomCat ASC";
@@ -104,7 +110,12 @@
                                     mysqli_close($con);
 
         ?>
-        
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+                                </center>
         </div>
 
     </section>
