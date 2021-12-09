@@ -127,7 +127,7 @@
                                 
 
                                     }
-                                    my_
+                                    mysqli_close($con);
 
         ?>
         </div>
