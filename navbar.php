@@ -28,7 +28,7 @@
                             $query = "SELECT * from categoria ORDER BY nomCat ASC";
                             $result = mysqli_query($con,$query);
                             while($row = mysqli_fetch_array($result)){
-                                echo '<a class="dropdown-item" href="llistaContingutCat.php?id='".$row['nomCat']."'">'.$row['nomCat'].'</a>';
+                                //echo '<a class="dropdown-item" href="llistaContingutCat.php?id='".$row['nomCat']."'">'.$row['nomCat'].'</a>';
                             }
                         ?>
                             <a class="dropdown-item" href="#">Todas las categorias</a>
