@@ -69,7 +69,9 @@
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                                 <div class="row gap-2">
-                                    <div class="col"> <!-- MISSATGES -->
+                                    <div class="col"> 
+                                        <!-- ******** MISSATGES ******** -->
+                                        <!-- Mostra el número total de missatges pendents per llegir i el darrer missatge rebut -->
                                         <h5>Bandeja de entrada</h5>
                                         <div class="padding"></div>
                                         <center>
@@ -103,7 +105,7 @@
                                     </div>
                                     </center>
                                     <div class="col">
-                                        <!-- **** FACTURES **** -->
+                                        <!-- ******** FACTURES ******** -->
                                         <!-- Es mostra la última factura disponible de l'usuari, en cas de tenir-ne i per a que la pagui -->
                                         <h5>Facturación</h5>
                                         <div class="padding"></div>
@@ -136,120 +138,120 @@
                                         </div>
                                     </div>
                                     </center>
-                                <br>
-                                <div class="padding"></div>
-                                <h5>Novedades</h5>
-                                <center>
-                                <div class="row justify-content-center gap-2"> 
-                                <!-- **** SISTEMA DE RECOMANACIÓ **** -->
-                                <!-- Es mostren continguts segons els missatges rebuts i no llegits pels usuaris (recordem que els missatges van associats
-                                a un nou contingut que s'acaba de pujar a la plataforma). Així doncs, si l'usuari té pel·lícules noves per veure (missatges)
-                                li surtiran tants de continguts com missatges associats a cada un d'ells tengui, fins a un màxim de 8. Si un usuari no té 
-                                missatges pendents de llegir o en té menys de 8, es llistaran continguts de forma aleatòria de les categories favorites de
-                                l'usuari fins al màxim de 8 continguts (sense que es repeteixi cap contingut). En cas de no tenir cap categoria favorita es
-                                mostrarà un missatge indicant-li a l'usuari que afegueixi marqui alguna categoria com a favorita per començar a rebre
-                                recomanacions. El sistema de recomanació està també explicat al video. -->
-                                    <?php
-                                        class contingut{
-                                            public $titol;
-                                            public $cami;
-                                            public $id; 
+                                    <br>
+                                    <div class="padding"></div>
+                                    <h5>Novedades</h5>
+                                    <center>
+                                    <div class="row justify-content-center gap-2"> 
+                                    <!-- ******** SISTEMA DE RECOMANACIÓ ******** -->
+                                    <!-- Es mostren continguts segons els missatges rebuts i no llegits pels usuaris (recordem que els missatges van associats
+                                    a un nou contingut que s'acaba de pujar a la plataforma). Així doncs, si l'usuari té pel·lícules noves per veure (missatges)
+                                    li surtiran tants de continguts com missatges associats a cada un d'ells tengui, fins a un màxim de 8. Si un usuari no té 
+                                    missatges pendents de llegir o en té menys de 8, es llistaran continguts de forma aleatòria de les categories favorites de
+                                    l'usuari fins al màxim de 8 continguts (sense que es repeteixi cap contingut). En cas de no tenir cap categoria favorita es
+                                    mostrarà un missatge indicant-li a l'usuari que afegueixi marqui alguna categoria com a favorita per començar a rebre
+                                    recomanacions. El sistema de recomanació està també explicat al video. -->
+                                        <?php
+                                            class contingut{
+                                                public $titol;
+                                                public $cami;
+                                                public $id; 
 
-                                            public function __construct($titol, $cami, $id){
-                                                $this->titol = $titol;
-                                                $this->cami = $cami;
-                                                $this->id = $id;
+                                                public function __construct($titol, $cami, $id){
+                                                    $this->titol = $titol;
+                                                    $this->cami = $cami;
+                                                    $this->id = $id;
+                                                }
                                             }
-                                        }
 
-                                        include "connection.php";
+                                            include "connection.php";
 
-                                        $pelicules=array(); // Array de pel·lícules recomanades/novetats
+                                            $pelicules=array(); // Array de pel·lícules recomanades/novetats
 
-                                        // SEGONS MISSATGES: Guardam les pel·lícules recomanades segons els missatges (que venen donats segons les categories favorites)
-                                        $query = "select * from missatge where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
-                                        $result = mysqli_query($con,$query);
-                                        $i=0;
-
-                                        if($row=mysqli_fetch_array($result)){
-                                            while ($row=mysqli_fetch_array($result) and $i<8){ // Mostrrem un màxim de 8 continguts
-                                                $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agafo el contingut recomanat
-                                                $result2 = mysqli_query($con,$query);
-                                                $contingut = mysqli_fetch_array($result2);
-                                                
-                                                $c=new contingut($contingut['titol'], $contingut['camiFoto'], $contingut['IdContingut']); // el guardo a l'array
-                                                array_push($pelicules, $c);
-                                                $i=$i+1;
-                                            }
-                                        }
-                                        
-                                        // NOVETATS SEGONS LES CATEGORIES FAVORITES D'UN USUARI
-                                        $query = "select count(*) from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."'" ; // Calculam el nombre de categories favorites del usuari
-                                        $result = mysqli_query($con,$query);
-                                        $row = mysqli_fetch_array($result);
-
-                                        $nFalta=8-$i; // Pel·lícules que falten per mostrar el màxim de 8 pel·lícules al login
-                                        $nCategories= $row['count(*)']; // num de categories favorites de l'usuari
-
-                                        if($nCategories>0){
-                                            $query = "select * from categoriafavorits join contingut on contingut.nomCat=categoriafavorits.nomCat and categoriafavorits.IdContracte=".$_SESSION['IdContracte']." ORDER BY RAND() LIMIT 15;" ; // Obtenim 8 continguts aleatories que pertanyen a una categoria favorita de l'usuari
+                                            // SEGONS MISSATGES: Guardam les pel·lícules recomanades segons els missatges (que venen donats segons les categories favorites)
+                                            $query = "select * from missatge where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
                                             $result = mysqli_query($con,$query);
-                                            
-                                            $it=0;
-                                            while($contingut = mysqli_fetch_array($result) and $it<$nFalta){
-                                                $c=new contingut($contingut['titol'], $contingut['camiFoto'], $contingut['IdContingut']);
-                                                if(!in_array($c,$pelicules)){ // Si és un contingut que ja es troba dins l'array, no l'afegirem a l'array i no iterarem (seguirem cercant)
+                                            $i=0;
+
+                                            if($row=mysqli_fetch_array($result)){
+                                                while ($row=mysqli_fetch_array($result) and $i<8){ // Mostrrem un màxim de 8 continguts
+                                                    $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agafo el contingut recomanat
+                                                    $result2 = mysqli_query($con,$query);
+                                                    $contingut = mysqli_fetch_array($result2);
+                                                    
+                                                    $c=new contingut($contingut['titol'], $contingut['camiFoto'], $contingut['IdContingut']); // el guardo a l'array
                                                     array_push($pelicules, $c);
+                                                    $i=$i+1;
+                                                }
+                                            }
+                                            
+                                            // NOVETATS SEGONS LES CATEGORIES FAVORITES D'UN USUARI
+                                            $query = "select count(*) from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."'" ; // Calculam el nombre de categories favorites del usuari
+                                            $result = mysqli_query($con,$query);
+                                            $row = mysqli_fetch_array($result);
+
+                                            $nFalta=8-$i; // Pel·lícules que falten per mostrar el màxim de 8 pel·lícules al login
+                                            $nCategories= $row['count(*)']; // num de categories favorites de l'usuari
+
+                                            if($nCategories>0){
+                                                $query = "select * from categoriafavorits join contingut on contingut.nomCat=categoriafavorits.nomCat and categoriafavorits.IdContracte=".$_SESSION['IdContracte']." ORDER BY RAND() LIMIT 15;" ; // Obtenim 8 continguts aleatories que pertanyen a una categoria favorita de l'usuari
+                                                $result = mysqli_query($con,$query);
+                                                
+                                                $it=0;
+                                                while($contingut = mysqli_fetch_array($result) and $it<$nFalta){
+                                                    $c=new contingut($contingut['titol'], $contingut['camiFoto'], $contingut['IdContingut']);
+                                                    if(!in_array($c,$pelicules)){ // Si és un contingut que ja es troba dins l'array, no l'afegirem a l'array i no iterarem (seguirem cercant)
+                                                        array_push($pelicules, $c);
+                                                        $it=$it+1;
+                                                    }
+                                                }
+                                            }
+
+                                            // IMPRIMIM EL RESULTAT DE LA CERCA
+                                            $length=count($pelicules);
+                                            if (count($pelicules)>0){ // Hi ha pel·lícules per recomanar
+                                                shuffle($pelicules); // Es mesclen els continguts per mostrar-se de forma aleatòria
+                                                $it=0;
+                                                while ($it<$length){
+                                                    $query2 = "select * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$pelicules[$it]->id.""; // Per comprovar si ja està a la llista de favorits
+                                                    $result2 = mysqli_query($con,$query2);
+                                                    $fav = mysqli_fetch_array($result2);
+
+                                                    echo   '<div class="col">
+                                                                <div class="card" style="width: 12rem;">
+                                                                    <img class="card-img-top" src=".'.$pelicules[$it]->cami.'" alt="'.$pelicules[$it]->titol.'.png" height="250">
+                                                                    <div class="card-body">
+                                                                        <h6>'.$pelicules[$it]->titol.'</h6>
+                                                                        <div class="padding"></div>
+                                                                        <a href="veureContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-danger btn-sm">Ver película</a> ';
+
+                                                    if($_SESSION['administrador']==1){
+                                                        echo           '<a href="eliminarContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-danger btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';              
+                                                    }
+
+                                                    if(isset($fav)){ // Imprimim el botó per eliminar favorit
+                                                        echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-dark btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';
+                                                                    
+                                                                            
+                                                    }  else { // Imprimim el botó per afegir favorit
+                                                        echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-dark btn-sm"><i class="bi-star" title="Agregar a favoritos" style="font-size: 0.9rem;"></i></a>';
+                                                                    
+                                                    }
+                                                    
+                                                    echo            '</div>
+                                                                </div>
+                                                            </div>';
+
                                                     $it=$it+1;
                                                 }
-                                            }
-                                        }
 
-                                        // IMPRIMIM EL RESULTAT DE LA CERCA
-                                        $length=count($pelicules);
-                                        if (count($pelicules)>0){ // Hi ha pel·lícules per recomanar
-                                            shuffle($pelicules); // Es mesclen els continguts per mostrar-se de forma aleatòria
-                                            $it=0;
-                                            while ($it<$length){
-                                                $query2 = "select * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$pelicules[$it]->id.""; // Per comprovar si ja està a la llista de favorits
-                                                $result2 = mysqli_query($con,$query2);
-                                                $fav = mysqli_fetch_array($result2);
-
-                                                echo   '<div class="col">
-                                                            <div class="card" style="width: 12rem;">
-                                                                <img class="card-img-top" src=".'.$pelicules[$it]->cami.'" alt="'.$pelicules[$it]->titol.'.png" height="250">
-                                                                <div class="card-body">
-                                                                    <h6>'.$pelicules[$it]->titol.'</h6>
-                                                                    <div class="padding"></div>
-                                                                    <a href="veureContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-danger btn-sm">Ver película</a> ';
-
-                                                if($_SESSION['administrador']==1){
-                                                    echo           '<a href="eliminarContingut.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-danger btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';              
-                                                }
-
-                                                if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                                    echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-dark btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';
-                                                                
-                                                                        
-                                                }  else { // Imprimim el botó per afegir favorit
-                                                    echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'" class="btn btn-outline-dark btn-sm"><i class="bi-star" title="Agregar a favoritos" style="font-size: 0.9rem;"></i></a>';
-                                                                
-                                                }
-                                                
-                                                echo            '</div>
-                                                            </div>
-                                                        </div>';
-
-                                                $it=$it+1;
+                                            } else { // Si no hem trobat cap pel·licula per recomanar, és perque l'usuari encara no ha afegit categories favorites
+                                                echo '<div class="padding"></div><h6><img src="img/tags.svg" height="15" width="15" style="color: white">&nbsp&nbspAñade categorías favoritas para empezar a recibir recomendaciones</h6><div class="padding"></div>';  
                                             }
 
-                                        } else { // Si no hem trobat cap pel·licula per recomanar, és perque l'usuari encara no ha afegit categories favorites
-                                            echo '<div class="padding"></div><h6><img src="img/tags.svg" height="15" width="15" style="color: white">&nbsp&nbspAñade categorías favoritas para empezar a recibir recomendaciones</h6><div class="padding"></div>';  
-                                        }
-
-                                        mysqli_close($con);
-                                    ?> 
-                                </div>
+                                            mysqli_close($con);
+                                        ?> 
+                                    </div>
                                 
                                 </center>
                             </div>
@@ -259,7 +261,6 @@
             </div>
         </section>
         
-
         <footer>
             PelisTube &copy; 2021
         </footer>
