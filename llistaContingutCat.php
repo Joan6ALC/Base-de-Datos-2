@@ -62,7 +62,7 @@
                                                             <div class="padding"></div>';
 
                                         if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                            echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir="llistaContingutCat.php"" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
+                                            echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir=llistaContingutCat.php" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                             
                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
                                             echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'" class="btn btn-outline-dark btn-sm"  title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
@@ -92,7 +92,7 @@
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$row2['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
                                                         if(isset($fav2)){ // Imprimim el botó per eliminar favorit
-                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'&redir="llistaContingutCat.php"" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'&redir=llistaContingutCat.php" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
                                                                 </div>
                                                             </div>
                                                             </div>';

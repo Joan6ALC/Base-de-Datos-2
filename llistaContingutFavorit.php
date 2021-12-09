@@ -100,7 +100,7 @@
                                                             <center><h6>'.$data['titol'].'</h6>
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$data['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
-                                            echo            '<a href="eliminarContingutFavorit.php?id='.$data['IdContingut'].'&redir="llistaContingutFavorit.php"" class="btn btn-dark btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
+                                            echo            '<a href="eliminarContingutFavorit.php?id='.$data['IdContingut'].'&redir=llistaContingutFavorit.php" class="btn btn-dark btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
  
                                         
                                         if($_SESSION['administrador']==1){
@@ -110,7 +110,7 @@
                                                                     <a href="editarContingutForm.php?id='.$data['IdContingut'].'" class="btn btn-outline-success btn-sm">
                                                                         <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
                                                                     </a>
-                                                                    <a href="eliminarContingut.php?id='.$data['IdContingut'].'&redir="llistaContingutFavorit.php"" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
+                                                                    <a href="eliminarContingut.php?id='.$data['IdContingut'].'&redir=llistaContingutFavorit.php" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
                                                                         <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
                                                                     </a> 
                                                                 </div>

@@ -51,7 +51,7 @@
                                                             <center><h6>'.$row['nomCat'].'</h6>
                                                             <div class="padding"></div>';
 
-                                                        echo    '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir="llistaCategoriaFavorit.php"" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
+                                                        echo    '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir=llistaCategoriaFavorit.php" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                             
                                         echo '</div>
                                         </div>
@@ -78,7 +78,7 @@
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$row2['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
                                                         if(isset($fav2)){ // Imprimim el botó per eliminar favorit
-                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'&redir="llistaCategoriaFavorit.php"" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'&redir=llistaCategoriaFavorit.php" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
                                                                 </div>
                                                             </div>
                                                             </div>';
