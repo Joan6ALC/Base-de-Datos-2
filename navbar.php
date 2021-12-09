@@ -1,5 +1,5 @@
 <div class="col-12">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-2 border-bottom border-danger">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark border-2 border-bottom border-danger">
         <div class="container-fluid">
             <button class="navbar-toggler" data-target="#menu"  data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span> <!-- Desplegable per a dispositius petits -->
@@ -49,21 +49,20 @@
                 <!-- Perfil i tancar sessió -->
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item dropdown">
-                        <li class="nav-item"><a class="nav-link" href="#"><img src="img/envelope.svg" height="25" width="25"></a></li>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Mi perfil
+                        Perfil
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <!--<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>-->
+                            <a class="dropdown-item" href="veureUsuariForm.php">Mi perfil</a>
+                            <a class="dropdown-item" href="#">Mensajes</a>
                             <?php
                                 if($_SESSION['IdContracte'] == null){
-                                    echo '<a class="dropdown-item" href="editarContracteForm.php">Hacer contrato</a>';
+                                    echo '<a class="dropdown-item" href="editarContracteForm.php">Contratar</a>';
                                 }else{
                                     echo '<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>';
                                 }
                             ?>
-                            <!--<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>-->
-                            <a class="dropdown-item" href="veureUsuariForm.php">Ver perfil</a>
-                            <a class="dropdown-item" href="editarUsuariForm.php">Editar perfil</a>
                             <a class="dropdown-item" href="veureFactures.php">Facturas</a>
                         </div>
                     </li>
