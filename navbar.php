@@ -49,6 +49,7 @@
                 <!-- Perfil i tancar sessió -->
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item dropdown">
+                        <li class="nav-item"><a class="nav-link" href="#"><img src="img/envelope.svg" height="25" width="25"></a></li>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Mi perfil
                         </a>
@@ -63,7 +64,6 @@
                             <!--<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>-->
                             <a class="dropdown-item" href="veureUsuariForm.php">Ver perfil</a>
                             <a class="dropdown-item" href="editarUsuariForm.php">Editar perfil</a>
-                            <a class="dropdown-item" href="#">Mensajes</a>
                             <a class="dropdown-item" href="veureFactures.php">Facturas</a>
                         </div>
                     </li>

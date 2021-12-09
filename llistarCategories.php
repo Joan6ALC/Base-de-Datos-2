@@ -47,38 +47,39 @@
                                         if(isset($_SESSION['IdContracte'])){
                                             $query2 = "SELECT * from categoriafavorits where IdContracte=".$_SESSION['IdContracte']." AND nomCat=".$row['nomCat'].""; // Per comprovar si ja està a la llista de favorits
                                             $result2 = mysqli_query($con,$query2);
-                                            if(($result2)){
+                                            if(isset($result2['nomCat'])){
                                                 $fav = mysqli_fetch_array($result2);
-                                            }
+                                            }   
                                         }
-                                        echo  
-                                        '<div class="row ">
-                                        <div class="row justify-content-center gap-2">       
-                                        <div class="card" style="width: 65rem;">
+                                        echo  '
+
+                                        <div class="row justify-content-center">       
+                                        <div class="card style=width: 65rem background: #777";">
                                                         <div class="card-body">
                                                             <center><h6>'.$row['nomCat'].'</h6>
                                                             <div class="padding"></div>';
 
                                         if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                            echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
-                                            </div>
+                                            echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'" class="btn btn-success btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                            
                                             </div>            
                                                 </div>';
                                             
                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'" class="btn btn-outline-success btn-sm" data-toggle="modal" data-show="false" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
-                                            </div>
+                                            echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'" class="btn btn-outline-success btn-sm"  title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
+                                            
                                             </div>
                                             </div>
                                                     ';
                                         }  else {
                                             echo       
-                                            '</div>
+                                            '
                                             </div>
                                             </div>
                                                     ';
                                         }
-                                        echo '<div class="row justify-content-center gap-2">'; 
+                                        echo '</div>';
+                                        echo   '<div class="row justify-content-center gap-2">';
                                         $query3 = "SELECT * from contingut ORDER BY RAND()";
                                             $result3 = mysqli_query($con,$query3);
                                                 while($row2 = mysqli_fetch_array($result3)){
@@ -91,6 +92,7 @@
                                         
                                         
                                                     echo   '
+                                                    <div class="col">
                                                     
                                                     <div class="card" style="width: 12rem;">
                                                         <img class="card-img-top" src=".'.$row2['camiFoto'].'" alt="'.$row2['titol'].'.png" height="250">
@@ -99,21 +101,25 @@
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$row2['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
                                                         if(isset($fav2)){ // Imprimim el botó per eliminar favorit
-                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-success btn-sm" data-toggle="modal" data-show="false" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
                                                                 </div>
+                                                            </div>
                                                             </div>';
                                                                             
                                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                                            echo            '<a href="afegirContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-outline-success btn-sm" data-toggle="modal" data-show="false" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
+                                                            echo            '<a href="afegirContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-outline-success btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
                                                                 </div>
+                                                            </div>
                                                             </div>';
                                                         }  else {
                                                                 echo   
                                                                 '</div>
+                                                            </div>
                                                             </div>';
                                                         }         
                                 
                                             }
+                                            echo '</div>';
                                 
                                              
                                                         echo '<div class="padding"></div>
