@@ -55,6 +55,7 @@
                                                     if (mysqli_num_rows($res) > 0) {
                                                         while($fila = mysqli_fetch_assoc($res)){
                                                             $trob = $fila["IdFactura"];
+                                                            
                                                             echo "<option value='".$trob."'>".$trob."</option>";
                                                             $datapagfila = $fila["dataPagament"];
                                                             $dataInfila = $fila["dataInici"];
@@ -89,6 +90,7 @@
                                                     echo '<div class="col">';
                                                     //echo '<center>';
                                                     echo '<button type="submit" class="btn btn-danger">Pagar</button>';
+                                                    echo pagar.php?id=$trob
                                                     //echo '</center>';
                                                     echo '</div>';
                                                 }

@@ -6,7 +6,7 @@
         die();
     }
      
-    $factura = $_SESSION['IdFactura'];
+    $factura = $_GET['id'];
     $localdate = date('y-m-d');
     $contract = $_SESSION['IdContracte'];
     $actualitzar = "update from factura set dataPagament = '".$localdate."' where IdFactura = '".$factura."'";
