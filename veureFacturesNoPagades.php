@@ -57,19 +57,20 @@
                                     <label>Import:</label>
                                     <input name="num" class="form-control" value='.$importfila.' readonly>
                                 </div>
+                                <div class="col">
+                                        <a href="pagar.php?value='.$trob.'" class="btn btn-danger">Pagar</a>
+                                </div>
                             </div>
-                        </div>        
-                    </div>
+                        </div>                     
+                </div>
             </div>';
             }
         }else{
-            header("Location: nohihaFactures.php");
+            header("Location: index.php");
+            //header("Location:nohihaFactures.php");
             die();
         }
-        ?>
-
-      
-            
+        ?> 
         </section>
         <!-- Frameworks -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
