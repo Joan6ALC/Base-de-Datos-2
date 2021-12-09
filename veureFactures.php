@@ -14,9 +14,6 @@
     if($def['import'] == null){
         header("Location: nohihaFactures.php");
         die();
-    }else{
-        $resultado = mysqli_query($con,$consulta);
-        $registro = mysqli_fetch_array($resultado); 
     }
 
    
@@ -86,27 +83,21 @@
                                     <input name="num" class="form-control" value=<?php echo "'".$importfila."'" ?> readonly>
                                     <div class="row">
                                         <div class="col-md-9">
-                                        <form action="pagar.php" method="post" id="$trob">
+                                        <form action="veureFacturesPagades.php" method="post" id="$trob">
                                             <button type="submit" class="btn btn-danger">Ver facturas pagadas</button>
                                         </form>
                                         </div>
                                             <?php
                                                 if($datapagfila == null){
                                                     echo '<div class="col">';
-                                                    //echo '<center>';
-                                                    //echo '<form action="pagar.php" method="post">';
                                                     echo '<a href="pagar.php?value='.$trob.'" class="btn btn-danger">Pagar</a>';
-                                                    //echo '<button type="submit" value="$trob" class="btn btn-danger">Pagar</button>';
-                                                    //echo '</form>';
-                                                    //echo (Locationpagar.php?id=$trob
-                                                    //echo '</center>';
                                                     echo '</div>';
                                                 }
                                             ?>
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                        <form action="pagar.php" method="post" id="$trob">
+                                        <form action="veureFacturesNoPagades.php" method="post" id="$trob">
                                             <button type="submit" class="btn btn-danger">Ver pendientes de pago</button>
                                         </form>
                                         </div>
