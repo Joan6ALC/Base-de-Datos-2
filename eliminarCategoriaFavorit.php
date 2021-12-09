@@ -10,7 +10,7 @@
 
     $query="DELETE FROM categoriafavorits WHERE nomCat='".$Categoria."' AND IdContracte='".$_SESSION['IdContracte']."'";
     $result=mysqli_query($con, $query);
-    header("Location: llistarCategories.php?msg=1");
+    header("Location: $redirect");
 
     mysqli_close($con);
 ?>
