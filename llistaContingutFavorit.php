@@ -68,7 +68,7 @@
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="row">
-                            <h5>Nuestras películas
+                            <h5>Tus contenidos favoritos
                             <?php 
                                 if($_SESSION['administrador']==1){
                                     echo '&nbsp&nbsp<a href="afegirContingut.php" class="btn btn-outline-primary btn-sm">
@@ -84,38 +84,33 @@
                                 <?php
                                     include "connection.php";
 
-                                    $query = "SELECT * from contingut ORDER BY RAND()";
+                                    $query = "SELECT * from contingutFavorits";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
-                                            $query2 = "SELECT * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
+                                            $query2 = "SELECT * from contingut where IdContingut='".$row['IdContingut']."'"; // Per comprovar si ja està a la llista de favorits
                                             $result2 = mysqli_query($con,$query2);
-                                            $fav = mysqli_fetch_array($result2);
+                                            $data = mysqli_fetch_array($result2);
                                         }
 
                                         echo   '<div class="col">
                                                     <div class="card" style="width: 12rem;">
-                                                        <img class="card-img-top" src=".'.$row['camiFoto'].'" alt="'.$row['titol'].'.png" height="250">
+                                                        <img class="card-img-top" src=".'.$data['camiFoto'].'" alt="'.$data['titol'].'.png" height="250">
                                                         <div class="card-body">
-                                                            <center><h6>'.$row['titol'].'</h6>
+                                                            <center><h6>'.$data['titol'].'</h6>
                                                             <div class="padding"></div>
-                                                            <a href="veureContingut.php?id='.$row['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
-
-                                        if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                            echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'&redir='"llistarContinguts.php"'" class="btn btn-dark btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
-                                            
-                                        }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-dark btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
-                                        }  
+                                                            <a href="veureContingut.php?id='.$data['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
+                                            echo            '<a href="eliminarContingutFavorit.php?id='.$data['IdContingut'].'&redir="llistaContingutFavorit.php"" class="btn btn-dark btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
+ 
                                         
                                         if($_SESSION['administrador']==1){
                                             echo           '<div class="padding"></div>
                                                             <div class="row gap-1">
                                                             <div class="col">
-                                                                    <a href="editarContingutForm.php?id='.$row['IdContingut'].'" class="btn btn-outline-success btn-sm">
+                                                                    <a href="editarContingutForm.php?id='.$data['IdContingut'].'" class="btn btn-outline-success btn-sm">
                                                                         <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
                                                                     </a>
-                                                                    <a href="eliminarContingut.php?id='.$row['IdContingut'].'&redir='"llistarContinguts.php"'" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
+                                                                    <a href="eliminarContingut.php?id='.$data['IdContingut'].'&redir="llistaContingutFavorit.php"" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
                                                                         <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
                                                                     </a> 
                                                                 </div>

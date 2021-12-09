@@ -41,32 +41,18 @@
 
         <?php
         include "connection.php";
-        $Categoria = $_GET['id'];
-        $query = "SELECT * from categoria WHERE nomcat = '".$Categoria."'";
+        $query = "SELECT * from categoriafavorits ORDER BY nomCat ASC";
                                     $result = mysqli_query($con,$query);
-                                    $row = mysqli_fetch_array($result);
-                                        if(isset($_SESSION['IdContracte'])){
-                                            $query2 = "SELECT * from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."' and nomCat='".$row['nomCat']."'"; // Per comprovar si ja està a la llista de favorits
-                                            $result2 = mysqli_query($con,$query2);
-                                            if($result2){
-                                                $fav = mysqli_fetch_array($result2);
-                                            }
-                                            
-                                            
+                                    while($row = mysqli_fetch_array($result)){
                                         
-                                        }
                                         echo  '<div class="row justify-content-center">       
                                                     <div class="card style=width: 65rem ";">
                                                         <div class="card-body">
                                                             <center><h6>'.$row['nomCat'].'</h6>
                                                             <div class="padding"></div>';
 
-                                        if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                            echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir="llistaContingutCat.php"" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
+                                                        echo    '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir="llistaCategoriaFavorit.php"" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                             
-                                        }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'" class="btn btn-outline-dark btn-sm"  title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
-                                        }  
                                         echo '</div>
                                         </div>
                                             </div>';
@@ -92,7 +78,7 @@
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$row2['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
                                                         if(isset($fav2)){ // Imprimim el botó per eliminar favorit
-                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'&redir="llistaContingutCat.php"" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'&redir="llistaCategoriaFavorit.php"" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
                                                                 </div>
                                                             </div>
                                                             </div>';
@@ -112,7 +98,7 @@
                                             }
                                             echo '</div>';
                                             echo '<div class="padding"></div>';
-                                    
+                                    }
                                     mysqli_close($con);
 
         ?>

@@ -6,6 +6,7 @@
     }
     include "connection.php";
     $IdContingut=$_GET['id'];
+    $redirect = $_GET['redir'];
 
     $query="DELETE FROM contingutfavorits WHERE IdContingut=".$IdContingut." AND IdContracte=".$_SESSION['IdContracte']." ";
     $result=mysqli_query($con, $query);

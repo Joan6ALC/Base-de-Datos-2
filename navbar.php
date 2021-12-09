@@ -28,10 +28,10 @@
                             $query = "SELECT * from categoria ORDER BY nomCat ASC";
                             $result = mysqli_query($con,$query);
                             while($row = mysqli_fetch_array($result)){
-                                echo '<a class="dropdown-item" href="llistaContingutCat.php?id='".$row['nomCat']."'">'.$row['nomCat'].'</a>';
+                                echo '<a class="dropdown-item" href="llistaContingutCat.php?id='.$row['nomCat'].'">'.$row['nomCat'].'</a>';
                             }
                         ?>
-                            <a class="dropdown-item" href="#">Todas las categorias</a>
+                            <a class="dropdown-item" href="llistarCategories.php">Todas las categorias</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown"> <!-- Favorits -->
@@ -39,8 +39,8 @@
                         Favoritos
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Contenidos</a>
-                            <a class="dropdown-item" href="#">Categorias</a>
+                            <a class="dropdown-item" href="llistaContingutFavorit.php">Contenidos</a>
+                            <a class="dropdown-item" href="llistaCategoriaFavorit.php">Categorias</a>
                         </div>
                     </li>
                     <?php // Si és administrador, afegim les opcions
