@@ -30,6 +30,8 @@
     echo $IdContingut;
     $result=mysqli_query($con, $query); 
 
+    mysqli_close($con);
+
     if (!isset($row['username'])){
         header("Location: llistarContinguts.php?msg=1");
         die();

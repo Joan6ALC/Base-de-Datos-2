@@ -11,17 +11,12 @@
     $Categoria = $_GET['id'];
 
     if(isset($_SESSION['IdContracte'])){
-
-    $consulta = "SELECT nomCat FROM CategoriaFavorits WHERE IdContracte = ".$_SESSION['IdContracte']." AND nomCat = ".$Categoria."";
-    $Resultado = mysqli_query($con, $consulta);
-    if(isset($Resultado)){
-        $insert = "INSERT into CategoriaFavorits (IdContracte, nomCat) VALUES ('".$_SESSION['IdContracte']."','".$Categoria."')";
-        mysqli_query($con, $insert);
-
-    }
+    $insert = "INSERT into CategoriaFavorits (IdContracte, nomCat) VALUES ('".$_SESSION['IdContracte']."','".$Categoria."')";
+    mysqli_query($con, $insert);
+    
 }
+mysqli_close($con);
 header("Location: llistarCategories.php");
 die();
-
-    
+  
 ?>

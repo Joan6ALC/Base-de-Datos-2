@@ -41,6 +41,7 @@
 
         <?php
         include "connection.php";
+        $Categoria = $_GET['id'];
         $query = "SELECT * from categoria ORDER BY nomCat ASC";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){

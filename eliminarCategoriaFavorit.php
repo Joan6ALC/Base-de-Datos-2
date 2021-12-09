@@ -5,11 +5,11 @@
         die();
     }
     include "connection.php";
-    $IdContingut=$_GET['id'];
+    $Categoria=$_GET['id'];
 
-    $query="DELETE FROM contingutfavorits WHERE IdContingut=".$IdContingut." AND IdContracte=".$_SESSION['IdContracte']." ";
+    $query="DELETE FROM categoriafavorits WHERE nomCat='".$Categoria."' AND IdContracte='".$_SESSION['IdContracte']."'";
     $result=mysqli_query($con, $query);
-    header("Location: llistarContinguts.php?msg=1");
+    header("Location: llistarCategories.php?msg=1");
 
     mysqli_close($con);
 ?>
