@@ -8,7 +8,10 @@
     $contract = $_SESSION['IdContracte'];
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."' AND dataPagament IS NULL";
     $cerca = mysqli_query($con,$consulta);
-    
+    if (mysqli_num_rows($cerca) < 1) {
+        header("Location: nohihaFactures.php");
+        die();
+    }
       
  
 ?>
@@ -28,7 +31,7 @@
         </header>
         <section>
         <?php
-        if (mysqli_num_rows($cerca) > 0) {
+        
             while($fila = mysqli_fetch_assoc($cerca)){
                 $trob = $fila["IdFactura"];
                 $datapagfila = $fila["dataPagament"];
@@ -36,7 +39,8 @@
                 $dataFifila = $fila["dataFi"];
                 $importfila = $fila["import"];
 
-                echo '<div class="container">
+                echo 
+                '<div class="container">
                 <div class = "padding"><br></div>
                 <div class = "row">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
@@ -64,12 +68,9 @@
                         </div>                     
                 </div>
             </div>';
+            
             }
-        }else{
-            header("Location: index.php");
-            //header("Location:nohihaFactures.php");
-            die();
-        }
+        
         ?> 
         </section>
         <!-- Frameworks -->

@@ -8,7 +8,10 @@
     $contract = $_SESSION['IdContracte'];
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."' AND dataPagament IS NOT NULL";
     $cerca = mysqli_query($con,$consulta);
-    
+    if (mysqli_num_rows($cerca) < 1) {
+        header("Location: nohihaFactures.php");
+        die();
+    }
       
  
 ?>
@@ -28,7 +31,7 @@
         </header>
         <section>
         <?php
-        if (mysqli_num_rows($cerca) > 0) {
+        
             while($fila = mysqli_fetch_assoc($cerca)){
                 $trob = $fila["IdFactura"];
                 $datapagfila = $fila["dataPagament"];
@@ -62,10 +65,7 @@
                     </div>
             </div>';
             }
-        }else{
-            header("Location: nohihaFactures.php");
-            die();
-        }
+        
         ?>
 
       
