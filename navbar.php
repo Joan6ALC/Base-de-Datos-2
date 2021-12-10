@@ -64,11 +64,11 @@
                 <ul class="nav navbar-nav mx-auto">       
                 <!-- Perfil i tancar sessió -->
                 <div class="col-3-md">
-                    <div class="input-group mb-0">
-                            <!--<form action="register.php" method="post">-->
-                                <input class="form-control mr-sm-1" type="search" placeholder="Buscar contenido..." aria-label="Search">&nbsp;
-                                <button class="btn btn-danger" type="submit">Buscar</button>
-                    </div>
+                    <form class="form-inline" action="cercaContingut.php" method="post">
+                        <div class="input-group mb-0">
+                                    <input class="form-control mr-sm-1" type="search" placeholder="Buscar contenido..." aria-label="Search">&nbsp;
+                                    <button class="btn btn-danger" type="submit">Buscar</button>
+                        </div>
                     </div>
                     &nbsp;
                 
