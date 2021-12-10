@@ -1,5 +1,5 @@
 <div class="col-12">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark border-2 border-bottom border-danger">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-2 border-bottom border-danger">
         <div class="container-fluid">
             <button class="navbar-toggler" data-target="#menu"  data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span> <!-- Desplegable per a dispositius petits -->
@@ -15,7 +15,7 @@
 
             <!-- Menú d'opcions -->
             <div class="collapse navbar-collapse" id="menu">   
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link active" href="login.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="llistarContinguts.php">Explorar</a></li>
                     <li class="nav-item dropdown"> <!-- Favorits -->
@@ -25,13 +25,13 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <?php
                             include "connection.php";
+                            echo '<a class="dropdown-item" href="llistarCategories.php">Todas las categorias</a>';
                             $query = "SELECT * from categoria ORDER BY nomCat ASC";
                             $result = mysqli_query($con,$query);
                             while($row = mysqli_fetch_array($result)){
                                 echo '<a class="dropdown-item" href="llistaContingutCat.php?id='.$row['nomCat'].'">'.$row['nomCat'].'</a>';
                             }
                         ?>
-                            <a class="dropdown-item" href="llistarCategories.php">Todas las categorias</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown"> <!-- Favorits -->
@@ -59,10 +59,20 @@
                                     </li>';
                             }
                         ?>
-                </ul>  
-                                
+                </ul> 
+                <div class="col"></div>
+                <ul class="nav navbar-nav mx-auto">       
                 <!-- Perfil i tancar sessió -->
-                <ul class="nav navbar-nav mr-auto">
+                <div class="col-3-md">
+                    <div class="input-group mb-0">
+                            <!--<form action="register.php" method="post">-->
+                                <input class="form-control mr-sm-1" type="search" placeholder="Buscar contenido..." aria-label="Search">&nbsp;
+                                <button class="btn btn-danger" type="submit">Buscar</button>
+                    </div>
+                    </div>
+                    &nbsp;
+                
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Perfil
@@ -83,6 +93,8 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar sesión</a></li>
                 </ul>
+                
+
             </div>
         </div>
     </div>
