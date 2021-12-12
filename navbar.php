@@ -50,7 +50,7 @@
                                         Administrador
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">Añadir contenido</a>
+                                            <a class="dropdown-item" href="afegirContingutForm.php">Añadir contenido</a>
                                             <a class="dropdown-item" href="#">Editar/Borrar contenido</a>
                                             <a class="dropdown-item" href="#">Añadir categoria</a>
                                             <a class="dropdown-item" href="#">Editar/Borrar categoria</a>
