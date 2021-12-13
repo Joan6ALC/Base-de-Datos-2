@@ -66,7 +66,8 @@
                 <div class="col-3-md">
                     <form class="form-inline" action="cercaContingut.php" method="post">
                         <div class="input-group mb-0">
-                                    <input class="form-control mr-sm-1" type="search" placeholder="Buscar contenido..." aria-label="Search">&nbsp;
+                                    <input class="form-control mr-sm-1" name="cercador" type="search" placeholder="Buscar contenido..." aria-label="Search"&nbsp;
+                                    <?php if(isset($_GET['cercador'])) echo 'value="'.$_GET['cercador'].'"'; ?>>
                                     <button class="btn btn-danger" type="submit">Buscar</button>
                         </div>
                         </form>
