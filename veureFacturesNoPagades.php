@@ -36,7 +36,7 @@
         <?php
             //recorregut de la taula de factures
             while($fila = mysqli_fetch_assoc($cerca)){
-                //variables dels missatges que volem mostrar
+                //variables que contenen els valors que volem mostrar als missatges
                 $trob = $fila["IdFactura"];
                 $datapagfila = $fila["dataPagament"];
                 $dataInfila = $fila["dataInici"];
@@ -67,7 +67,7 @@
                                     <label>Import:</label>
                                     <input name="num" class="form-control" value='.$importfila.' readonly>
                                 </div>
-                                <!-- botó per a poder pagar la factura-->
+                                <!-- botó per a poder pagar la factura i ens torna al mateix php actualitzat-->
                                 <div class="col">
                                         <a href="pagar.php?value='.$trob.'&redir=veureFacturesNoPagades.php" class="btn btn-danger">Pagar</a>
                                 </div>

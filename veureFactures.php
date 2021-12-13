@@ -11,14 +11,11 @@
     $cerca = mysqli_query($con,$consulta);
     $def = mysqli_fetch_array($cerca);
 
+    //comprovam si hi ha factures, en el cas en que no hi hagi, anem a un altre php
     if($def['import'] == null){
         header("Location: nohihaFactures.php?redir=login.php");
         die();
     }
-
-   
-     
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,6 +33,7 @@
             <?php include "navbar.php"; ?>
         </header>
         <section> 
+            <!-- quadre on mostrem la informació del contracte de l'usuari-->
             <div class="container">
             <div class = "padding"><br></div>
             <div class = "row">
@@ -52,11 +50,15 @@
                                                 <optgroup>
                                                 <?php
                                                     $facturastotal = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
+                                                    //seleccionem les factures del contracte per a poder-les mostrar
+                                                    //i ens deixi elegir quina volem veure
                                                     $res = mysqli_query($con,$facturastotal);
+                                                    //mirem si hi ha factures
                                                     if (mysqli_num_rows($res) > 0) {
+                                                        //mente hi hagi factures
                                                         while($fila = mysqli_fetch_assoc($res)){
                                                             $trob = $fila["IdFactura"];
-
+                                                            //opció de la factura amb l'id X
                                                             echo "<option value='".$trob."'>".$trob."</option>";
                                                             $datapagfila = $fila["dataPagament"];
                                                             $dataInfila = $fila["dataInici"];
@@ -94,11 +96,15 @@
                                     <input name="num" class="form-control" value=<?php echo "'".$importfila."'" ?> readonly>
                                     <div class="row">
                                         <div class="col-md-9">
+                                        <!-- botó per anar a veure totes les factures que han estat
+                                        pagades, és a dir, l'atribut dataPagament no està a null-->
                                         <form action="veureFacturesPagades.php" method="post" id="$trob">
                                             <button type="submit" class="btn btn-danger">Ver facturas pagadas</button>
                                         </form>
                                         </div>
                                             <?php
+                                                //si hi ha factures que encara no han estat pagades, sorgeix
+                                                //un botó per a realitzar el pagament automàtic 
                                                 if($datapagfila == null){
                                                     echo '<div class="col">';
                                                     echo '<a href="pagar.php?value='.$trob.'&redir=veureFactures.php" class="btn btn-danger">Pagar</a>';
@@ -108,6 +114,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
+                                        <!-- botó per anar a veure totes les factures que no han estat
+                                        pagades, és a dir, l'atribut dataPagament està a null-->
                                         <form action="veureFacturesNoPagades.php" method="post" id="$trob">
                                             <button type="submit" class="btn btn-danger">Ver pendientes de pago</button>
                                         </form>

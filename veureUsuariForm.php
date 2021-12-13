@@ -5,7 +5,9 @@
         header("Location: index.php");
         die();
     }
+    //sessió de l'usuari
     $user = $_SESSION['username'];
+    //select per a seleccionar la informació que volem de l'usuari actual
     $consulta = "SELECT username,password,llinatge1,llinatge2,dataNaixament,nom FROM persona WHERE username = '".$user."'";
     $resultado = mysqli_query($con,$consulta);
     $registro = mysqli_fetch_array($resultado);
@@ -26,7 +28,9 @@
             <?php include "navbar.php"; ?>
         </header>
         <section> 
-       
+            <!--quadre que es construeix per a mostrar el formulari i, és el procediment que seguirem en la
+            majoria de php's restants
+            totes les dades mostrades només es poden visualitzar, per tant, afegim un readonly al final-->
             <div class="container">
             <div class = "padding"><br></div>
                 <div class="row">
@@ -36,6 +40,7 @@
                             <form action="editarUsuariForm.php" method="post">
                                 <div class="d-grid gap-2">
                                 <label>Usuario:</label>
+                                    
                                     <input name="username" class="form-control" value="<?php echo $user ?>" readonly>
 
                                     <label>Nombre:</label>

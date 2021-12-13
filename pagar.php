@@ -12,7 +12,7 @@
     $factura = $_GET['value'];
     //data actual
     $localdate = date('y-m-d');
-    //$contract = $_SESSION['IdContracte'];
+
     //actualització
     $actualitzar = "update factura set dataPagament = '".$localdate."' where IdFactura = '".$factura."'";
 
