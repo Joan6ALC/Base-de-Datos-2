@@ -105,7 +105,7 @@
                                             echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'&redir=llistarContinguts.php" class="btn btn-dark btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                             
                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-dark btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
+                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'&redir=llistarContinguts.php" class="btn btn-outline-dark btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
                                         }  
                                         
                                         if($_SESSION['administrador']==1){

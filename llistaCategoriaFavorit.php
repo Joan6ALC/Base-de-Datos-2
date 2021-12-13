@@ -84,7 +84,7 @@
                                                             </div>';
                                                                             
                                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                                            echo            '<a href="afegirContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-outline-success btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
+                                                            echo            '<a href="afegirContingutFavorit.php?id='.$row2['IdContingut'].'&redir=llistaCategoriaFavorit.php" class="btn btn-outline-success btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
                                                                 </div>
                                                             </div>
                                                             </div>';

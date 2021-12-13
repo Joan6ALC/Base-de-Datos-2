@@ -65,7 +65,7 @@
                                             echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir=llistaContingutCat.php" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                             
                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'" class="btn btn-outline-dark btn-sm"  title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
+                                            echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'&redir=llistaContingutCat.php" class="btn btn-outline-dark btn-sm"  title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
                                         }  
                                         echo '</div>
                                         </div>
@@ -98,7 +98,7 @@
                                                             </div>';
                                                                             
                                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                                            echo            '<a href="afegirContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-outline-success btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
+                                                            echo            '<a href="afegirContingutFavorit.php?id='.$row2['IdContingut'].'&redir=llistaContingutCat.php" class="btn btn-outline-success btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
                                                                 </div>
                                                             </div>
                                                             </div>';

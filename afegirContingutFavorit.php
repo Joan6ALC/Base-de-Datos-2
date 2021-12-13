@@ -8,6 +8,7 @@
 
     include "connection.php";
     $Contingut = $_GET['id'];
+    $redirect = $_GET['redir'];
 
     if(isset($_SESSION['IdContracte'])){
     $insert = "INSERT into ContingutFavorits (IdContracte, IdContingut) VALUES ('".$_SESSION['IdContracte']."','".$Contingut."')";
