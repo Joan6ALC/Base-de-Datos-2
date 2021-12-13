@@ -5,6 +5,8 @@
         header("Location: index.php");
         die();
     }
+    //per al redireccionament al haver realitzat el pagament
+    $redir = $_GET['redir'];
     
     //agafem l'id de la factura per a poder actualitzar la data de pagament d'aquesta
     $factura = $_GET['value'];
@@ -15,7 +17,7 @@
     $actualitzar = "update factura set dataPagament = '".$localdate."' where IdFactura = '".$factura."'";
 
     mysqli_query($con, $actualitzar);
-    header("Location: veureFactures.php");
+    header("Location: $redir");
     die();
 ?>
 <!DOCTYPE html>
