@@ -84,6 +84,9 @@
                             <a class="dropdown-item" href="veureUsuariForm.php">Mi perfil</a>
                             <a class="dropdown-item" href="#">Mensajes</a>
                             <?php
+                                //si l'usuari no té cap contracte, l'opció que surt es la de
+                                //contractar, fer un nou contracte
+                                //en cas contrari, opció de veure el contracte
                                 if($_SESSION['IdContracte'] == null){
                                     echo '<a class="dropdown-item" href="editarContracteForm.php">Contratar</a>';
                                 }else{
