@@ -49,6 +49,10 @@
                                     <input name="fac" class="form-control" value='.$trob.' readonly>
                                 </div>
                                 <div class="col-md-2">
+                                <label>Data pagament:</label>
+                                <input type="date" name="datapag" class="form-control" value ='.$datapagfila.' readonly>
+                                </div>
+                                <div class="col-md-2">
                                     <label>Data inici:</label>
                                     <input type="date" name="datain" class="form-control" value ='.$dataInfila.' readonly>
                                 </div> 
