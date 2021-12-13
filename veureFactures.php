@@ -47,7 +47,6 @@
                                     <form action="veureFactures.php" method="post">
                                         <label>Factura:</label>
                                             <select class="facturas">
-                                                
                                                 <?php
                                                     $facturastotal = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
                                                     //seleccionem les factures del contracte per a poder-les mostrar
@@ -68,19 +67,16 @@
                                                     }
                                                 ?>
                                             </select>
-                                                <h1><div class = "result"></div></h1>
                                                 <script>
                                                     const selectElement = document.querySelector('.facturas');
-
                                                     selectElement.addEventListener('change', (event) => {
-                                                    const result = document.querySelector('.result.');
-                                                    window.location.href = "https://professor-falken.com/";
-                                                    //result.textContent = 'You like ${event.target.value}';
+                                                        //const result = document.querySelector('.result.');
+
+                                                        window.location.replace("veureFactures.php");
+                                                        //$(location).prop('href', 'login.php');
                                                     });
                                                 </script>
-                                                
-                                                
-                                            
+
                                     </form>
                                     <label>Data pagament:</label>
                                     <input type="date" name="datapag" class="form-control" value =<?php "'".$datapagfila."'" ?> readonly>
