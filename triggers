@@ -1,0 +1,13 @@
+DELIMITER //
+CREATE TRIGGER GeneraMissatges
+AFTER INSERT ON contingut
+FOR EACH ROW
+BEGIN
+
+END;
+
+SET GLOBAL event_scheduler=ON
+SHOW VARIABLES
+SHOW CREATE EVENT
+
+CREATE EVENT event_name ON SCHEDULE schedule DO event_body;
