@@ -39,6 +39,8 @@
                 $dataFifila = $fila["dataFinal"];
                 $importfila = $fila["import"];
 
+                //html que imprimirà la factura, la data en la qual s'ha realitzat el pagament
+                //la data inici, la data fi i l'import de les factures que ja han estat pagades
                 echo '<div class="container">
                 <div class = "padding"><br></div>
                 <div class = "row">
@@ -71,6 +73,7 @@
             }
         
         ?>
+        <!--botó per a tornar enrera-->
             <form action="veureFactures.php" method="post" id="$trob">
                 <button type="submit" class="btn btn-danger">Atrás</button> 
             </form>

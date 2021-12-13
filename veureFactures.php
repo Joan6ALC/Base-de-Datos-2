@@ -101,7 +101,7 @@
                                             <?php
                                                 if($datapagfila == null){
                                                     echo '<div class="col">';
-                                                    echo '<a href="pagar.php?value='.$trob.'" class="btn btn-danger">Pagar</a>';
+                                                    echo '<a href="pagar.php?value='.$trob.'&redir=veureFactures.php" class="btn btn-danger">Pagar</a>';
                                                     echo '</div>';
                                                 }
                                             ?>

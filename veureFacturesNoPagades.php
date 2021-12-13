@@ -5,9 +5,12 @@
         header("Location: index.php");
         die();
     }
+    //contracte actual
     $contract = $_SESSION['IdContracte'];
+    //tota la informació de les factures amb el contracte
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."' AND dataPagament IS NULL";
     $cerca = mysqli_query($con,$consulta);
+    //mirem si hi ha factures
     if (mysqli_num_rows($cerca) < 1) {
         header("Location: nohihaFactures.php?redir=veureFactures.php");
         die();
@@ -31,14 +34,17 @@
         </header>
         <section>
         <?php
-        
+            //recorregut de la taula de factures
             while($fila = mysqli_fetch_assoc($cerca)){
+                //variables dels missatges que volem mostrar
                 $trob = $fila["IdFactura"];
                 $datapagfila = $fila["dataPagament"];
                 $dataInfila = $fila["dataInici"];
                 $dataFifila = $fila["dataFinal"];
                 $importfila = $fila["import"];
 
+                //html que imprimirà la factura, la data inici, la data fi i l'import de les factures
+                //que estan pendents de pagament
                 echo 
                 '<div class="container">
                 <div class = "padding"><br></div>
@@ -61,8 +67,9 @@
                                     <label>Import:</label>
                                     <input name="num" class="form-control" value='.$importfila.' readonly>
                                 </div>
+                                <!-- botó per a poder pagar la factura-->
                                 <div class="col">
-                                        <a href="pagar.php?value='.$trob.'" class="btn btn-danger">Pagar</a>
+                                        <a href="pagar.php?value='.$trob.'&redir=veureFacturesNoPagades.php" class="btn btn-danger">Pagar</a>
                                 </div>
                             </div>
                         </div>                     
@@ -72,6 +79,7 @@
             }
         
         ?>
+        <!--botó per a tornar enrera-->
             <form action="veureFactures.php" method="post" id="$trob">
                 <button type="submit" class="btn btn-danger">Atrás</button>
             </form>
