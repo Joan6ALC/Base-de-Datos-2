@@ -7,15 +7,12 @@
     }
     $user = $_SESSION['username'];
 
-    $consulta = "SELECT estat FROM contracte WHERE username = '".$user."'";
+    $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
     $resultado = mysqli_query($con,$consulta);
     $registro = mysqli_fetch_array($resultado);
 
     $consul = 'select distinct (nomTarifa) from Tarifa';
     $resul1 = mysqli_query($con,$consul);
-    $trobat = 'select nomTarifa from contracte where username = "'.$user.'"';
-    $resul2 = mysqli_query($con,$trobat);
-    $fila2 =  mysqli_fetch_array($resul2);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -77,7 +74,7 @@
                                                     //si ja existia
                                                     if (mysqli_num_rows($resul1) > 0) {
                                                         while($fila1 = mysqli_fetch_assoc($resul1)){
-                                                            if($fila1['nomTarifa'] == $fila2['nomTarifa']){
+                                                            if($fila1['nomTarifa'] == $registro['nomTarifa']){
                                                                 echo "<option value = '".$fila1['nomTarifa']."' selected='selected'>".$fila1['nomTarifa']."</option>";
                                                             }else{
                                                                 echo "<option value = '".$fila1['nomTarifa']."'>".$fila1['nomTarifa']."</option>";

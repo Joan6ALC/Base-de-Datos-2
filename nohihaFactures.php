@@ -30,7 +30,6 @@
                                 <div class="col-md-10">
                                     <div class="shadow-lg p-4 mb-5 bg-body rounded">
                                         <form action="<?php echo $redir ?>" method="post">
-                                        <!--<form action="editarContracteForm.php" method="post">-->
                                             <h1 class="title-small">
                                                 <center> No tens cap factura </center>
                                             </h1>

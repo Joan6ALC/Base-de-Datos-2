@@ -24,9 +24,6 @@
 
     $hash=crypt($password1,"");
 
-    //echo $user." ";
-    //echo $username;
-
     $seleccio = "select username from persona where username = '".$username."'";
     $resultado = mysqli_query($con,$seleccio);
     $registro = mysqli_fetch_array($resultado);

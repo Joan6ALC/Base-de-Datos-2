@@ -11,9 +11,8 @@
     $contract = $_SESSION['IdContracte'];
     $actualitzar = "update factura set dataPagament = '".$localdate."' where IdFactura = '".$factura."'";
 
-    mysqli_query($con, $actualitzar);  
-    //$redirect = $_GET['redir'];
-    header("Location: veureFactures.php?datapag=$localdate"); 
+    mysqli_query($con, $actualitzar);
+    header("Location: veureFactures.php");
     die();
 ?>
 <!DOCTYPE html>

@@ -29,7 +29,7 @@
         mysqli_query($con, $query);
     }
     
-    header("Location: login.php?username=$username&estado=$estado&nomTarifa=$tarifa"); // Redirigim a l'usuari a la pàgina principal
+    header("Location: login.php"); // Redirigim a l'usuari a la pàgina principal
     die();
 ?>
 <!DOCTYPE html>
