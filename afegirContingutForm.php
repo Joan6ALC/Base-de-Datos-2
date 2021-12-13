@@ -27,7 +27,25 @@ $resultP = mysqli_query($con, $consultP);
 
 <body>
     <header>
-        <?php include "navbar.php"; ?>
+        <?php
+        include "navbar.php";
+        if (isset($_GET['error'])) {
+            switch ($_GET['error']) {
+                case 1:
+                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
+                                &nbspLa película introducida ya existe
+                            </div>';
+                    break;
+                case 2:
+                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
+                                &nbspYa existe una imagen con el mismo nombre
+                            </div>';
+                    break;
+                default:
+            }
+        } ?>
     </header>
     <section>
 
@@ -78,9 +96,9 @@ $resultP = mysqli_query($con, $consultP);
 
                             <div class="alerta"></div>
 
-                                <div style="padding: 3%; text-align: center;">
-                                    <input type="submit" value="Insertar película" class="btn btn-danger">
-                                </div>
+                            <div style="padding: 3%; text-align: center;">
+                                <input type="submit" value="Insertar película" class="btn btn-danger">
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -11,22 +11,38 @@ $titulo = $_POST['titulo'];
 $enlace = $_POST['enlace'];
 $nomCat = $_POST['nomCat'];
 $nomFoto   = $_FILES['file']['name'];
+$html = '<iframe width="560" height="315" src="' . $enlace . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+$camiFoto = "/img/carteles/" . $nomFoto;
 
-if( $_FILES['file']['name'] != "" ) {
-    $path=$_FILES['file']['name'];
-    $pathto='/xampp/htdocs/pelistube/img/carteles/' . $path;
-    move_uploaded_file( $_FILES['file']['tmp_name'],$pathto) or die( "Could not copy file!");
-}
-else {
+if ($_FILES['file']['name'] != "") {
+    $path = $_FILES['file']['name'];
+    $pathto = '/xampp/htdocs/pelistube/img/carteles/' . $path;
+    move_uploaded_file($_FILES['file']['tmp_name'], $pathto) or die("Could not copy file!");
+} else {
     die("No file specified!");
 }
 
+$query = 'SELECT titol FROM contingut WHERE titol="' . $titulo . '"';
+$result = mysqli_query($con, $query);
+$row = mysqli_fetch_array($result);
 
-$html = '<iframe width="560" height="315" src="'. $enlace .'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-$camiFoto = "/img/carteles/" . $nomFoto;
 
-$query= "INSERT INTO contingut (titol, html, camiFoto, nomCat) values ('$titulo','$html','$camiFoto','$nomCat')"; //INSERTANDO VARIABLES DIRECTAMENTE
-mysqli_query($con,$query);
+if (isset($row['titol'])) { 
+    header("Location: afegirContingutForm.php?error=1");
+    die();
+}
+
+$query = 'SELECT camiFoto FROM contingut WHERE camiFoto="' . $camiFoto . '"';
+$result = mysqli_query($con, $query);
+$row = mysqli_fetch_array($result);
+
+if (isset($row['camiFoto'])) { 
+    header("Location: afegirContingutForm.php?error=2");
+    die();
+}
+
+$query = "INSERT INTO contingut (titol, html, camiFoto, nomCat) values ('$titulo','$html','$camiFoto','$nomCat')"; //INSERTANDO VARIABLES DIRECTAMENTE
+mysqli_query($con, $query);
 
 header("Location: login.php?nomFoto=$nomFoto"); // Redirigim a l'usuari a la pàgina principal
 die();
