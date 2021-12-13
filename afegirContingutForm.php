@@ -22,6 +22,7 @@ $resultP = mysqli_query($con, $consultP);
     <link rel="stylesheet" href="styles.css" /> <!-- Nuestra propia hoja de estilos-->
     <link rel="stylesheet" href="dragBox.css" /> <!-- Nuestra propia hoja de estilos-->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- Iconos bootstrap -->
 </head>
 
 <body>
@@ -29,6 +30,7 @@ $resultP = mysqli_query($con, $consultP);
         <?php include "navbar.php"; ?>
     </header>
     <section>
+
 
         <div class="container">
             <div class="padding"><br></div>
@@ -68,15 +70,17 @@ $resultP = mysqli_query($con, $consultP);
                                 </div>
 
                                 <div class="dragArea">
-                                    <header>Upload Your File </header>
-                                    <input type="file" id="file" name="file" accept="image/jpeg, image/png" class="form-control">
+                                    <header style="color: darkgray;">Arrastra o selecciona el archivo para subirlo <span style="color: red;">*</span></header>
+                                    <input type="file" id="file" name="file" accept="image/jpeg, image/png" class="form-control" required>
                                 </div>
 
                             </div>
 
-                            <div style="padding: 3%; text-align: center;">
-                                <input type="submit" value="Insertar película" class="btn btn-danger">
-                            </div>
+                            <div class="alerta"></div>
+
+                                <div style="padding: 3%; text-align: center;">
+                                    <input type="submit" value="Insertar película" class="btn btn-danger">
+                                </div>
                         </form>
                     </div>
                 </div>

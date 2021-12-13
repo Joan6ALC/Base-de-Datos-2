@@ -15,7 +15,7 @@ dropArea.addEventListener("dragover", (event) => {
 });
 //If user leave dragged File from DropArea
 dropArea.addEventListener("dragleave", () => {
-  dragText.textContent = "Release to Upload File";
+  dragText.innerHTML = 'Suelta para subir el archivo <span style="color: red;">*</span>';
 });
 //If user drop File on DropArea
 dropArea.addEventListener("drop", (event) => {
@@ -24,12 +24,14 @@ dropArea.addEventListener("drop", (event) => {
   showFile(); //calling function
 });
 function showFile() {
-  dragText.textContent = "uploaded";
+  dragText.innerHTML = 'Archivo subido con éxito <i class="bi bi-check-lg" style="color: green;"></i>';
   let fileType = file.type; //getting selected file type
   let validExtensions = ["image/jpeg", "image/png"]; //adding some valid image extensions in array
   if (!validExtensions.includes(fileType)) {
-    //if user selected file is an image file
-    alert("El archivo insertado no es una imagen!");
+    const div = document.querySelector(".alerta"); // <div class="info"></div>
+    div.innerHTML = '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="bi-file-earmark-excel" style="font-size: 0.9rem;"></i>  El archivo insertado no es una imagen!</div>'; // Interpreta el HTML
     dropArea.classList.remove("active");
+    input.value = '';
+    dragText.innerHTML = 'Arrastra o selecciona el archivo para subirlo <span style="color: red;">*</span>';
   }
 }
