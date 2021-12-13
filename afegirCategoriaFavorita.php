@@ -9,6 +9,7 @@
 
     include "connection.php";
     $Categoria = $_GET['id'];
+    $redirect = $_GET['redir'];
 
     if(isset($_SESSION['IdContracte'])){
     $insert = "INSERT into CategoriaFavorits (IdContracte, nomCat) VALUES ('".$_SESSION['IdContracte']."','".$Categoria."')";
