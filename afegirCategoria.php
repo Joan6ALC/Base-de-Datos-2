@@ -9,19 +9,18 @@ include "connection.php";
 
 $categoria = $_POST['categoria'];
 
-$consultP = 'select distinct (nomCat) from categoria';
-$resultP = mysqli_query($con, $consultP);
-$existe = false;
+$query = 'SELECT nomCat FROM categoria WHERE nomCat="' . $categoria . '"';
+$result = mysqli_query($con, $query);
+$row = mysqli_fetch_array($result);
 
-if (mysqli_num_rows($resultP) > 0) {
-    while ($fila1 = mysqli_fetch_assoc($resultP)) {
-        if ($fila == $categoria) $existe = true;
-        else {
-            $query = "INSERT INTO categoria(nomCat) VALUES ('" . $categoria . "')"; //INSERTANDO VARIABLES DIRECTAMENTE
-            mysqli_query($con, $query);
-        }
-    }
+
+if (isset($row['nomCat'])) {
+    header("Location: afegirCategoriaForm.php?error=1");
+    die();
 }
+
+$query = "INSERT INTO categoria(nomCat) VALUES ('" . $categoria . "')"; //INSERTANDO VARIABLES DIRECTAMENTE
+mysqli_query($con, $query);
 
 header("Location: login.php?nomCat=$categoria"); // Redirigim a l'usuari a la pàgina principal
 die();

@@ -18,11 +18,24 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="styles.css" /> <!-- Nuestra propia hoja de estilos-->
     <link rel="stylesheet" href="dragBox.css" /> <!-- Nuestra propia hoja de estilos-->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- Iconos bootstrap -->
 </head>
 
 <body>
     <header>
-        <?php include "navbar.php"; ?>
+        <?php
+        include "navbar.php";
+        if (isset($_GET['error'])) {
+            switch ($_GET['error']) {
+                case 1:
+                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
+                                &nbspLa categoría introducida ya existe
+                            </div>';
+                    break;
+                default:
+            }
+        } ?>
     </header>
     <section>
 
