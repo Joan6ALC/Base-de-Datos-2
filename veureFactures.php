@@ -46,8 +46,8 @@
                                     <input name="contrac" class="form-control" value=<?php echo "'".$contract."'" ?> readonly>
                                     <form action="veureFactures.php" method="post">
                                         <label>Factura:</label>
-                                            <select name="facturas">
-                                                <optgroup>
+                                            <select class="facturas">
+                                                
                                                 <?php
                                                     $facturastotal = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
                                                     //seleccionem les factures del contracte per a poder-les mostrar
@@ -59,7 +59,7 @@
                                                         while($fila = mysqli_fetch_assoc($res)){
                                                             $trob = $fila["IdFactura"];
                                                             //opció de la factura amb l'id X
-                                                            echo "<option value='".$trob."'>".$trob."</option>";
+                                                            echo '<option value="'.$trob.'">'.$trob.'</option>';
                                                             $datapagfila = $fila["dataPagament"];
                                                             $dataInfila = $fila["dataInici"];
                                                             $dataFifila = $fila["dataFi"];
@@ -67,18 +67,20 @@
                                                         }
                                                     }
                                                 ?>
-                                                </optgroup>
-                                                <div class = "result"></div>
+                                            </select>
+                                                <h1><div class = "result"></div></h1>
                                                 <script>
                                                     const selectElement = document.querySelector('.facturas');
 
                                                     selectElement.addEventListener('change', (event) => {
-                                                    const result = document.querySelector('.result');
-                                                    result.textContent = 'You like ${event.target.value}';
+                                                    const result = document.querySelector('.result.');
+                                                    window.location.href = "https://professor-falken.com/";
+                                                    //result.textContent = 'You like ${event.target.value}';
                                                     });
-                                                    </script>
+                                                </script>
                                                 
-                                            </select>
+                                                
+                                            
                                     </form>
                                     <label>Data pagament:</label>
                                     <input type="date" name="datapag" class="form-control" value =<?php "'".$datapagfila."'" ?> readonly>

@@ -8,11 +8,3 @@ function confirmDelete() {
     }
 }
 
-function ns(){
-    const selectElement = document.querySelector('.facturas');
-
-                                                    selectElement.addEventListener('change', (event) => {
-                                                    const result = document.querySelector('.result');
-                                                    result.textContent = 'You like ${event.target.value}';
-                                                    });
-}
