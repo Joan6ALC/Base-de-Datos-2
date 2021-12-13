@@ -5,10 +5,13 @@
         header("Location: index.php");
         die();
     }
-     
+    
+    //agafem l'id de la factura per a poder actualitzar la data de pagament d'aquesta
     $factura = $_GET['value'];
+    //data actual
     $localdate = date('y-m-d');
-    $contract = $_SESSION['IdContracte'];
+    //$contract = $_SESSION['IdContracte'];
+    //actualització
     $actualitzar = "update factura set dataPagament = '".$localdate."' where IdFactura = '".$factura."'";
 
     mysqli_query($con, $actualitzar);

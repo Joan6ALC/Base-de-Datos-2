@@ -6,6 +6,7 @@
         die();
     }
     $user = $_SESSION['username'];
+    //consulta per a extreure l'informació de l'usuari que té la sessió iniciada
     $consulta = "SELECT username,password,llinatge1,llinatge2,dataNaixament,nom FROM persona WHERE username = '".$user."'";
     $resultado = mysqli_query($con,$consulta);
     $registro = mysqli_fetch_array($resultado);
@@ -33,11 +34,14 @@
                     <div class="col-md-3"></div> <!--primera columna vacía-->
                     <div class="col-md-6">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
+                            <!--es mostra l'informació actual de l'usuari com a predeterminada -->
+                            <!--quan prenem el botó, anem al php que actualitza la base de dades amb els nous valors -->
                             <form action="editarUsuari.php" method="post">
                                 <div class="d-grid gap-2">
                                     <label>Nombre:</label>
                                     <input name="name" class="form-control" value="<?php echo $registro['nom']; ?>" 
                                     <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?>>
+                                    <!--agafar el text per a actualitzar la base de dades-->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Primer apellido:</label>
@@ -64,6 +68,8 @@
                                             <input type="password" name="password2" class="form-control" placeholder="Contraseña" required>    
                                         </div>
                                         <a class="padding"></a>
+                                        <!--casos d'errors on, les contresenyes no són les mateixes o
+                                        el nom d'usuari que volem introduir ja està sent utilitzat-->
                                         <?php if (isset($_GET['error'])){
                                             switch ($_GET['error']) {
                                                 case 1:

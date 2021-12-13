@@ -7,11 +7,14 @@
     }
     $user = $_SESSION['username'];
 
+    //seleccionar el contracte de l'usuari
     $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
     $resultado = mysqli_query($con,$consulta);
     $registro = mysqli_fetch_array($resultado);
 
-    $consul = 'select distinct (nomTarifa) from Tarifa';
+    //per a poder realitzar la selecció d'opcions de tarifes, agafem les tarifes disponibles
+    //de la taula de tarifes
+    $consul = 'select nomTarifa from Tarifa';
     $resul1 = mysqli_query($con,$consul);
 ?>
 <!DOCTYPE html>
@@ -43,14 +46,18 @@
                                         <optgroup label="Estado">
                                         <?php
                                             if(!isset($registro['estat'])){
-                                                //si no existia
+                                                //si no existia el contracte, només podrà crear un contracte
+                                                //amb estat actiu
                                                 echo "<option value = '1' selected='selected'>Actiu</option>";
                                             }else{
-                                                //si existia
+                                                //si ja té un contracte, mirem l'estat actual per a poder
+                                                //mostrar-ho com l'opció per defecta
                                                 if($registro['estat'] == 1){
+                                                    //contracte actiu = estat per defecte de la selecció d'opcions és actiu
                                                     echo "<option value = '1' selected='selected'>Actiu</option>";
                                                     echo "<option value = '0' >Inactiu</option>";
                                                  }elseif($registro['estat'] == 0){
+                                                     //contracte actiu = estat per defecte de la selecció d'opcions és actiu
                                                     echo "<option value = '0' selected='selected'>Inactiu</option>";
                                                     echo "<option value = '1' >Actiu</option>";
                                                 }
@@ -63,17 +70,20 @@
                                         <optgroup label="Tipo de tarifa">
                                             <?php
                                                 if(!isset($registro['estat'])){
-                                                    //si no existia
+                                                    //si no existia el contracte
                                                     if (mysqli_num_rows($resul1) > 0) {
+                                                        //mirem si hi ha tarifes a la taula de tarifes
                                                         while($fila1 = mysqli_fetch_assoc($resul1)){
+                                                            //recorrem la taula de tarifes i mostrem les opcions
                                                             echo "<option value = '".$fila1['nomTarifa']."' selected='selected'>".$fila1['nomTarifa']."</option>";
                                                         }
                                                     }
                                                     
                                                 }else{
-                                                    //si ja existia
+                                                    //si ja té contracte
                                                     if (mysqli_num_rows($resul1) > 0) {
                                                         while($fila1 = mysqli_fetch_assoc($resul1)){
+                                                            //per a establir l'opció predeterminada que és l'actual
                                                             if($fila1['nomTarifa'] == $registro['nomTarifa']){
                                                                 echo "<option value = '".$fila1['nomTarifa']."' selected='selected'>".$fila1['nomTarifa']."</option>";
                                                             }else{

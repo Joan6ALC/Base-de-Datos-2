@@ -7,29 +7,40 @@
      // Connexió a bd
     include "connection.php";
     
+    //assignem les variables donades per l'usuari a unes variables locals
     $estado = $_POST['entrada1'];
     $tarifa = $_POST['entrada2'];
     $user = $_SESSION['username'];
+    //per obtenir la data actual
     $localdate = date('y-m-d');
+    //variable per a establir que una data pot ser null
     $notdate = null;
+    //si no hi ha cap contracte realitzat, realitzem un insert a la base de dades amb l'estat i la
+    //tarifa seleccionades per l'usuari, la data d'alta serà la local i la de baixa serà null
     if($_SESSION['IdContracte'] == null){
         $query = "INSERT INTO contracte(dataAlta,dataBaixa,estat,nomTarifa,username) VALUES ('".$localdate."', '".$notdate."','".$estado."', '".$tarifa."','".$user."')";
         mysqli_query($con, $query);
+        //select per a agafar l'id del nou contracte creat i poder ficar-ho a la variable global 
+        
         $comprovacio = "SELECT IdContracte FROM contracte where username = '".$user."'";
         $aplicacio = mysqli_query($con, $comprovacio);
         $valor = mysqli_fetch_array($aplicacio);
         $_SESSION['IdContracte'] = $valor['IdContracte'];
 
     }else{
+        //si ja tenia un contracte creat, mirem l'estat al qual volem canviar
         if($estado == 1){
+            //cas de voler activar el contracte, la data d'alta passa a ser l'actual i no hi ha data de baixa
             $query = "update contracte set dataAlta = '".$localdate."', dataBaixa = '".$notdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
         }elseif($estado == 0){
+            //cas de voler desactivar el contracte, la data de baixa és la data actual
             $query = "update contracte set dataBaixa = '".$localdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
         }
         mysqli_query($con, $query);
     }
     
-    header("Location: login.php"); // Redirigim a l'usuari a la pàgina principal
+    // Redirigim a l'usuari a la pàgina principal
+    header("Location: login.php");
     die();
 ?>
 <!DOCTYPE html>

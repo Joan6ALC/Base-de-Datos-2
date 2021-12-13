@@ -4,9 +4,10 @@
         header("Location: index.php");
         die();
     }
-     // Connexió a bd
+    // Connexió a bd
     include "connection.php";
 
+    //agafem les variables que ens dona l'usuari al formulari
     $user = $_SESSION['username']; // Variable de sessió
     $name= $_POST['name'];
     $surname1= $_POST['surname1'];
@@ -21,9 +22,10 @@
         header("Location: editarUsuariForm.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
         die();
     }
-
+    //encriptació de la contrasenya
     $hash=crypt($password1,"");
 
+    //seleccionem les dades de la base de dades de l'usuari
     $seleccio = "select username from persona where username = '".$username."'";
     $resultado = mysqli_query($con,$seleccio);
     $registro = mysqli_fetch_array($resultado);
@@ -43,9 +45,12 @@
         }
     }
 
+    //actualitzem la base de dades
     mysqli_query($con, $query);
+    //canviem el nom d'usuari de la sessió
     $_SESSION['username'] = "'.$username.'";
 
+    //tornem a la pàgina principal
     if (isset($_SESSION['username'])){ 
         header("Location: index.php");
         session_destroy();
