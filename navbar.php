@@ -52,7 +52,7 @@
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="afegirContingutForm.php">Añadir contenido</a>
                                             <a class="dropdown-item" href="#">Editar/Borrar contenido</a>
-                                            <a class="dropdown-item" href="#">Añadir categoria</a>
+                                            <a class="dropdown-item" href="afegirCategoriaForm.php">Añadir categoria</a>
                                             <a class="dropdown-item" href="#">Editar/Borrar categoria</a>
                                             <a class="dropdown-item" href="#">Visualizar usuarios</a>
                                         </div>
@@ -66,7 +66,8 @@
                 <div class="col-3-md">
                     <form class="form-inline" action="cercaContingut.php" method="post">
                         <div class="input-group mb-0">
-                                    <input class="form-control mr-sm-1" type="search" placeholder="Buscar contenido..." aria-label="Search">&nbsp;
+                                    <input class="form-control mr-sm-1" name="cercador" type="search" placeholder="Buscar contenido..." aria-label="Search"&nbsp;
+                                    <?php if(isset($_GET['cercador'])) echo 'value="'.$_GET['cercador'].'"'; ?>>
                                     <button class="btn btn-danger" type="submit">Buscar</button>
                         </div>
                         </form>
