@@ -69,6 +69,7 @@
                                     <input class="form-control mr-sm-1" type="search" placeholder="Buscar contenido..." aria-label="Search">&nbsp;
                                     <button class="btn btn-danger" type="submit">Buscar</button>
                         </div>
+                        </form>
                     </div>
                     &nbsp;
                 

@@ -67,7 +67,11 @@
             }
         
         ?>
-
+            <form action="veureFactures.php" method="post" id="$trob">
+                
+                <button type="submit" class="btn btn-danger">Atrás</button>
+                
+            </form>
       
             
         </section>
