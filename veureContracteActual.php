@@ -8,18 +8,15 @@
     }
     $user = $_SESSION['username'];
 
-    if(!isset($_SESSION['IdContracte'])){
-        header("Location: nohihaContracte.php");
-        die();
-    }else{
-        $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
-        $resultado = mysqli_query($con,$consulta);
-        $registro = mysqli_fetch_array($resultado);
-        $tar = $registro['nomTarifa'];
-        $datalt = $registro['dataAlta'];
-        $databaix = $registro['dataBaixa'];
-        $idcontract = $registro['IdContracte'];
-    }
+    
+    $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
+    $resultado = mysqli_query($con,$consulta);
+    $registro = mysqli_fetch_array($resultado);
+    $tar = $registro['nomTarifa'];
+    $datalt = $registro['dataAlta'];
+    $databaix = $registro['dataBaixa'];
+    $idcontract = $registro['IdContracte'];
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
