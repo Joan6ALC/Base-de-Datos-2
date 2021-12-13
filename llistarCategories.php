@@ -45,11 +45,10 @@
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
-                                            $query2 = "SELECT * from categoriafavorits where IdContracte=".$_SESSION['IdContracte']." AND nomCat=".$row['nomCat'].""; // Per comprovar si ja està a la llista de favorits
+                                            $query2 = "SELECT * from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."' AND nomCat='".$row['nomCat']."'"; // Per comprovar si ja està a la llista de favorits
                                             $result2 = mysqli_query($con,$query2);
-                                            if(isset($result2['nomCat'])){
-                                                $fav = mysqli_fetch_array($result2);
-                                            }   
+                                            $fav = mysqli_fetch_array($result2);
+                                               
                                         }
                                         echo  '
 
@@ -80,7 +79,7 @@
                                         }
                                         echo '</div>';
                                         echo   '<div class="row justify-content-center gap-2">';
-                                        $query3 = "SELECT * from contingut ORDER BY RAND()";
+                                        $query3 = "SELECT * from contingut WHERE nomCat='".$row['nomCat']."' ORDER BY titol ASC";
                                             $result3 = mysqli_query($con,$query3);
                                                 while($row2 = mysqli_fetch_array($result3)){
                                                     if(isset($_SESSION['IdContracte'])){
@@ -101,7 +100,7 @@
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$row2['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
                                                         if(isset($fav2)){ // Imprimim el botó per eliminar favorit
-                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
+                                                            echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'&redir=llistarCategories.php" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
                                                                 </div>
                                                             </div>
                                                             </div>';
