@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
+    <script language="JavaScript" type="text/javascript" src="scripts.js"></script>
 </head>
     <body>
         <header>
@@ -65,6 +66,16 @@
                                                     }
                                                 ?>
                                                 </optgroup>
+                                                <div class = "result"></div>
+                                                <script>
+                                                    const selectElement = document.querySelector('.facturas');
+
+                                                    selectElement.addEventListener('change', (event) => {
+                                                    const result = document.querySelector('.result');
+                                                    result.textContent = 'You like ${event.target.value}';
+                                                    });
+                                                    </script>
+                                                
                                             </select>
                                     </form>
                                     <label>Data pagament:</label>
