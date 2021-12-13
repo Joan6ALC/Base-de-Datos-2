@@ -111,7 +111,7 @@ INSERT INTO tarifa(nomTarifa, preu, periodicitat, estatTarifa) VALUES('MENSUAL',
 
 INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR AMB PASSWORD= 1234
 
-# INSERTS PEL·LÍCULES
+# INSERCIÓ PEL·LÍCULES
 #Ciencia ficción
 insert into contingut(titol, html, camiFoto, nomCat) values ("Avatar", '<iframe width="560" height="315" src="https://www.youtube.com/embed/5PSNL1qE6VY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/1-Avatar.jpg", "Ciencia ficción");
 insert into contingut(titol, html, camiFoto, nomCat) values ("ZONE 414", '<iframe width="560" height="315" src="https://www.youtube.com/embed/Zn5kZwZ-l2g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "/img/carteles/2-ZONE 414.jpg", "Ciencia ficción");
