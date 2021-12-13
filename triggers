@@ -3,8 +3,7 @@ CREATE TRIGGER GeneraMissatges
 AFTER INSERT ON contingut
 FOR EACH ROW
 BEGIN
-    SELECT * FROM persona join categoriafavorits on categoriafavorits.nomCat=contingut.nomCat;
-    INSERT INTO missatge (assumpte, descripcio, estatMissatge, username, IdContingut) values ("Nueva película", "¡XX está ahora disponible en nuestra plataforma!", false, USERNAME¿?,contingut.IdContingut)
+    call 
 
 END;
 

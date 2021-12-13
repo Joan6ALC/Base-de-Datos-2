@@ -1,8 +1,9 @@
 <?php
     include "connection.php";
     session_start();
-    if(!isset($_SESSION['username'])){
-        header("Location: index.php");
+    echo "hola: ".$_SESSION['estatContracte'];
+    if(!isset($_SESSION['username']) and $_SESSION['estatContracte']==0 or $_SESSION['estatContracte']==null){
+        header("Location: editarContracteForm.php");
         die();
     }
 

@@ -15,6 +15,8 @@
     // Connexió a bd
     include "connection.php";
 
+    // BASTA UNA SOLA LINEA I MILLOR FER UN UPDATE
+
     // Primer de tot sa'han d'eliminar totes les files de missatge, contingutfavorits i de tipus_contingut que tenen associat l'idContingut que es vol eliminar
     $query="DELETE FROM missatge WHERE IdContingut=".$IdContingut;
     $result=mysqli_query($con, $query); echo $IdContingut;
