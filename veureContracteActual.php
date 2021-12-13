@@ -8,10 +8,11 @@
     }
     $user = $_SESSION['username'];
 
-    
+    //per a obtenir el contracte de l'usuari
     $consulta = "SELECT * FROM contracte WHERE username = '".$user."'";
     $resultado = mysqli_query($con,$consulta);
     $registro = mysqli_fetch_array($resultado);
+    //variables del contracte
     $tar = $registro['nomTarifa'];
     $datalt = $registro['dataAlta'];
     $databaix = $registro['dataBaixa'];
@@ -33,6 +34,7 @@
             <?php include "navbar.php"; ?>
         </header>
         <section>
+            <!-- quadre on es mostra la informació del contracte-->
             <div class="container">
             <div class = "padding"><br></div>
             <div class = "row">
@@ -47,6 +49,8 @@
                                     <input name="nametar" class="form-control" value=<?php echo "'".$tar."'" ?> readonly>
                                     <label>Estado:</label>
                                     <?php
+                                        //imprimir actiu si l'estat del contracte és 1, i inactiu si
+                                        //és el contrari
                                         if($registro['estat'] == 1){
                                             echo '<input name="est" class="form-control" value="Actiu" readonly>';
                                         }else{

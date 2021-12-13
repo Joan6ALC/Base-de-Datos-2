@@ -5,9 +5,12 @@
         header("Location: index.php");
         die();
     }
+    //contracte actual
     $contract = $_SESSION['IdContracte'];
+    //tota la informació de les factures amb el contracte
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."' AND dataPagament IS NOT NULL";
     $cerca = mysqli_query($con,$consulta);
+    //mirem si hi ha factures
     if (mysqli_num_rows($cerca) < 1) {
         header("Location: noHiHaFactures.php?redir=veureFactures.php");
         die();
@@ -31,8 +34,9 @@
         </header>
         <section>
         <?php
-        
+            //recorregut de la taula de factures
             while($fila = mysqli_fetch_assoc($cerca)){
+                //variables que contenen els valors que volem mostrar als missatges
                 $trob = $fila["IdFactura"];
                 $datapagfila = $fila["dataPagament"];
                 $dataInfila = $fila["dataInici"];
