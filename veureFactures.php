@@ -10,6 +10,11 @@
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
     $cerca = mysqli_query($con,$consulta);
     $def = mysqli_fetch_array($cerca);
+    
+    
+    
+    
+    
 
     //comprovam si hi ha factures, en el cas en que no hi hagi, anem a un altre php
     if($def['import'] == null){
@@ -58,11 +63,27 @@
                                                         while($fila = mysqli_fetch_assoc($res)){
                                                             $trob = $fila["IdFactura"];
                                                             //opció de la factura amb l'id X
-                                                            echo '<option value="'.$trob.'">'.$trob.'</option>';
-                                                            $datapagfila = $fila["dataPagament"];
-                                                            $dataInfila = $fila["dataInici"];
-                                                            $dataFifila = $fila["dataFi"];
-                                                            $importfila = $fila["import"]; 
+                                                            //echo '<option value="'.$trob.'">'.$trob.'</option>';
+                                                            if(!isset($nouval)){
+                                                                $datapagfila = $fila["dataPagament"];
+                                                                $dataInfila = $fila["dataInici"];
+                                                                $dataFifila = $fila["dataFi"];
+                                                                $importfila = $fila["import"];
+                                                                echo '<option value='.$trob.'>'.$trob.'</option>';
+                                                            }else{
+                                                                $nouval = $_GET['val'];
+                                                                //echo '<option value='.$nouval.'>'.$nouval.'</option>';
+                                                                $consnouval = "select * from factura where IdFactura = '".$nouval."'";
+                                                                $c = mysqli_query($con,$consnouval);
+                                                                $d = mysqli_fetch_array($c);
+                                                                $datapagfila = $d["dataPagament"];
+                                                                $dataInfila = $d["dataInici"];
+                                                                $dataFifila = $d["dataFi"];
+                                                                $importfila = $d["import"];
+                                                                echo "<script>console.log('Debug Objects: ".$trob."".$datapagfila."'".$dataInfila."'".$dataFifila."'".$importfila."' );</script>";
+
+                                                            }
+                                                             
                                                         }
                                                     }
                                                 ?>
@@ -70,12 +91,9 @@
                                                 <script>
                                                     const selectElement = document.querySelector('.facturas');
                                                     selectElement.addEventListener('change', (event) => {
-                                                        //const result = document.querySelector('.result.');
-
-                                                        window.location.replace("veureFactures.php");
-                                                        //$(location).prop('href', 'login.php');
+                                                        window.location.replace('veureFactures.php?val='.$trob.'');
                                                     });
-                                                </script>
+                                            </script>
 
                                     </form>
                                     <label>Data pagament:</label>
