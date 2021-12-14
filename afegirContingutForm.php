@@ -9,6 +9,9 @@ if (!isset($_SESSION['username'])) {
 $consultP = 'select distinct (nomCat) from categoria';
 $resultP = mysqli_query($con, $consultP);
 
+$consultQ = 'select distinct (edat) from tipus';
+$resultQ = mysqli_query($con, $consultQ);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -82,8 +85,16 @@ $resultP = mysqli_query($con, $consultP);
                                             </optgroup>
                                         </select>
                                     </div>
-                                    <div class="col">
 
+                                    <div class="col">
+                                        <label>Tipo de contenido<span style="color: red;">*</span>:</label>
+                                                <?php
+                                                if (mysqli_num_rows($resultQ) > 0) {
+                                                    while ($fila1 = mysqli_fetch_assoc($resultQ)) {
+                                                        echo "<br /><input type='checkbox' name='tipoCont[]' value='" . $fila1['edat'] . "'><label> " . $fila1['edat'] . "</label></input>";
+                                                    }
+                                                }
+                                                ?>
                                     </div>
                                 </div>
 
