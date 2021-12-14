@@ -10,6 +10,9 @@
     $consulta = "SELECT * FROM factura WHERE IdContracte = '".$contract."'";
     $cerca = mysqli_query($con,$consulta);
     $def = mysqli_fetch_array($cerca);
+    $index = $_GET['index'];
+    echo 'valor = facturas.options[index].value;';
+    $valorrr = 'valor';
     
     
     //comprovam si hi ha factures, en el cas en que no hi hagi, anem a un altre php
@@ -57,42 +60,49 @@
                                                     if (mysqli_num_rows($res) > 0) {
                                                         //mente hi hagi factures
                                                         while($fila = mysqli_fetch_assoc($res)){
+                                                            
+                                                                if($valorrr == $fila['IdFactura']){
+                                                                    echo '<option value="'.$fila['IdFactura'].'" selected ="selected" >'.$fila['IdFactura'].'</option>';
+                                                                }else{
+                                                                    echo '<option value="'.$fila['IdFactura'].'">'.$fila['IdFactura'].'</option>';
+                                                                }
+                                                                //echo 'valor = facturas.options[index].value;';
+                                                                //$valorrr = 'valor';
+                                                            
                                                             //opció de la factura amb l'id X
-                                                            echo '<option value="'.$fila['IdFactura'].'">'.$fila['IdFactura'].'</option>';
-                                                            
-                                                        }
-                                                        echo 'var indice = facturas.selectedIndex'; 
-                                                        echo 'var valorr = facturas.options[indice].value ';
-                                                        $valornou = $_POST['valorr'];
+                                                            //echo '<option value="'.$fila['IdFactura'].'">'.$fila['IdFactura'].'</option>'; 
+                                                             
+                                                        } 
+                                                    } 
                                                         
                                                         
-                                                            $consnouval = "select * from factura where IdFactura = '".$valornou."'";
-                                                            $cons = mysqli_query($con,$consnouval);
-                                                            $resu = mysqli_fetch_array($cons);
-                                                            $datapagfila = $resu["dataPagament"];
-                                                            $dataInfila = $resu["dataInici"];
-                                                            $dataFifila = $resu["dataFi"];
-                                                            $importfila = $resu["import"];
-                                                        
-                                                            $nouval = $_GET['val'];
-                                                            
-                                                            
-                                                            echo "<script>console.log('Debug Objects: ".$trob."".$datapagfila."'".$dataInfila."'".$dataFifila."'".$importfila."' );</script>";
+                                                        $consnouval = "select * from factura where IdFactura = '".$valorrr."'";
+                                                        $cons = mysqli_query($con,$consnouval);
+                                                        $resu = mysqli_fetch_array($cons);
+                                                        $datapagfila = $resu["dataPagament"];
+                                                        $dataInfila = $resu["dataInici"];
+                                                        $dataFifila = $resu["dataFi"];
+                                                        $importfila = $resu["import"];
 
-                                                        
-                                                    }
+                                                        //echo "<script>console.log('Debug Objects: ".$trob."".$datapagfila."'".$dataInfila."'".$dataFifila."'".$importfila."' );</script>"; 
                                                 ?>
+                                                
                                             </select>
-                                                <script>
-                                                    const selectElement = document.querySelector('.facturas');
-                                                    selectElement.addEventListener('change', (event) => {
-                                                        window.location.replace('veureFactures.php?val='.$trob.'');
-                                                    });
-                                                </script>
+                                            <script>
+                                                    selectElement = document.querySelector('.facturas');
+                                                    
+                                                    
+                                                    
+                                                    selectElement.addEventListener('change',(event) => {
+                                                        var index = event.target.selectedIndex;
+                                                        //var valor = index.options[index.selectedIndex]
 
+                                                        window.location.replace('veureFactures.php',index);
+                                                    });
+                                            </script>
                                     </form>
                                     <label>Data pagament:</label>
-                                    <input type="date" name="datapag" class="form-control" value =<?php "'".$datapagfila."'" ?> readonly>
+                                    <input type="date" name="datapag" class="form-control" value =<?php echo "'".$datapagfila."'" ?> readonly>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Data inici:</label>
