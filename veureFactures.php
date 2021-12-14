@@ -12,10 +12,6 @@
     $def = mysqli_fetch_array($cerca);
     
     
-    
-    
-    
-
     //comprovam si hi ha factures, en el cas en que no hi hagi, anem a un altre php
     if($def['import'] == null){
         header("Location: nohihaFactures.php?redir=login.php");
@@ -61,30 +57,29 @@
                                                     if (mysqli_num_rows($res) > 0) {
                                                         //mente hi hagi factures
                                                         while($fila = mysqli_fetch_assoc($res)){
-                                                            $trob = $fila["IdFactura"];
                                                             //opció de la factura amb l'id X
-                                                            //echo '<option value="'.$trob.'">'.$trob.'</option>';
-                                                            if(!isset($nouval)){
-                                                                $datapagfila = $fila["dataPagament"];
-                                                                $dataInfila = $fila["dataInici"];
-                                                                $dataFifila = $fila["dataFi"];
-                                                                $importfila = $fila["import"];
-                                                                echo '<option value='.$trob.'>'.$trob.'</option>';
-                                                            }else{
-                                                                $nouval = $_GET['val'];
-                                                                //echo '<option value='.$nouval.'>'.$nouval.'</option>';
-                                                                $consnouval = "select * from factura where IdFactura = '".$nouval."'";
-                                                                $c = mysqli_query($con,$consnouval);
-                                                                $d = mysqli_fetch_array($c);
-                                                                $datapagfila = $d["dataPagament"];
-                                                                $dataInfila = $d["dataInici"];
-                                                                $dataFifila = $d["dataFi"];
-                                                                $importfila = $d["import"];
-                                                                echo "<script>console.log('Debug Objects: ".$trob."".$datapagfila."'".$dataInfila."'".$dataFifila."'".$importfila."' );</script>";
-
-                                                            }
-                                                             
+                                                            echo '<option value="'.$fila['IdFactura'].'">'.$fila['IdFactura'].'</option>';
+                                                            
                                                         }
+                                                        echo 'var indice = facturas.selectedIndex'; 
+                                                        echo 'var valorr = facturas.options[indice].value ';
+                                                        $valornou = $_POST['valorr'];
+                                                        
+                                                        
+                                                            $consnouval = "select * from factura where IdFactura = '".$valornou."'";
+                                                            $cons = mysqli_query($con,$consnouval);
+                                                            $resu = mysqli_fetch_array($cons);
+                                                            $datapagfila = $resu["dataPagament"];
+                                                            $dataInfila = $resu["dataInici"];
+                                                            $dataFifila = $resu["dataFi"];
+                                                            $importfila = $resu["import"];
+                                                        
+                                                            $nouval = $_GET['val'];
+                                                            
+                                                            
+                                                            echo "<script>console.log('Debug Objects: ".$trob."".$datapagfila."'".$dataInfila."'".$dataFifila."'".$importfila."' );</script>";
+
+                                                        
                                                     }
                                                 ?>
                                             </select>
@@ -93,7 +88,7 @@
                                                     selectElement.addEventListener('change', (event) => {
                                                         window.location.replace('veureFactures.php?val='.$trob.'');
                                                     });
-                                            </script>
+                                                </script>
 
                                     </form>
                                     <label>Data pagament:</label>
@@ -121,11 +116,11 @@
                                             <?php
                                                 //si hi ha factures que encara no han estat pagades, sorgeix
                                                 //un botó per a realitzar el pagament automàtic 
-                                                if($datapagfila == null){
-                                                    echo '<div class="col">';
-                                                    echo '<a href="pagar.php?value='.$trob.'&redir=veureFactures.php" class="btn btn-danger">Pagar</a>';
-                                                    echo '</div>';
-                                                }
+                                                //if($datapagfila == null){
+                                                    //echo '<div class="col">';
+                                                    //echo '<a href="pagar.php?value='.$trob.'&redir=veureFactures.php" class="btn btn-danger">Pagar</a>';
+                                                    //echo '</div>';
+                                                //}
                                             ?>
                                     </div>
                                     <div class="row">

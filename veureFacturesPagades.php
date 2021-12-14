@@ -43,37 +43,38 @@
                 $dataFifila = $fila["dataFinal"];
                 $importfila = $fila["import"];
 
-                //html que imprimirà la factura, la data en la qual s'ha realitzat el pagament
+                //taula de bootstrap que imprimirà la factura, la data en la qual s'ha realitzat el pagament
                 //la data inici, la data fi i l'import de les factures que ja han estat pagades
+                
+
                 echo '<div class="container">
                 <div class = "padding"><br></div>
                 <div class = "row">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            <div class="d-grid gap-2">
-                                <div class="col-md-1">
-                                    <label>Factura:</label>
-                                    <input name="fac" class="form-control" value='.$trob.' readonly>
-                                </div>
-                                <div class="col-md-2">
-                                <label>Data pagament:</label>
-                                <input type="date" name="datapag" class="form-control" value ='.$datapagfila.' readonly>
-                                </div>
-                                <div class="col-md-2">
-                                    <label>Data inici:</label>
-                                    <input type="date" name="datain" class="form-control" value ='.$dataInfila.' readonly>
-                                </div> 
-                                <div class="col-md-2">
-                                    <label>Data fi:</label>
-                                    <input type="date" name="datafi" class="form-control" value ='.$dataFifila.' readonly>
-                                </div> 
-                                <div class="col-md-1">
-                                    <label>Import:</label>
-                                    <input name="num" class="form-control" value='.$importfila.' readonly>
-                                </div>
-                            </div>
+                        <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Factura</th>
+                            <th scope="col">Fecha de pago</th>
+                            <th scope="col">Fecha de inicio</th>
+                            <th scope="col">Fecha de finalización</th>
+                            <th scope="col">Importe</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>'.$trob.'</td>
+                            <td>'.$datapagfila.'</td>
+                            <td>'.$dataInfila.'</td>
+                            <td>'.$dataFifila.'</td>
+                            <td>'.$importfila.'</td>
+                          </tr>
+                        </tbody>
+                      </table>
                         </div>        
                     </div>
             </div>';
+                
             }
         
         ?>
