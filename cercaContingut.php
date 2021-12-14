@@ -97,7 +97,6 @@
                                      $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
-                                            echo "hola";
                                             $query2 = "SELECT * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
                                             $result2 = mysqli_query($con,$query2);
                                             $fav = mysqli_fetch_array($result2);
