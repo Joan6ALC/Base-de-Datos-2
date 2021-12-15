@@ -25,32 +25,33 @@
     <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
 </head>
-    <body>
+    <body class="bg-dark">
         <header>
             <?php include "navbar.php"; ?>
         </header>
-        <section>
-            <div class="padding"></div>
-            <div class="container-xxl">
-                
-                        <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                            
-                                <div class="row">
+        <section class="bg-dark">
+            <div class="bg-dark"></div>
+            
+                <div class=" p-4 mb-5 bg-dark rounded">
+                    <div class="bg-dark ">
+                    
+                        <div class="row text-white">
+                        <div class="col-md-1"></div>
+                            <div class="col-md-2 m-md-auto pb-4">
                                 <h5> 
                                     <?php echo $titol ?>
-                                </h5></div>
+                                </h5>
+                            </div>
+                        </div>
 
-                                <div class="padding"></div>
-                               
-                                <div class="container-xxl">                                
-                                    <?php echo $peli ?>
-                                    
-                                </div>
-                                
-                            
-                        
+                        <div class="container-xxl">                                
+                            <center>
+                                <?php echo "<iframe width='1080' height='608' src= '".$peli."' title='YouTube video player' frameborder='0' allow='accelerometer'; autoplay; 'clipboard-write'; 'encrypted-media'; 'gyroscope'; 'picture-in-picture' allowfullscreen></iframe>"?>
+                            </center>   
+                        </div>
+                    </div>    
                 </div>
-            </div>
+            
         </section>
        
 

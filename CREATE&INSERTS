@@ -13,6 +13,119 @@ CREATE TABLE Tarifa(
 
 CREATE TABLE Categoria(
 	nomCat varchar(20) PRIMARY KEY,
+visible boolean
+);
+
+CREATE TABLE Tipus(
+IdTipus integer AUTO_INCREMENT PRIMARY KEY,
+	edat varchar(15) NOT NULL # <9, 9-18 i >18
+	
+);
+
+CREATE TABLE Contingut(
+IdContingut integer AUTO_INCREMENT PRIMARY KEY,
+	titol varchar(20) NOT NULL,
+	html varchar(250) NOT NULL,
+	camiFoto varchar(250) NOT NULL,
+	nomCat varchar(20),
+	visible boolean,
+	FOREIGN KEY (nomCat) REFERENCES Categoria(nomCat)
+);
+
+CREATE TABLE R_Tipus_Contingut(
+	IdTipus integer,
+	IdContingut integer,
+	FOREIGN KEY (IdTipus) REFERENCES Tipus(IdTipus),
+	FOREIGN KEY (IdContingut) REFERENCES Contingut(IdContingut),
+	PRIMARY KEY (IdTipus,IdContingut)
+);
+
+CREATE TABLE Persona(
+	dataAlta DATE NOT NULL,
+	username varchar(15)PRIMARY KEY,
+	password varchar(45) NOT NULL,
+	nom varchar(25) NOT NULL,
+	llinatge1 varchar(20) NOT NULL,
+	llinatge2 varchar(20), # pot ser null, ja que moltes persones no tenen segon llinatge
+	dataNaixament DATE NOT NULL, 
+	administrador boolean,
+	IdTipus integer,
+	FOREIGN KEY (IdTipus) REFERENCES Tipus(IdTipus)
+);
+
+CREATE TABLE Contracte(
+	dataAlta DATE,
+	dataBaixa DATE,
+	estat boolean,
+	IdContracte integer AUTO_INCREMENT PRIMARY KEY,
+	nomTarifa varchar(15),
+	username varchar(15),
+	FOREIGN KEY (nomTarifa) REFERENCES Tarifa(nomTarifa),
+FOREIGN KEY (username) REFERENCES Persona(username)	
+);
+
+CREATE TABLE Factura(
+	import integer NOT NULL,
+	dataInici DATE, # període de la factura de dataInici a dataFinal
+	dataFinal DATE,
+	dataPagament DATE,
+	IdFactura integer AUTO_INCREMENT PRIMARY KEY,
+	IdContracte integer,
+	FOREIGN KEY (IdContracte) REFERENCES Contracte(IdContracte)
+);
+
+
+CREATE TABLE Missatge(
+	data DATE,
+	assumpte varchar(50),
+	descripcio varchar(50),
+	estatMissatge boolean,
+	IdMissatge integer AUTO_INCREMENT PRIMARY KEY,
+	username varchar(15),
+	IdContingut integer,
+	FOREIGN KEY (username) REFERENCES Persona(username),
+	FOREIGN KEY (IdContingut) REFERENCES Contingut(IdContingut)
+);
+
+CREATE TABLE ContingutFavorits(
+	IdContracte integer,
+	IdContingut integer,
+	FOREIGN KEY (IdContracte) REFERENCES Contracte(IdContracte),
+	FOREIGN KEY (IdContingut) REFERENCES Contingut(IdContingut),
+	PRIMARY KEY (IdContracte,IdContingut)
+);
+
+CREATE TABLE CategoriaFavorits(
+	IdContracte integer,
+	nomCat varchar(20),
+	FOREIGN KEY (IdContracte) REFERENCES Contracte(IdContracte),
+	FOREIGN KEY (nomCat) REFERENCES Categoria(nomCat),
+	PRIMARY KEY (IdContracte,nomCat)
+);
+
+# INSERTS NECESSARIS
+
+INSERT INTO tipus(edat) VALUES ("<9 anys"),  ("9-18 anys"),  ("+18 anys");
+
+INSERT INTO categoria(nomCat) VALUES ("Terror"), ("Comedia"), ("Intriga"),("Ciencia ficción"),("Aventuras"),("Drama"),("Fantasía"),("Suspense"),("Musical"),("Animación"),("Documental"),("Histórica"),("Bélica"),("Crimen"),("Policíaca"),("Acción");
+
+INSERT INTO tarifa(nomTarifa, preu, periodicitat, estatTarifa) VALUES('MENSUAL', 10, 30, 'VIGENT'),('TRIMESTRAL', 25, 90, 'VIGENT');
+
+INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR AMB PASSWORD= 1234
+
+CREATE DATABASE pelistube;
+
+USE pelistube;
+
+CREATE TABLE Tarifa(
+	nomTarifa varchar(15) PRIMARY KEY,
+	preu integer NOT NULL,
+	periodicitat varchar(15) NOT NULL,
+	estatTarifa boolean
+);
+
+CREATE TABLE Categoria(
+	nomCat varchar(20) PRIMARY KEY,
 visible boolean,
 );
 
@@ -114,34 +227,35 @@ INSERT INTO tarifa(nomTarifa, preu, periodicitat, estatTarifa) VALUES('MENSUAL',
 INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR AMB PASSWORD= 1234
 
 # INSERTS PEL·LÍCULES
+
 #Ciencia ficción
-insert into contingut(titol, html, camiFoto, nomCat) values ("Avatar", '<iframe width="560" height="315" src="https://www.youtube.com/embed/5PSNL1qE6VY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/1-Avatar.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("ZONE 414", '<iframe width="560" height="315" src="https://www.youtube.com/embed/Zn5kZwZ-l2g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "/img/carteles/2-ZONE 414.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("DUNE", '<iframe width="560" height="315" src="https://www.youtube.com/embed/1looWByWgW0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "/img/carteles/3-DUNE.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Reminiscencia", '<iframe width="560" height="315" src="https://www.youtube.com/embed/5MvFknvMabU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "/img/carteles/4-Reminiscencia.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Chaos Walking", '<iframe width="560" height="315" src="https://www.youtube.com/embed/KJOd3poTq_I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', "/img/carteles/5-Chaos Walking.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Ad Astra", '<iframe width="560" height="315" src="https://www.youtube.com/embed/gaf-zgnlNLg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/6-Ad Astra.jpg", "Ciencia ficción");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Avatar", 'https://www.youtube.com/embed/5PSNL1qE6VY',"/img/carteles/1-Avatar.jpg", "Ciencia ficción");
+insert into contingut(titol, html, camiFoto, nomCat) values ("ZONE 414", 'https://www.youtube.com/embed/Zn5kZwZ-l2g', "/img/carteles/2-ZONE 414.jpg", "Ciencia ficción");
+insert into contingut(titol, html, camiFoto, nomCat) values ("DUNE", 'https://www.youtube.com/embed/1looWByWgW0', "/img/carteles/3-DUNE.jpg", "Ciencia ficción");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Reminiscencia", 'https://www.youtube.com/embed/5MvFknvMabU', "/img/carteles/4-Reminiscencia.jpg", "Ciencia ficción");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Chaos Walking", 'https://www.youtube.com/embed/KJOd3poTq_I', "/img/carteles/5-Chaos Walking.jpg", "Ciencia ficción");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Ad Astra", 'https://www.youtube.com/embed/gaf-zgnlNLg',"/img/carteles/6-Ad Astra.jpg", "Ciencia ficción");
 
 #Aventuras
-insert into contingut(titol, html, camiFoto, nomCat) values ("Jumanji", '<iframe width="560" height="315" src="https://www.youtube.com/embed/leIrosWRbYQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/7-Jumanji.jpg", "Aventuras");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Jungle Cruise", '<iframe width="560" height="315" src="https://www.youtube.com/embed/hIJUnZnvAzA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/8-Jungle Cruise.jpg", "Aventuras");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Animales fantásticos", '<iframe width="560" height="315" src="https://www.youtube.com/embed/US2LnWrrCq4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/14-Animales Fantásticos.jpg", "Aventuras");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Jumanji", 'https://www.youtube.com/embed/leIrosWRbYQ',"/img/carteles/7-Jumanji.jpg", "Aventuras");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Jungle Cruise", 'https://www.youtube.com/embed/hIJUnZnvAzA',"/img/carteles/8-Jungle Cruise.jpg", "Aventuras");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Animales fantásticos", 'https://www.youtube.com/embed/US2LnWrrCq4',"/img/carteles/14-Animales Fantásticos.jpg", "Aventuras");
 
 #Animación
-insert into contingut(titol, html, camiFoto, nomCat) values ("Los Simpson", '<iframe width="560" height="315" src="https://www.youtube.com/embed/HRV6tMR-SSs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/9-Los Simpson.png", "Animación");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Soul", '<iframe width="560" height="315" src="https://www.youtube.com/embed/85hY9bninqU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/10-Soul.jpg", "Animación");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Coco", '<iframe width="560" height="315" src="https://www.youtube.com/embed/htwlR51npL4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/11-Coco.jpg", "Animación");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Del Revés", '<iframe width="560" height="315" src="https://www.youtube.com/embed/RbfKs_syius" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/12-Del reves.jpg", "Animación");
-insert into contingut(titol, html, camiFoto, nomCat) values ("El Rey León", '<iframe width="560" height="315" src="https://www.youtube.com/embed/mb79ctR-E-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/13-El Rey León.jpg", "Animación");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Los Simpson", 'https://www.youtube.com/embed/HRV6tMR-SSs',"/img/carteles/9-Los Simpson.png", "Animación");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Soul", 'https://www.youtube.com/embed/85hY9bninqU',"/img/carteles/10-Soul.jpg", "Animación");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Coco", 'https://www.youtube.com/embed/htwlR51npL4',"/img/carteles/11-Coco.jpg", "Animación");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Del Revés", 'https://www.youtube.com/embed/RbfKs_syius',"/img/carteles/12-Del reves.jpg", "Animación");
+insert into contingut(titol, html, camiFoto, nomCat) values ("El Rey León", 'https://www.youtube.com/embed/mb79ctR-E-c',"/img/carteles/13-El Rey León.jpg", "Animación");
 
 #Acción
-insert into contingut(titol, html, camiFoto, nomCat) values ("Alerta Roja", '<iframe width="560" height="315" src="https://www.youtube.com/embed/UUZ_DITqers" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/15-Alerta Roja.jpg", "Acción");
+insert into contingut(titol, html, camiFoto, nomCat) values ("Alerta Roja", 'https://www.youtube.com/embed/UUZ_DITqers',"/img/carteles/15-Alerta Roja.jpg", "Acción");
 #Bélica
-insert into contingut(titol, html, camiFoto, nomCat) values ("1917", '<iframe width="560" height="315" src="https://www.youtube.com/embed/SBc69RKIqwg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/16-1917.jpg", "Bélica");
+insert into contingut(titol, html, camiFoto, nomCat) values ("1917", 'https://www.youtube.com/embed/SBc69RKIqwg',"/img/carteles/16-1917.jpg", "Bélica");
 #Comedia
 #Crimen
 #Documental
-insert into contingut(titol, html, camiFoto, nomCat) values ("The Last Dance", '<iframe width="560" height="315" src="https://www.youtube.com/embed/qQjYmZgB3QQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',"/img/carteles/17-The Last Dance.jpg", "Documental");
+insert into contingut(titol, html, camiFoto, nomCat) values ("The Last Dance", 'https://www.youtube.com/embed/qQjYmZgB3QQ',"/img/carteles/17-The Last Dance.jpg", "Documental");
 #Drama
 #Fantasía
 #Histórica
