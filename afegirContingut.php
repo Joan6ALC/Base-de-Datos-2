@@ -8,11 +8,10 @@ if (!isset($_SESSION['username'])) {
 include "connection.php";
 
 $titulo = $_POST['titulo'];
-$enlace = $_POST['enlace'];
+$html = $_POST['enlace'];
 $nomCat = $_POST['nomCat'];
 $tipoCont = $_POST['tipoCont'];
 $nomFoto   = $_FILES['file']['name'];
-$html = '<iframe width="560" height="315" src="' . $enlace . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 $camiFoto = "/img/carteles/" . $nomFoto;
 
 if ($_FILES['file']['name'] != "") {
