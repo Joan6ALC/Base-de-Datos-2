@@ -47,7 +47,7 @@
 
                         <div class="container-xxl">                                
                             <center>
-                                <?php echo '<iframe width="1080" height="608" src= "'.$peli.'" title="YouTube video player" frameborder="0" allow="accelerometer"; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture allowfullscreen></iframe>'?>
+                                <?php echo '<iframe width="1080" height="608" src='.$peli.'?autoplay=1 title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'?>
                             </center>   
                         </div>
                     </div>    
