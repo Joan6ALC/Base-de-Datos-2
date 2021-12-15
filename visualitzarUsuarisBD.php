@@ -43,8 +43,8 @@ $orden = $_POST['orden'];
                         <form action="visualitzarUsuarisBD.php" method="post" enctype="multipart/form-data">
                             <div class="d-grid gap-2">
                                 <div class="row">
-                                <div class="col"></div>
-                                <div class="col"></div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
                                     <div class="col"></div>
                                     <div class="col"></div>
                                     <div class="col"></div>
@@ -90,101 +90,142 @@ $orden = $_POST['orden'];
 
                         <div class="table table-responsive table-bordered" style="padding-top: 3%;">
                             <table class="table">
-                                <thead>
-                                    <tr style="background-color: black; color: white;">
-                                        <th>Nombre de usuario</th>
-                                        <th>Id contrato</th>
-                                        <th>Estado</th>
-                                        <th>Tarifa</th>
-                                        <th>Fecha de alta</th>
-                                        <th>Fecha de baja</th>
-                                        
-                                    </tr>
-                                </thead>
 
-                                    <?php
-                                    if ($orden == 'contActivos') {
-                                        $consultP = "SELECT * from contracte WHERE estat='1'";
-                                        $resultP = mysqli_query($con, $consultP);
+                                <?php
+                                if ($orden == 'contActivos') {
+                                    $consultP = "SELECT persona.username, persona.dataAlta, nom, llinatge1,llinatge2, edat, estat, IdContracte, nomTarifa FROM tipus JOIN (persona JOIN contracte ON persona.username=contracte.username AND contracte.estat='1') ON tipus.IdTipus=persona.IdTipus";
+                                    $resultP = mysqli_query($con, $consultP);
 
-                                        if (mysqli_num_rows($resultP) > 0) {
-                                            while ($fila1 = mysqli_fetch_assoc($resultP)) {
-                                                $dataAlta = $fila1['dataAlta'];
-                                                $dataBaixa = $fila1['dataBaixa'];
-                                                $estat = $fila1['estat'];
-                                                $idContracte = $fila1['IdContracte'];
-                                                $nomTarifa = $fila1['nomTarifa'];
-                                                $username = $fila1['username'];
-                                                if($estat == 1) $estat = 'Activo';
-                                                else $estat = 'Inactivo';
-                                                echo '
+                                    echo '
+                                    <thead>
+                                        <tr style="background-color: black; color: white;">
+                                            <th>Id contrato</th>
+                                            <th>Nombre de usuario</th>
+                                            <th>Nombre completo</th>
+                                            <th>Estado</th>
+                                            <th>Tarifa</th>
+                                            <th>Fecha de alta de usuario</th>
+                                            <th>Edad</th>
+                                        </tr>
+                                    </thead>                                    
+                                    ';
+
+                                    if (mysqli_num_rows($resultP) > 0) {
+                                        while ($fila1 = mysqli_fetch_assoc($resultP)) {
+                                            $idContracte = $fila1['IdContracte'];
+                                            $username = $fila1['username'];
+                                            $nombre = $fila1['nom'];
+                                            $apellido1 = $fila1['llinatge1'];
+                                            $apellido2 = $fila1['llinatge2'];
+                                            $estat = $fila1['estat'];
+                                            $nomTarifa = $fila1['nomTarifa'];
+                                            $dataAlta = $fila1['dataAlta'];
+                                            $edad = $fila1['edat'];
+
+                                            if ($estat == 1) $estat = 'Activo';
+                                            else $estat = 'Inactivo';
+
+                                            echo '
                                             <tbody>
                                             <tr>
-                                                <td>' . $username . '</td>
                                                 <td>' . $idContracte . '</td>
+                                                <td>' . $username . '</td>
+                                                <td>' . $apellido1 . ' ' . $apellido2 . ', ' . $nombre . '</td>
                                                 <td>' . $estat . '</td>
                                                 <td>' . $nomTarifa . '</td>
                                                 <td>' . $dataAlta . '</td>
-                                                <td>' . $dataBaixa . '</td>
+                                                <td>' . $edad . '</td>
                                                 </tr>
                                             </tbody>
                                             ';
-                                            }
-                                        }
-                                    } else if ($orden == 'noActivos') {
-                                        $consultP = "SELECT * from contracte WHERE estat='0'";
-                                        $resultP = mysqli_query($con, $consultP);
-
-                                        if (mysqli_num_rows($resultP) > 0) {
-                                            while ($fila1 = mysqli_fetch_assoc($resultP)) {
-                                                $dataAlta = $fila1['dataAlta'];
-                                                $dataBaixa = $fila1['dataBaixa'];
-                                                $estat = $fila1['estat'];
-                                                $idContracte = $fila1['IdContracte'];
-                                                $nomTarifa = $fila1['nomTarifa'];
-                                                $username = $fila1['username'];
-                                                if($estat == 1) $estat = 'Activo';
-                                                else $estat = 'Inactivo';
-                                                echo '
-                                            <tr>
-                                                <td>' . $username . '</td>
-                                                <td>' . $idContracte . '</td>
-                                                <td>' . $estat . '</td>
-                                                <td>' . $nomTarifa . '</td>
-                                                <td>' . $dataAlta . '</td>
-                                                <td>' . $dataBaixa . '</td>
-                                            </tr>
-                                            ';
-                                            }
-                                        }
-                                    } else {
-                                        $consultP = "SELECT * from contracte ORDER BY username";
-                                        $resultP = mysqli_query($con, $consultP);
-
-                                        if (mysqli_num_rows($resultP) > 0) {
-                                            while ($fila1 = mysqli_fetch_assoc($resultP)) {
-                                                $dataAlta = $fila1['dataAlta'];
-                                                $dataBaixa = $fila1['dataBaixa'];
-                                                $estat = $fila1['estat'];
-                                                $idContracte = $fila1['IdContracte'];
-                                                $nomTarifa = $fila1['nomTarifa'];
-                                                $username = $fila1['username'];
-                                                if($estat == 1) $estat = 'Activo';
-                                                else $estat = 'Inactivo';
-                                                echo '
-                                            <tr>
-                                                <td>' . $username . '</td>
-                                                <td>' . $idContracte . '</td>
-                                                <td>' . $estat . '</td>
-                                                <td>' . $nomTarifa . '</td>
-                                                <td>' . $dataAlta . '</td>
-                                                <td>' . $dataBaixa . '</td>
-                                            </tr>
-                                            ';
-                                            }
                                         }
                                     }
-                                    ?>
+                                } else if ($orden == 'noActivos') {
+                                    $consultP = "SELECT persona.username, persona.dataAlta, nom, llinatge1,llinatge2, edat, estat, IdContracte, nomTarifa FROM tipus JOIN (persona JOIN contracte ON persona.username=contracte.username AND contracte.estat='0') ON tipus.IdTipus=persona.IdTipus";
+                                    $resultP = mysqli_query($con, $consultP);
+
+                                    echo '
+                                        <thead>
+                                            <tr style="background-color: black; color: white;">
+                                                <th>Id contrato</th>
+                                                <th>Nombre de usuario</th>
+                                                <th>Nombre completo</th>
+                                                <th>Estado</th>
+                                                <th>Tarifa</th>
+                                                <th>Fecha de alta de usuario</th>
+                                                <th>Edad</th>
+                                            </tr>
+                                        </thead>                                    
+                                        ';
+
+                                    if (mysqli_num_rows($resultP) > 0) {
+                                        while ($fila1 = mysqli_fetch_assoc($resultP)) {
+                                            $idContracte = $fila1['IdContracte'];
+                                            $username = $fila1['username'];
+                                            $nombre = $fila1['nom'];
+                                            $apellido1 = $fila1['llinatge1'];
+                                            $apellido2 = $fila1['llinatge2'];
+                                            $estat = $fila1['estat'];
+                                            $nomTarifa = $fila1['nomTarifa'];
+                                            $dataAlta = $fila1['dataAlta'];
+                                            $edad = $fila1['edat'];
+
+                                            if ($estat == 1) $estat = 'Activo';
+                                            else $estat = 'Inactivo';
+
+                                            echo '
+                                                <tbody>
+                                                <tr>
+                                                    <td>' . $idContracte . '</td>
+                                                    <td>' . $username . '</td>
+                                                    <td>' . $apellido1 . ' ' . $apellido2 . ', ' . $nombre . '</td>
+                                                    <td>' . $estat . '</td>
+                                                    <td>' . $nomTarifa . '</td>
+                                                    <td>' . $dataAlta . '</td>
+                                                    <td>' . $edad . '</td>
+                                                    </tr>
+                                                </tbody>
+                                                ';
+                                        }
+                                    }
+                                } else {
+                                    $consultP = "SELECT username, nom, llinatge1, llinatge2, dataAlta, edat FROM persona JOIN tipus WHERE persona.IdTipus=tipus.IdTipus ORDER BY username";
+                                    $resultP = mysqli_query($con, $consultP);
+
+                                    echo '
+                                        <thead>
+                                            <tr style="background-color: black; color: white;">
+                                                <th>Nombre de usuario</th>
+                                                <th>Nombre completo</th>
+                                                <th>Fecha de alta de usuario</th>
+                                                <th>Edad</th>
+                                            </tr>
+                                        </thead>                                    
+                                        ';
+
+                                    if (mysqli_num_rows($resultP) > 0) {
+                                        while ($fila1 = mysqli_fetch_assoc($resultP)) {
+                                            $username = $fila1['username'];
+                                            $nombre = $fila1['nom'];
+                                            $apellido1 = $fila1['llinatge1'];
+                                            $apellido2 = $fila1['llinatge2'];
+                                            $dataAlta = $fila1['dataAlta'];
+                                            $edad = $fila1['edat'];
+
+                                            echo '
+                                                <tbody>
+                                                <tr>
+                                                    <td>' . $username . '</td>
+                                                    <td>' . $apellido1 . ' ' . $apellido2 . ', ' . $nombre . '</td>
+                                                    <td>' . $dataAlta . '</td>
+                                                    <td>' . $edad . '</td>
+                                                    </tr>
+                                                </tbody>
+                                                ';
+                                        }
+                                    }
+                                }
+                                ?>
                             </table>
                         </div>
 
