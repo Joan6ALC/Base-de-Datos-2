@@ -66,43 +66,40 @@ if (!isset($_SESSION['username'])) {
 
                         <div class="table table-responsive table-bordered" style="padding-top: 3%;">
                             <table class="table">
-                                <thead>
-                                    <tr style="background-color: black; color: white;">
-                                        <th>Nombre de usuario</th>
-                                        <th>Id contrato</th>
-                                        <th>Estado</th>
-                                        <th>Tarifa</th>
-                                        <th>Fecha de alta</th>
-                                        <th>Fecha de baja</th>
-
-                                    </tr>
-                                </thead>
                                 <?php
-                                $consultP = "SELECT * from contracte ORDER BY username";
+                                $consultP = "SELECT username, nom, llinatge1, llinatge2, dataAlta, edat FROM persona JOIN tipus WHERE persona.IdTipus=tipus.IdTipus ORDER BY username";
                                 $resultP = mysqli_query($con, $consultP);
+
+                                echo '
+                                        <thead>
+                                            <tr style="background-color: black; color: white;">
+                                                <th>Nombre de usuario</th>
+                                                <th>Nombre completo</th>
+                                                <th>Fecha de alta de usuario</th>
+                                                <th>Edad</th>
+                                            </tr>
+                                        </thead>                                    
+                                        ';
 
                                 if (mysqli_num_rows($resultP) > 0) {
                                     while ($fila1 = mysqli_fetch_assoc($resultP)) {
-                                        $dataAlta = $fila1['dataAlta'];
-                                        $dataBaixa = $fila1['dataBaixa'];
-                                        $estat = $fila1['estat'];
-                                        $idContracte = $fila1['IdContracte'];
-                                        $nomTarifa = $fila1['nomTarifa'];
                                         $username = $fila1['username'];
-                                        if ($estat == 1) $estat = 'Activo';
-                                        else $estat = 'Inactivo';
+                                        $nombre = $fila1['nom'];
+                                        $apellido1 = $fila1['llinatge1'];
+                                        $apellido2 = $fila1['llinatge2'];
+                                        $dataAlta = $fila1['dataAlta'];
+                                        $edad = $fila1['edat'];
+
                                         echo '
-                                        <tbody>
-                                        <tr>
-                                            <td>' . $username . '</td>
-                                            <td>' . $idContracte . '</td>
-                                            <td>' . $estat . '</td>
-                                            <td>' . $nomTarifa . '</td>
-                                            <td>' . $dataAlta . '</td>
-                                            <td>' . $dataBaixa . '</td>
-                                            </tr>
-                                        </tbody>
-                                        ';
+                                                <tbody>
+                                                <tr>
+                                                    <td>' . $username . '</td>
+                                                    <td>' . $apellido1 . ' ' . $apellido2 . ', ' . $nombre . '</td>
+                                                    <td>' . $dataAlta . '</td>
+                                                    <td>' . $edad . '</td>
+                                                    </tr>
+                                                </tbody>
+                                                ';
                                     }
                                 }
                                 ?>
