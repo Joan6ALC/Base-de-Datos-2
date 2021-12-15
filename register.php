@@ -28,11 +28,26 @@
         die();
     }
 
-    $hash=crypt($password1,"");
-    $query = "INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) VALUES ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false)";
-    mysqli_query($con, $query); // Registram el nou usuari
+    $firstDate  = new DateTime($dob);
+    $secondDate = new DateTime($date);
+    $intvl = $firstDate->diff($secondDate);
+    $edat=$intvl->y;
+    echo $edat;
+    //echo $intvl->y . " year, " . $intvl->m." months and ".$intvl->d." day"; 
+    if($edat<9){
+        $tipus=1;
+    } else if($edat<18){
+        $tipus=2;
+    } else {
+        $tipus=3;
+    }
 
-    // L'usuari s'ha registrat correctament, li permetem iniciar sessió
+    $hash=crypt($password1,"");
+    $query = "INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) VALUES ('".$date."','".$username."', '".$hash."', '".$name."', '".$surname1."', '".$surname2."', '".$dob."', false, $tipus)";
+    mysqli_query($con, $query); // Registram el nou usuari
+    echo $query;
+
+    //L'usuari s'ha registrat correctament, li permetem iniciar sessió
     header("Location: index.php?msg=3"); // Redirigim a l'usuari a la pàgina principal
     die();
 ?>
