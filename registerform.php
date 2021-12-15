@@ -41,11 +41,11 @@
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <form action="register.php" method="post">
                                 <div class="d-grid gap-2">
-                                    <label>Nombre:</label>
+                                    <label>Nombre<span style="color: red;">*</span>:</label>
                                     <input name="name" class="form-control" placeholder="Nombre" <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?>required>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Primer apellido:</label>
+                                            <label>Primer apellido<span style="color: red;">*</span>:</label>
                                             <input name="surname1" class="form-control" placeholder="Primer apellido" <?php if(isset($_GET['surname1'])) echo 'value="'.$_GET['surname1'].'"'; ?> required>
                                         </div> 
                                         <div class="col-md-6">
@@ -53,17 +53,17 @@
                                             <input name="surname2" class="form-control" placeholder="Segundo apellido" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
                                         </div> 
                                     </div>
-                                    <label>Fecha de nacimiento:</label>
+                                    <label>Fecha de nacimiento<span style="color: red;">*</span>:</label>
                                     <input type="date" name="dateofbirth" class="form-control" min="1920-1-01" max="2023-12-31" <?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?> required>
-                                    <label>Usuario:</label>
+                                    <label>Usuario<span style="color: red;">*</span>:</label>
                                     <input name="username" class="form-control" placeholder="Usuario" <?php if(isset($_GET['username'])) echo 'value="'.$_GET['username'].'"'; ?> required>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Contraseña:</label>
+                                            <label>Contraseña<span style="color: red;">*</span>:</label>
                                             <input type="password" name="password" class="form-control" placeholder="Contraseña" required>   
                                         </div> 
                                         <div class="col-md-6">
-                                            <label>Repite la contraseña:</label>
+                                            <label>Repite la contraseña<span style="color: red;">*</span>:</label>
                                             <input type="password" name="password2" class="form-control" placeholder="Contraseña" required>    
                                         </div>
                                         <a class="padding"></a>

@@ -88,7 +88,6 @@
                                                 ?>
                                                 
                                             </select>
-<<<<<<< Updated upstream
                                             <script>
                                                     selectElement = document.querySelector('.facturas');
                                                     
@@ -99,12 +98,6 @@
                                                         //var valor = index.options[index.selectedIndex]
 
                                                         window.location.replace('veureFactures.php',index);
-=======
-                                                <script>
-                                                    const selectElement = document.querySelector('.facturas');
-                                                    selectElement.addEventListener('change', (event) => {
-                                                        window.location.replace('veureFactures.php?val='.$trob.' ');
->>>>>>> Stashed changes
                                                     });
                                             </script>
                                     </form>
