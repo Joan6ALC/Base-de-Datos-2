@@ -36,11 +36,12 @@
                     <div class="bg-dark ">
                     
                         <div class="row text-white">
-                        <div class="col-md-1"></div>
                             <div class="col-md-2 m-md-auto pb-4">
-                                <h5> 
-                                    <?php echo $titol ?>
-                                </h5>
+                                <center>
+                                    <h5> 
+                                        <?php echo $titol ?>
+                                    </h5>
+                                </center>
                             </div>
                         </div>
 
