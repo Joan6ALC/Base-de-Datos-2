@@ -16,7 +16,7 @@
     }
 
 mysqli_close($con);
-header("Location: llistarCategories.php");
+header("Location: $redirect");
 die();
 
     

@@ -72,10 +72,7 @@
                                                     ';
                                         }  else {
                                             echo       
-                                            '
-                                            </div>
-                                            
-                                                    ';
+                                            '</div>';
                                         }
                                         echo '</div>';
                                         echo   '<div class="row justify-content-center gap-2">';
@@ -90,9 +87,7 @@
 
                                         
                                         
-                                                    echo   '
-                                                    <div class="col">
-                                                    
+                                                    echo   '<div class="col">
                                                     <div class="card" style="width: 12rem;">
                                                         <img class="card-img-top" src=".'.$row2['camiFoto'].'" alt="'.$row2['titol'].'.png" height="250">
                                                             <div class="card-body">
@@ -101,27 +96,39 @@
                                                             <a href="veureContingut.php?id='.$row2['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
                                                         if(isset($fav2)){ // Imprimim el botó per eliminar favorit
                                                             echo    '<a href="eliminarContingutFavorit.php?id='.$row2['IdContingut'].'&redir=llistarCategories.php" class="btn btn-success btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>
-                                                                </div>
+                                                            </div>
                                                             </div>
                                                             </div>';
                                                                             
                                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
                                                             echo            '<a href="afegirContingutFavorit.php?id='.$row2['IdContingut'].'&redir=llistarCategories.php" class="btn btn-outline-success btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>
-                                                                </div>
+                                                            </div>
                                                             </div>
                                                             </div>';
-                                                        }  else {
-                                                                echo   
-                                                                '</div>
-                                                            </div>
-                                                            </div>';
+                                                        } 
+                                                        if($_SESSION['administrador']==1){
+                                                            echo           '<div class="padding"></div>
+                                                                            <div class="row gap-1">
+                                                                            <div class="col">
+                                                                                    <a href="editarContingutForm.php?id='.$row2['IdContingut'].'" class="btn btn-outline-success btn-sm">
+                                                                                        <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
+                                                                                    </a>
+                                                                                    <a href="eliminarContingut.php?id='.$row2['IdContingut'].'&redir=llistarContinguts.php" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
+                                                                                        <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
+                                                                                    </a> 
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>';  
                                                         }         
                                 
                                             }
-                                            echo '</div>
-                                            </div>';
-                                
-                                             
+                                            echo '
+                                            
+                                            
+                                            </div>
+                                            </div>';                                             
                                             echo '<div class="padding"></div>';
                                 
 
