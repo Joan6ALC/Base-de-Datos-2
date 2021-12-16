@@ -21,7 +21,7 @@
         $query = "INSERT INTO contracte(dataAlta,dataBaixa,estat,nomTarifa,username) VALUES ('".$localdate."', '".$notdate."','".$estado."', '".$tarifa."','".$user."')";
         mysqli_query($con, $query);
         //select per a agafar l'id del nou contracte creat i poder ficar-ho a la variable global 
-        
+        $_SESSION['estatContracte'] = $estado;
         $comprovacio = "SELECT IdContracte FROM contracte where username = '".$user."'";
         $aplicacio = mysqli_query($con, $comprovacio);
         $valor = mysqli_fetch_array($aplicacio);
@@ -36,6 +36,7 @@
             //cas de voler desactivar el contracte, la data de baixa és la data actual
             $query = "update contracte set dataBaixa = '".$localdate."',estat ='".$estado."', nomTarifa ='".$tarifa."' WHERE username = '".$user."'";
         }
+        $_SESSION['estatContracte'] = $estado;
         mysqli_query($con, $query);
     }
     
