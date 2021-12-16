@@ -81,10 +81,11 @@
         </section>
 
 
-        <section style="padding-left: 10% ;">
+        <section style="padding-left: 4% ;">
             <!--botó per a tornar enrera-->
             <form action="veureFactures.php" method="post" id="$trob">
-                <button type="submit" class="btn btn-danger">Atrás</button> 
+                <button type="submit" class="btn btn-danger" style="width:100px">Atrás</button>
+                <div class = "padding"><br></div>
             </form>
         </section>
 
