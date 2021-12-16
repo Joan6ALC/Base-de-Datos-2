@@ -53,7 +53,7 @@
                                             <a class="dropdown-item" href="afegirContingutForm.php">Añadir contenido</a>
                                             <a class="dropdown-item" href="#">Editar/Borrar contenido</a>
                                             <a class="dropdown-item" href="afegirCategoriaForm.php">Añadir categoria</a>
-                                            <a class="dropdown-item" href="#">Editar/Borrar categoria</a>
+                                            <a class="dropdown-item" href="editarCategoriaForm.php">Editar/Borrar categoria</a>
                                             <a class="dropdown-item" href="visualitzarUsuarisForm.php">Visualizar usuarios</a>
                                         </div>
                                     </li>';
