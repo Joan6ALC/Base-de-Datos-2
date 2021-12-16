@@ -10,11 +10,18 @@ $contract = $_SESSION['IdContracte'];
 $consulta = "SELECT * FROM factura WHERE IdContracte = '" . $contract . "'";
 $cerca = mysqli_query($con, $consulta);
 $def = mysqli_fetch_array($cerca);
+//comprovam si hi ha factures, en el cas en que no hi hagi, anem a un altre php
+if ($def['import'] == null) {
+    header("Location: nohihaFactures.php?redir=login.php");
+    die();
+}
 
 
-
-if (isset($_GET['id'])) $index = $_GET['id'];
-else $index = $def['IdFactura'];
+if (isset($_GET['id'])){
+    $index = $_GET['id'];
+}else{
+    $index = $def['IdFactura'];
+} 
 
 $consnouval = "select * from factura where IdFactura = '" . $index . "'";
 $cons = mysqli_query($con, $consnouval);
@@ -24,11 +31,7 @@ $dataInfila = $resu["dataInici"];
 $dataFifila = $resu["dataFinal"];
 $importfila = $resu["import"];
 
-//comprovam si hi ha factures, en el cas en que no hi hagi, anem a un altre php
-if ($def['import'] == null) {
-    header("Location: nohihaFactures.php?redir=login.php");
-    die();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
