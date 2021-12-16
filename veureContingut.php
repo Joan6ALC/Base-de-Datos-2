@@ -1,7 +1,7 @@
 <?php
     include "connection.php";
     session_start();
-    if(!isset($_SESSION['username']) and $_SESSION['estatContracte']==0 or $_SESSION['estatContracte']==null){
+    if(!isset($_SESSION['username']) and $_SESSION['administrador']==0 and ($_SESSION['estatContracte']==0 or $_SESSION['estatContracte']==null)){
         header("Location: editarContracteForm.php");
         die();
     }
