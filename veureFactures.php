@@ -11,8 +11,10 @@ $consulta = "SELECT * FROM factura WHERE IdContracte = '" . $contract . "'";
 $cerca = mysqli_query($con, $consulta);
 $def = mysqli_fetch_array($cerca);
 
+
+
 if (isset($_GET['id'])) $index = $_GET['id'];
-else $index = '1';
+else $index = $def['IdFactura'];
 
 $consnouval = "select * from factura where IdFactura = '" . $index . "'";
 $cons = mysqli_query($con, $consnouval);
@@ -77,17 +79,9 @@ if ($def['import'] == null) {
                                             } else {
                                                 echo '<option value="' . $fila['IdFactura'] . '">' . $fila['IdFactura'] . '</option>';
                                             }
-                                            //echo 'valor = facturas.options[index].value;';
-                                            //$valorrr = 'valor';
-
-                                            //opció de la factura amb l'id X
-                                            //echo '<option value="'.$fila['IdFactura'].'">'.$fila['IdFactura'].'</option>'; 
-
                                         }
                                     }
-                                    //echo "<script>console.log('Debug Objects: ".$trob."".$datapagfila."'".$dataInfila."'".$dataFifila."'".$importfila."' );</script>"; 
                                     ?>
-
                                 </select>
                                 <script>
                                     selectElement = document.querySelector('.facturas');
@@ -97,8 +91,6 @@ if ($def['import'] == null) {
                                     selectElement.addEventListener('change', (event) => {
                                         var facturaSelect = document.getElementById("facturaSelect");
                                         var id = facturaSelect.options[facturaSelect.selectedIndex].value;
-                                        //var id = '2';
-                                        //var valor = index.options[index.selectedIndex]
                                         window.location.replace('veureFactures.php?id=' + id);
                                     });
                                 </script>
@@ -121,18 +113,18 @@ if ($def['import'] == null) {
                                 <div class="col-md-9">
                                     <!-- botó per anar a veure totes les factures que han estat
                                         pagades, és a dir, l'atribut dataPagament no està a null-->
-                                    <form action="veureFacturesPagades.php" method="post" id="$trob">
+                                    <form action="veureFacturesPagades.php" method="post" id="$index">
                                         <button type="submit" class="btn btn-danger">Ver facturas pagadas</button>
                                     </form>
                                 </div>
                                 <?php
                                 //si hi ha factures que encara no han estat pagades, sorgeix
                                 //un botó per a realitzar el pagament automàtic 
-                                //if($datapagfila == null){
-                                //echo '<div class="col">';
-                                //echo '<a href="pagar.php?value='.$trob.'&redir=veureFactures.php" class="btn btn-danger">Pagar</a>';
-                                //echo '</div>';
-                                //}
+                                if($datapagfila == null){
+                                echo '<div class="col">';
+                                echo '<a href="pagar.php?value='.$index.'&redir=veureFactures.php" class="btn btn-danger">Pagar</a>';
+                                echo '</div>';
+                                }
                                 ?>
                             </div>
                             <div class="row">
