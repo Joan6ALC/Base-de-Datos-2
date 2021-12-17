@@ -11,13 +11,18 @@ $consulta = "SELECT * FROM contingut";
 $cerca = mysqli_query($con, $consulta);
 $def = mysqli_fetch_array($cerca);
 
-if (isset($_GET['id'])){
-    $index = $_GET['id'];
-}else{
+if (isset($_GET['id'])) {
+    $consultPeli = 'SELECT * FROM contingut WHERE IdContingut = "' . $_GET['id'] . '"';
+    $resultPeli = mysqli_query($con, $consultPeli);
+    $cerk = mysqli_fetch_array($resultPeli);
+    $index = $cerk['titol'];
+} else if (isset($_GET['nomPelicula'])) {
+    $index = $_GET['nomPelicula'];
+} else {
     $index = $def['titol'];
-} 
+}
 
-$consultPeli = 'SELECT * FROM contingut WHERE titol = "'.$index.'"';
+$consultPeli = 'SELECT * FROM contingut WHERE titol = "' . $index . '"';
 $resultPeli = mysqli_query($con, $consultPeli);
 $cerk = mysqli_fetch_array($resultPeli);
 $peli = $cerk['titol'];
@@ -32,7 +37,7 @@ $novaCat = $cerk['nomCat'];
 $enlace = $cerk['link'];
 $imatge = $cerk['camiFoto'];
 
-$resultTip = "SELECT IdTipus FROM r_tipus_contingut WHERE IdContingut = '".$cerk['IdContingut']."'";
+$resultTip = "SELECT IdTipus FROM r_tipus_contingut WHERE IdContingut = '" . $cerk['IdContingut'] . "'";
 $tipusAct = mysqli_query($con, $resultTip);
 $tAct = mysqli_fetch_array($tipusAct);
 
@@ -94,60 +99,59 @@ $tipus = mysqli_query($con, $resultTipus);
                                 <div class="row">
                                     <div class="col">
                                         <label>Selecciona el contenido a editar<span style="color: red;">*</span>:</label>
-                                        <select class = "titulos my-2" name="titolSelect" id="titolSelect">
-                                            
-                                                <?php
-                                                $titulosTotal = "SELECT * FROM contingut";
+                                        <select class="titulos my-2" name="titolSelect" id="titolSelect">
 
-                                                $res = mysqli_query($con, $titulosTotal);
+                                            <?php
+                                            $titulosTotal = "SELECT * FROM contingut";
 
-                                                if (mysqli_num_rows($res) > 0) {
-                                                    while ($fila1 = mysqli_fetch_assoc($res)) {
+                                            $res = mysqli_query($con, $titulosTotal);
 
-                                                        if ($index == $fila1['titol']) {
-                                                            echo '<option value="' . $fila1['titol'] . '" selected ="selected" >' . $fila1['titol'] . '</option>';
-                                                        } else {
-                                                            echo '<option value="' . $fila1['titol'] . '">' . $fila1['titol'] . '</option>';
-                                                        }
-                                                        //echo "<option value = '" . $fila1['titol'] . "' selected='selected'>" . $fila1['titol'] . "</option>";
+                                            if (mysqli_num_rows($res) > 0) {
+                                                while ($fila1 = mysqli_fetch_assoc($res)) {
+
+                                                    if ($index == $fila1['titol']) {
+                                                        echo '<option value="' . $fila1['titol'] . '" selected ="selected" >' . $fila1['titol'] . '</option>';
+                                                    } else {
+                                                        echo '<option value="' . $fila1['titol'] . '">' . $fila1['titol'] . '</option>';
                                                     }
+                                                    //echo "<option value = '" . $fila1['titol'] . "' selected='selected'>" . $fila1['titol'] . "</option>";
                                                 }
-                                                ?>
-                                           
+                                            }
+                                            ?>
+
                                         </select>
                                         <script>
                                             selectElement = document.querySelector('.titulos');
                                             selectElement.addEventListener('change', (event) => {
                                                 var titolSelect = document.getElementById("titolSelect");
                                                 var id = titolSelect.options[titolSelect.selectedIndex].value;
-                                                window.location.replace('editarContingutForm.php?id=' + id);
+                                                window.location.replace('editarContingutForm.php?nomPelicula=' + id);
                                             });
                                         </script>
 
-                                        
 
-                                        <label class = " mt-3">Título del contenido<span style="color: red;">*</span>:</label>
-                                        <input class = " my-2" type="text" id="titulo" name="titulo" value=<?php echo "'" .$peli."'"?> required><br>
 
-                                        
-                                        
-                                        <label class = " mt-3">Enlace del contenido<span style="color: red;">*</span>:</label>
-                                        <input class = " my-2" type="text" id="enlace" name="enlace" value=<?php echo "'" .$enlace."'"?> required><br>
+                                        <label class=" mt-3">Título del contenido<span style="color: red;">*</span>:</label>
+                                        <input class=" my-2" type="text" id="titulo" name="titulo" value=<?php echo "'" . $peli . "'" ?> required><br>
+
+
+
+                                        <label class=" mt-3">Enlace del contenido<span style="color: red;">*</span>:</label>
+                                        <input class=" my-2" type="text" id="enlace" name="enlace" value=<?php echo "'" . $enlace . "'" ?> required><br>
                                     </div>
                                     <div class="col"></div>
                                     <div class="col">
-                                        <label class = " my-2">Categoría<span style="color: red;">*</span>:</label>
+                                        <label class=" my-2">Categoría<span style="color: red;">*</span>:</label>
                                         <select name="nomCat">
                                             <optgroup label="Categorías">
                                                 <?php
                                                 if (mysqli_num_rows($categoria) > 0) {
                                                     while ($fila1 = mysqli_fetch_assoc($categoria)) {
-                                                        if ($fila1['nomCat'] == $novaCat){
+                                                        if ($fila1['nomCat'] == $novaCat) {
                                                             echo "<option value = '" . $fila1['nomCat'] . "' selected='selected'>" . $novaCat . "</option>";
-                                                        }else {
+                                                        } else {
                                                             echo "<option value = '" . $fila1['nomCat'] . "'>" . $fila1['nomCat'] . "</option>";
                                                         }
-                                                        
                                                     }
                                                 }
                                                 ?>
@@ -155,35 +159,35 @@ $tipus = mysqli_query($con, $resultTipus);
                                         </select>
 
 
-                                        <label class = " mt-3">Tipo de contenido<span style="color: red;">*</span>:</label>
-                                        
-                                                <?php
-                                                if (mysqli_num_rows($tipus) > 0) {
-                                                    while ($fila1 = mysqli_fetch_assoc($tipus)) {
-                                                        if($fila1['IdTipus'] == $tAct['IdTipus']){
-                                                            $tAct = mysqli_fetch_assoc($tipusAct);
-                                                            echo "<br /><input  class = 'my-2 ms-4' type='checkbox' name='tipoCont[]' value = '".$fila1['edat']."' checked ><label> " . $fila1['edat'] . "</label></input>";
-                                                        } else{
-                                                            echo "<br /><input  class = 'my-2 ms-4' type='checkbox' name='tipoCont[]' value = '".$fila1['edat']."' ><label> " . $fila1['edat'] . "</label></input>";
-                                                        }
-                                                    }
-                                                }
-                                                
-                                                ?>
-                                                
-                                        <label class = " mt-3">Visible:</label>
+                                        <label class=" mt-3">Tipo de contenido<span style="color: red;">*</span>:</label>
+
                                         <?php
-                                            
-                                            if($visible == 1){
-                                                echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1' checked></input>";
-                                            } else{
-                                                echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1'></input>";
+                                        if (mysqli_num_rows($tipus) > 0) {
+                                            while ($fila1 = mysqli_fetch_assoc($tipus)) {
+                                                if ($fila1['IdTipus'] == $tAct['IdTipus']) {
+                                                    $tAct = mysqli_fetch_assoc($tipusAct);
+                                                    echo "<br /><input  class = 'my-2 ms-4' type='checkbox' name='tipoCont[]' value = '" . $fila1['edat'] . "' checked ><label> " . $fila1['edat'] . "</label></input>";
+                                                } else {
+                                                    echo "<br /><input  class = 'my-2 ms-4' type='checkbox' name='tipoCont[]' value = '" . $fila1['edat'] . "' ><label> " . $fila1['edat'] . "</label></input>";
+                                                }
                                             }
+                                        }
+
+                                        ?>
+
+                                        <label class=" mt-3">Visible:</label>
+                                        <?php
+
+                                        if ($visible == 1) {
+                                            echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1' checked></input>";
+                                        } else {
+                                            echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1'></input>";
+                                        }
                                         ?>
                                     </div>
 
                                     <div class="col">
-                                        
+
                                     </div>
 
                                 </div>
@@ -192,17 +196,17 @@ $tipus = mysqli_query($con, $resultTipus);
                                     <header style="color: darkgray;">Arrastra o selecciona el archivo para subirlo </header>
                                     <input type="file" id="file" name="file" accept="image/jpeg, image/png" class="form-control">
                                 </div>
-                               
+
                             </div>
 
                             <div class="alerta"></div>
 
                             <div style="padding: 3%; text-align: center;">
                                 <input type="submit" value="Aceptar cambios" name="update" class="btn btn-danger">
-                                <input type="submit" value="Eliminar" name="delete"  class="btn btn-danger">
+                                <input type="submit" value="Eliminar" name="delete" class="btn btn-danger">
                             </div>
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
@@ -210,15 +214,15 @@ $tipus = mysqli_query($con, $resultTipus);
     </section>
 
     <footer>
-            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
-        </footer>
+        <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+    </footer>
 
-        <style>
-            body {
-                background-image: url("img/background2.jpg");
-                background-position:absolute;
-            }
-        </style>
+    <style>
+        body {
+            background-image: url("img/background2.jpg");
+            background-position: absolute;
+        }
+    </style>
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
