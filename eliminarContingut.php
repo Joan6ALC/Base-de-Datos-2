@@ -11,6 +11,7 @@
     }
 
     $IdContingut=$_GET['id'];
+    $Redirect=$_GET['redir'];
 
     // Connexió a bd
     include "connection.php";

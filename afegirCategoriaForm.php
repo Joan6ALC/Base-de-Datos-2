@@ -61,7 +61,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                             <div style="padding: 3%; text-align: center;">
-                                <input type="submit" value="Insertar película" class="btn btn-danger">
+                                <input type="submit" value="Insertar categoría" class="btn btn-danger">
                             </div>
                         </form>
                     </div>

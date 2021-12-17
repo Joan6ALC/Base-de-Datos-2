@@ -42,20 +42,22 @@
         <?php
         include "connection.php";
         $Categoria = $_GET['id'];
-        $query = "SELECT * from categoria WHERE nomcat = '".$Categoria."'";
+        $query = "SELECT * from categoria WHERE nomCat = '".$Categoria."' ";
                                     $result = mysqli_query($con,$query);
                                     $row = mysqli_fetch_array($result);
+
+                                    
                                         if(isset($_SESSION['IdContracte'])){
-                                            $query2 = "SELECT * from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."' and nomCat='".$row['nomCat']."'"; // Per comprovar si ja està a la llista de favorits
+                                            $query2 = "SELECT * from categoriafavorits where IdContracte='".$_SESSION['IdContracte']."' AND nomCat='".$row['nomCat']."'"; // Per comprovar si ja està a la llista de favorits
                                             $result2 = mysqli_query($con,$query2);
                                             if($result2){
                                                 $fav = mysqli_fetch_array($result2);
                                             }
                                             
-                                            
                                         
                                         }
-                                        echo  '<div class="row justify-content-center">       
+                                        echo  '<div class="row justify-content-center">
+                                                <div class="col">       
                                                     <div class="card style=width: 65rem ";">
                                                         <div class="card-body">
                                                             <center><h6>'.$row['nomCat'].'</h6>
@@ -66,12 +68,23 @@
                                             
                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
                                             echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'&redir=llistaContingutCat.php" class="btn btn-outline-dark btn-sm"  title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
-                                        }  
+                                        }if($_SESSION['administrador']==1){
+                                            echo           '<div class="padding"></div>
+                                                            <div class="row gap-1">
+                                                            <div class="col">
+                                                                    <a href="editarCategoriaForm.php?" class="btn btn-outline-success btn-sm">
+                                                                        <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
+                                                                    </a>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                        } 
                                         echo '</div>
                                         </div>
                                             </div>';
                                         echo   '<div class="row justify-content-center gap-2">';
-                                        $query3 = "SELECT * from contingut WHERE nomCat='".$row['nomCat']."' ORDER BY titol ASC";
+                                        $query3 = "SELECT * from contingut WHERE nomCat='".$row['nomCat']."' AND visible = 1 ORDER BY titol ASC";
                                             $result3 = mysqli_query($con,$query3);
                                                 while($row2 = mysqli_fetch_array($result3)){
                                                     if(isset($_SESSION['IdContracte'])){
@@ -102,18 +115,30 @@
                                                                 </div>
                                                             </div>
                                                             </div>';
-                                                        }  else {
-                                                                echo   
-                                                                '</div>
-                                                            </div>
-                                                            </div>';
-                                                        }         
+                                                        }  if($_SESSION['administrador']==1){
+                                                            echo           '<div class="padding"></div>
+                                                                            <div class="row gap-1">
+                                                                            <div class="col">
+                                                                                    <a href="editarContingutForm.php?id='.$row2['IdContingut'].'" class="btn btn-outline-success btn-sm">
+                                                                                        <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
+                                                                                    </a>
+                                                                                    <a href="eliminarContingut.php?id='.$row2['IdContingut'].'&redir=llistarContinguts.php" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
+                                                                                        <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
+                                                                                    </a> 
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>';  
+                                                        }
+                                                }         
                                 
-                                            }
+                                            
                                             echo '</div>';
                                             echo '<div class="padding"></div>';
                                     
                                     mysqli_close($con);
+                                   
 
         ?>
         </div>
@@ -128,8 +153,15 @@
 
 
     <footer>
-        PelisTube &copy; 2021
-    </footer>
+            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+        </footer>
+
+        <style>
+            body {
+                background-image: url("img/background2.jpg");
+                background-position:absolute;
+            }
+        </style>
 
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

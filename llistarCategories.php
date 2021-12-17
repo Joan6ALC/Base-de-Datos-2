@@ -74,10 +74,19 @@
                         <div class="col-md-10">
                             <div class="shadow-lg p-4 mb-5 bg-body rounded">
                                 <div class="d-grid gap-0">
+                                <h5>Nuestras películas
+                                        <?php
+                                        if($_SESSION['administrador']==1){
+                                        echo '&nbsp&nbsp<a href="afegirCategoriaForm.php" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi-plus-circle" title="Añadir contenido" style="font-size: 0.9rem;"></i> Añadir categoria
+                                        </a>';
+                                        }
+                                        ?>
+                                        </h5></div>
 
         <?php
         include "connection.php";
-        $query = "SELECT * from categoria ORDER BY nomCat ASC";
+        $query = "SELECT * from categoria WHERE visible = 1 ORDER BY nomCat ASC";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
@@ -86,10 +95,9 @@
                                             $fav = mysqli_fetch_array($result2);
                                                
                                         }
-                                        echo  '
-
-                                        <div class="row justify-content-center gap-2">       
-                                        <div class="card style=width: 60rem ";">
+                                        echo  ' <div class="row justify-content-center gap-2"> 
+                                            <div class="col">
+                                            <div class="card style=width: 60rem ";">
                                                         <div class="card-body">
                                                             <center><h6>'.$row['nomCat'].'</h6>
                                                             <div class="padding"></div>';
@@ -106,13 +114,25 @@
                                             </div>
                                             
                                                     ';
-                                        }  else {
-                                            echo       
-                                            '</div>';
+                                        }   if($_SESSION['administrador']==1){
+                                            echo           '<div class="padding"></div>
+                                                            <div class="row gap-1">
+                                                            <div class="col">
+                                                                    <a href="editarCategoriaForm.php?" class="btn btn-outline-success btn-sm">
+                                                                        <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
+                                                                    </a>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                ';  
+                                        
                                         }
-                                        echo '</div>';
+                                        echo '</div>
+                                            </div>';
                                         echo   '<div class="row justify-content-center gap-2">';
-                                        $query3 = "SELECT * from contingut WHERE nomCat='".$row['nomCat']."' ORDER BY titol ASC";
+                                        $query3 = "SELECT * from contingut WHERE nomCat='".$row['nomCat']."' AND visible = 1 ORDER BY titol ASC";
                                             $result3 = mysqli_query($con,$query3);
                                                 while($row2 = mysqli_fetch_array($result3)){
                                                     if(isset($_SESSION['IdContracte'])){
@@ -176,16 +196,22 @@
         </div>
         </div>
         </div>
-        </div>
                                 </center>
-        </div>
+    
 
     </section>
 
 
     <footer>
-        PelisTube &copy; 2021
-    </footer>
+            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+        </footer>
+
+        <style>
+            body {
+                background-image: url("img/background2.jpg");
+                background-position:absolute;
+            }
+        </style>
 
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

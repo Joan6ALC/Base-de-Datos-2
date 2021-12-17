@@ -26,7 +26,7 @@
                         <?php
                             include "connection.php";
                             echo '<a class="dropdown-item" href="llistarCategories.php">Todas las categorias</a>';
-                            $query = "SELECT * from categoria ORDER BY nomCat ASC";
+                            $query = "SELECT * from categoria WHERE visible = 1 ORDER BY nomCat ASC";
                             $result = mysqli_query($con,$query);
                             while($row = mysqli_fetch_array($result)){  
                                 echo '<a class="dropdown-item" href="llistaContingutCat.php?id='.$row['nomCat'].'">'.$row['nomCat'].'</a>';

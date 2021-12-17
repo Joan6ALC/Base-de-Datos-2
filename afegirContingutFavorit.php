@@ -16,7 +16,7 @@
     }
 
 mysqli_close($con);
-header("Location: $redirect");
+header("Location: $redirect?msg=3");
 die();
 
     

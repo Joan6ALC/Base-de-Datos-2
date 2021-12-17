@@ -27,23 +27,69 @@
         
                                 
     <header>
-        <?php include "navbar.php"; ?>
+        <?php include "navbar.php";
+        if(isset($_GET['msg']) and $_SESSION['administrador']==1){
+            switch($_GET['msg']){
+                case 1: // ELIMINACIÓ
+                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="bi-trash" style="font-size: 0.9rem;"></i>
+                                &nbspContenido eliminado correctamente
+                                <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>';
+                    break;
+                
+                case 2: // EDICIÓ
+                    echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                                &nbspContenido editado correctamente
+                                <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>';
+                    break;
+
+                case 3: // ADDICIÓ
+                    echo    '<div class="padding"></div><div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                <i class="bi-plus-circle" style="font-size: 0.9rem;"></i>
+                                &nbspContenido añadido correctamente
+                                <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>';
+                    break;
+                
+                default: 
+            }
+        }
+        ?>
     </header>
 
     <section>
-            <div class="padding"></div>
-            <center>
-                <div class="container">
-                    <div class="col-md-1"></div> 
-                        <div class="col-md-10">
-                            <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                                <div class="d-grid gap-0">
+    <div class="padding"></div>
+            <div class="container">
+                <div class="row ">
+                    <div class="col-md-1"></div>                    
+                    <div class="col-md-10">
+                        <div class="shadow-lg p-4 mb-5 bg-body rounded">
+                            <div class="row">
+                            <h5>Tus categorías favoritos
+                            
+                            </h5></div>
 
+                            <div class="padding"></div>
+                            <center>
+                            
         <?php
         include "connection.php";
         $query = "SELECT * from categoriafavorits ORDER BY nomCat ASC";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
+                                        $query2 ="SELECT * from categoria WHERE nomCat = '".$row['nomCat']."'";
+                                        $result2 = mysqli_query($con, $query2);
+                                        $visible = mysqli_fetch_array($result2);
+                                        if($visible['visible']==1){
                                         
                                         echo  '<div class="row justify-content-center">       
                                                     <div class="card style=width: 65rem ";">
@@ -57,7 +103,7 @@
                                         </div>
                                             </div>';
                                         echo   '<div class="row justify-content-center gap-2">';
-                                        $query3 = "SELECT * from contingut WHERE nomCat='".$row['nomCat']."' ORDER BY titol ASC";
+                                        $query3 = "SELECT * from contingut WHERE nomCat='".$row['nomCat']."' AND visible = 1 ORDER BY titol ASC";
                                             $result3 = mysqli_query($con,$query3);
                                                 while($row2 = mysqli_fetch_array($result3)){
                                                     if(isset($_SESSION['IdContracte'])){
@@ -98,6 +144,7 @@
                                             }
                                             echo '</div>';
                                             echo '<div class="padding"></div>';
+                                        }
                                     }
                                     mysqli_close($con);
 
@@ -114,8 +161,15 @@
 
 
     <footer>
-        PelisTube &copy; 2021
-    </footer>
+            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+        </footer>
+
+        <style>
+            body {
+                background-image: url("img/background2.jpg");
+                background-position:absolute;
+            }
+        </style>
 
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

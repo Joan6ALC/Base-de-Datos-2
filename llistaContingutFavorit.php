@@ -69,13 +69,7 @@
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="row">
                             <h5>Tus contenidos favoritos
-                            <?php 
-                                if($_SESSION['administrador']==1){
-                                    echo '&nbsp&nbsp<a href="afegirContingutFavorit.php" class="btn btn-outline-primary btn-sm">
-                                    <i class="bi-plus-circle" title="Añadir contenido" style="font-size: 0.9rem;"></i> Añadir contenido
-                                    </a>';
-                                }
-                            ?>
+                            
                             </h5></div>
 
                             <div class="padding"></div>
@@ -92,30 +86,19 @@
                                             $result2 = mysqli_query($con,$query2);
                                             $data = mysqli_fetch_array($result2);
                                         }
-
-                                        echo   '<div class="col">
+                                        if($data['visible'==1]){
+                                            echo   '<div class="col">
                                                     <div class="card" style="width: 12rem;">
                                                         <img class="card-img-top" src=".'.$data['camiFoto'].'" alt="'.$data['titol'].'.png" height="250">
                                                         <div class="card-body">
                                                             <center><h6>'.$data['titol'].'</h6>
                                                             <div class="padding"></div>
                                                             <a href="veureContingut.php?id='.$data['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
-                                            echo            '<a href="eliminarContingutFavorit.php?id='.$data['IdContingut'].'&redir=llistaContingutFavorit.php" class="btn btn-dark btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
- 
-                                        
-                                        if($_SESSION['administrador']==1){
-                                            echo           '<div class="padding"></div>
-                                                            <div class="row gap-1">
-                                                            <div class="col">
-                                                                    <a href="editarContingutForm.php?id='.$data['IdContingut'].'" class="btn btn-outline-success btn-sm">
-                                                                        <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
-                                                                    </a>
-                                                                    <a href="eliminarContingut.php?id='.$data['IdContingut'].'&redir=llistaContingutFavorit.php" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
-                                                                        <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
-                                                                    </a> 
-                                                                </div>
-                                                            </div>';  
+                                            echo            '<a href="eliminarContingutFavorit.php?id='.$data['IdContingut'].'&redir=llistaContingutFavorit.php" 
+                                                                class="btn btn-dark btn-sm" title="Eliminar de favoritos">
+                                                                    <i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                         }
+                                        
 
                                         // Tancam els div :href="eliminarContingut.php?id='.$row['IdContingut'].'"
                                         echo        '</div>
@@ -137,8 +120,15 @@
         
 
         <footer>
-            PelisTube &copy; 2021
+            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
         </footer>
+
+        <style>
+            body {
+                background-image: url("img/background2.jpg");
+                background-position:absolute;
+            }
+        </style>
 
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
