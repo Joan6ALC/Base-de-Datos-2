@@ -160,7 +160,7 @@ $tipus = mysqli_query($con, $resultTipus);
                                                 <?php
                                                 if (mysqli_num_rows($tipus) > 0) {
                                                     while ($fila1 = mysqli_fetch_assoc($tipus)) {
-                                                        if($fila1 == $tAct['IdTipus']){
+                                                        if($fila1['IdTipus'] == $tAct['IdTipus']){
                                                             $tAct = mysqli_fetch_assoc($tipusAct);
                                                             echo "<br /><input  class = 'my-2 ms-4' type='checkbox' name='tipoCont[]' value = '".$fila1['edat']."' checked ><label> " . $fila1['edat'] . "</label></input>";
                                                         } else{
