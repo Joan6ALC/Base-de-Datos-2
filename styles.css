@@ -1,8 +1,8 @@
 body {
-  overflow: auto;
-  background-image: url("img/background2.jpg");
-  background-position: absolute;
-  background-position-y: -2450px;
+    overflow: auto;
+    background-image: url("img/background.jpg");
+    background-position: absolute;
+    background-position: 10%;
 }
 
 header {
