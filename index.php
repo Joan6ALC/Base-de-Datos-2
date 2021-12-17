@@ -68,16 +68,8 @@
         </section>
 
         <footer>
-            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+            <div>PelisTube &copy; 2021</div>
         </footer>
-        
-        <style>
-            body {
-                background-image: url("img/background2.jpg");
-                background-position:absolute;
-                background-position-y: -2450px;
-            }
-        </style>
 
         <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

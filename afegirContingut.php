@@ -41,7 +41,7 @@ if (isset($row['camiFoto'])) {
     die();
 }
 
-$query = "INSERT INTO contingut (titol, html, camiFoto, nomCat) values ('$titulo','$html','$camiFoto','$nomCat')"; //INSERTANDO VARIABLES DIRECTAMENTE
+$query = "INSERT INTO contingut (titol, link, camiFoto, nomCat, visible) values ('$titulo','$html','$camiFoto','$nomCat', '1')"; //INSERTANDO VARIABLES DIRECTAMENTE
 mysqli_query($con, $query);
 
 foreach ($_POST['tipoCont'] as $tipoCont) {

@@ -19,7 +19,7 @@ if (isset($row['nomCat'])) {
     die();
 }
 
-$query = "INSERT INTO categoria(nomCat) VALUES ('" . $categoria . "')"; //INSERTANDO VARIABLES DIRECTAMENTE
+$query = "INSERT INTO categoria(nomCat, visible) VALUES ('" . $categoria . "', '1')"; //INSERTANDO VARIABLES DIRECTAMENTE
 mysqli_query($con, $query);
 
 header("Location: login.php?nomCat=$categoria"); // Redirigim a l'usuari a la pàgina principal
