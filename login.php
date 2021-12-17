@@ -123,7 +123,7 @@
                                                         echo '<h6>Consulta tu última factura:</h6>';
                                                         echo $row['dataInici']." al ".$row['dataFinal']." - Importe: ".$row['import'].'€';
                                                         if ($row['dataPagament']==null){
-                                                            echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Pagar</a>';
+                                                            echo '<div class="padding"></div><a href="veureFacturesNoPagades.php" class="btn btn-danger btn-sm">Pagar</a>';
                                                         } else {
                                                             echo '<div class="padding"></div><a href="#" class="btn btn-danger btn-sm">Consultar</a>';;
                                                         }
