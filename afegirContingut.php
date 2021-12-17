@@ -16,7 +16,7 @@ $camiFoto = "/img/carteles/" . $nomFoto;
 
 if ($_FILES['file']['name'] != "") {
     $path = $_FILES['file']['name'];
-    $pathto = '/xampp/htdocs/pelistube/img/carteles/' . $path;
+    $pathto = 'img/carteles/' . $path;
     move_uploaded_file($_FILES['file']['tmp_name'], $pathto) or die("Could not copy file!");
 } else {
     die("No file specified!");

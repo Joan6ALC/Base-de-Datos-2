@@ -42,8 +42,8 @@
                     default:
                 }
         } ?>
-            <h1 class="title-large">Pelistube</h1>
-            <h2 class="subtitle-large">Tu plataforma de streaming</h2>
+            <div class="title-large" >Pelistube</div>
+            <div class="subtitle-large" style="color:white;">Tu plataforma de streaming</div>
         </header>
 
         <section>
@@ -67,8 +67,16 @@
         </section>
 
         <footer>
-            PelisTube &copy; 2021
+            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
         </footer>
+        
+        <style>
+            body {
+                background-image: url("img/background2.jpg");
+                background-position:absolute;
+                background-position-y: -2450px;
+            }
+        </style>
 
         <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

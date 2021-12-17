@@ -169,18 +169,21 @@
                                             $pelicules=array(); // Array de pel·lícules recomanades/novetats
 
                                             // SEGONS MISSATGES: Guardam les pel·lícules recomanades segons els missatges (que venen donats segons les categories favorites)
-                                            $query = "select * from missatge where username='".$_SESSION['username']."'" ; // Cerc els missatges de l'usuari
+                                            $query = "select * from missatge where username='".$_SESSION['username']."' and estatMissatge=false" ; // Cerc els missatges de l'usuari
                                             $result = mysqli_query($con,$query);
                                             $i=0;
+                                            $max_recommend=8;
 
                                             if($row=mysqli_fetch_array($result)){
-                                                while ($row=mysqli_fetch_array($result) and $i<8){ // Mostrrem un màxim de 8 continguts
+                                                while ($i<$max_recommend){ // Mostrrem un màxim de 8 continguts
                                                     $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agafo el contingut recomanat
                                                     $result2 = mysqli_query($con,$query);
                                                     $contingut = mysqli_fetch_array($result2);
                                                     
                                                     $c=new contingut($contingut['titol'], $contingut['camiFoto'], $contingut['IdContingut']); // el guardo a l'array
                                                     array_push($pelicules, $c);
+
+                                                    $row=mysqli_fetch_array($result);
                                                     $i=$i+1;
                                                 }
                                             }
@@ -190,7 +193,7 @@
                                             $result = mysqli_query($con,$query);
                                             $row = mysqli_fetch_array($result);
 
-                                            $nFalta=8-$i; // Pel·lícules que falten per mostrar el màxim de 8 pel·lícules al login
+                                            $nFalta=$max_recommend-$i; // Pel·lícules que falten per mostrar el màxim de 8 pel·lícules al login
                                             $nCategories= $row['count(*)']; // num de categories favorites de l'usuari
 
                                             if($nCategories>0){
@@ -262,8 +265,15 @@
         </section>
         
         <footer>
-            PelisTube &copy; 2021
+            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
         </footer>
+
+        <style>
+            body {
+                background-image: url("img/background2.jpg");
+                background-position:absolute;
+            }
+        </style>
 
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

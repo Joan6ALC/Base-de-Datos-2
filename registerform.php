@@ -29,8 +29,9 @@
                 default:
                 }
         } ?>
-            <h1 class="title-small">Pelistube</h1>
-            <h2 class="subtitle-small">Tu plataforma de streaming</h2>
+            <div class="title-small">Pelistube</div>
+            <div class="subtitle-small" style="color:white;">Tu plataforma de streaming</div>
+            <div class="padding"></div>
         </header>
 
         <section> 
@@ -78,7 +79,14 @@
         </section>
 
         <footer>
-            PelisTube &copy; 2021
+            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
         </footer>
+
+        <style>
+            body {
+                background-image: url("img/background2.jpg");
+                background-position-y: -2450px;
+            }
+        </style>
     </body>
 </html>
