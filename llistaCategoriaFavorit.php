@@ -122,7 +122,7 @@
                                         if($visible['visible']==1){
                                         
                                         echo  '<div class="row justify-content-center">    
-                                                    <div class="card  style=width: 65rem ";">           
+                                                    <div class="card  style=width: 65rem ";">              
                                                         <div class="card-body">
                                                             <center><h6>'.$row['nomCat'].'</h6>
                                                             <div class="padding"></div>';
