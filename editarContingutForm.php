@@ -22,27 +22,22 @@ $resultPeli = mysqli_query($con, $consultPeli);
 $cerk = mysqli_fetch_array($resultPeli);
 $peli = $cerk['titol'];
 
+$visible = $cerk['visible'];
+
+
 $consultCat = "SELECT nomCat FROM categoria";
 $categoria = mysqli_query($con, $consultCat);
 $novaCat = $cerk['nomCat'];
 
-$enlace = $cerk['html'];
+$enlace = $cerk['link'];
 $imatge = $cerk['camiFoto'];
 
 $resultTip = "SELECT IdTipus FROM r_tipus_contingut WHERE IdContingut = '".$cerk['IdContingut']."'";
-$resultTipus = "SELECT DISTINCT edat FROM tipus";
+$tipusAct = mysqli_query($con, $resultTip);
+$tAct = mysqli_fetch_array($tipusAct);
+
+$resultTipus = "SELECT * FROM tipus";
 $tipus = mysqli_query($con, $resultTipus);
-//$tipus = mysqli_fetch_array($resultTipus1);
-
-
-//$consultPeli = 'SELECT DISTINCT titol FROM contingut';
-//$resultPeli = mysqli_query($con, $consultPeli);
-
-//$consultCat = 'SELECT DISTINCT nomCat FROM categoria';
-//$resultCat = mysqli_query($con, $consultCat);
-
-//$consultEdat = 'SELECT DISTINCT (edat) FROM tipus';
-//$resultEdat = mysqli_query($con, $consultEdat);
 
 ?>
 <!DOCTYPE html>
@@ -92,14 +87,14 @@ $tipus = mysqli_query($con, $resultTipus);
                 <!--primera columna vacía-->
                 <div class="col-md-6">
                     <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                        <form action="afegirContingut.php" method="post" enctype="multipart/form-data"></form>
-                        <form action="afegirContingut.php" method="post" enctype="multipart/form-data">
+                        <!--<form action="afegirContingut.php" method="post" enctype="multipart/form-data"></form>-->
+                        <form action="editarContingut.php" method="post" enctype="multipart/form-data">
                             <div class="d-grid gap-2">
 
                                 <div class="row">
                                     <div class="col">
-                                        <label>Título de la película<span style="color: red;">*</span>:</label>
-                                        <select class = "titulos" name="titolSelect" id="titolSelect">
+                                        <label>Selecciona el contenido a editar<span style="color: red;">*</span>:</label>
+                                        <select class = "titulos my-2" name="titolSelect" id="titolSelect">
                                             
                                                 <?php
                                                 $titulosTotal = "SELECT * FROM contingut";
@@ -129,11 +124,19 @@ $tipus = mysqli_query($con, $resultTipus);
                                             });
                                         </script>
 
-                                        <label>Enlace de la película<span style="color: red;">*</span>:</label>
-                                        <input type="text" id="enlace" name="enlace" value=<?php echo "'" .$enlace."'"?> required><br>
+                                        
+
+                                        <label class = " mt-3">Título del contenido<span style="color: red;">*</span>:</label>
+                                        <input class = " my-2" type="text" id="titulo" name="titulo" value=<?php echo "'" .$peli."'"?> required><br>
+
+                                        
+                                        
+                                        <label class = " mt-3">Enlace del contenido<span style="color: red;">*</span>:</label>
+                                        <input class = " my-2" type="text" id="enlace" name="enlace" value=<?php echo "'" .$enlace."'"?> required><br>
                                     </div>
+                                    <div class="col"></div>
                                     <div class="col">
-                                        <label>Categoría<span style="color: red;">*</span>:</label>
+                                        <label class = " my-2">Categoría<span style="color: red;">*</span>:</label>
                                         <select name="nomCat">
                                             <optgroup label="Categorías">
                                                 <?php
@@ -150,33 +153,56 @@ $tipus = mysqli_query($con, $resultTipus);
                                                 ?>
                                             </optgroup>
                                         </select>
-                                    </div>
 
-                                    <div class="col">
-                                        <label>Tipo de contenido<span style="color: red;">*</span>:</label>
+
+                                        <label class = " mt-3">Tipo de contenido<span style="color: red;">*</span>:</label>
+                                        
                                                 <?php
                                                 if (mysqli_num_rows($tipus) > 0) {
                                                     while ($fila1 = mysqli_fetch_assoc($tipus)) {
-                                                        echo "<br /><input type='checkbox' name='tipoCont[]' value='" . $fila1['edat'] . "'><label> " . $fila1['edat'] . "</label></input>";
+                                                        if($fila1['IdTipus'] == $tAct['IdTipus']){
+                                                            $tAct = mysqli_fetch_assoc($tipusAct);
+                                                            echo "<br /><input  class = 'my-2 ms-4' type='checkbox' name='tipoCont[]' value = '".$fila1['edat']."' checked ><label> " . $fila1['edat'] . "</label></input>";
+                                                        } else{
+                                                            echo "<br /><input  class = 'my-2 ms-4' type='checkbox' name='tipoCont[]' value = '".$fila1['edat']."' ><label> " . $fila1['edat'] . "</label></input>";
+                                                        }
                                                     }
                                                 }
+                                                
                                                 ?>
+                                                
+                                        <label class = " mt-3">Visible:</label>
+                                        <?php
+                                            
+                                            if($visible == 1){
+                                                echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1' checked></input>";
+                                            } else{
+                                                echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1'></input>";
+                                            }
+                                        ?>
                                     </div>
+
+                                    <div class="col">
+                                        
+                                    </div>
+
                                 </div>
 
                                 <div class="dragArea">
-                                    <header style="color: darkgray;">Arrastra o selecciona el archivo para subirlo <span style="color: red;">*</span></header>
-                                    <input type="file" id="file" name="file" accept="image/jpeg, image/png" class="form-control" required>
+                                    <header style="color: darkgray;">Arrastra o selecciona el archivo para subirlo </header>
+                                    <input type="file" id="file" name="file" accept="image/jpeg, image/png" class="form-control">
                                 </div>
-                                <?php echo "'" .$imatge."'"?>
+                               
                             </div>
 
                             <div class="alerta"></div>
 
                             <div style="padding: 3%; text-align: center;">
-                                <input type="submit" value="Insertar película" class="btn btn-danger">
+                                <input type="submit" value="Aceptar cambios" name="update" class="btn btn-danger">
+                                <input type="submit" value="Eliminar" name="delete"  class="btn btn-danger">
                             </div>
                         </form>
+                        
                     </div>
                 </div>
             </div>
@@ -184,8 +210,15 @@ $tipus = mysqli_query($con, $resultTipus);
     </section>
 
     <footer>
-        PelisTube &copy; 2021
-    </footer>
+            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+        </footer>
+
+        <style>
+            body {
+                background-image: url("img/background2.jpg");
+                background-position:absolute;
+            }
+        </style>
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
