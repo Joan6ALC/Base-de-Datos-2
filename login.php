@@ -169,13 +169,14 @@
                                             $pelicules=array(); // Array de pel·lícules recomanades/novetats
 
                                             // SEGONS MISSATGES: Guardam les pel·lícules recomanades segons els missatges (que venen donats segons les categories favorites)
-                                            $query = "select * from missatge where username='".$_SESSION['username']."' and estatMissatge=false" ; // Cerc els missatges de l'usuari
+                                            $query = "select * from missatge where username='".$_SESSION['username']."' and estatMissatge=0" ; // Cerc els missatges de l'usuari que no han estat llegits
+                                            
                                             $result = mysqli_query($con,$query);
                                             $i=0;
                                             $max_recommend=8;
 
                                             if($row=mysqli_fetch_array($result)){
-                                                while ($i<$max_recommend){ // Mostrrem un màxim de 8 continguts
+                                                while (isset($row) and $i<$max_recommend){ // Mostrem un màxim de 8 continguts
                                                     $query = "select * from contingut where IdContingut='".$row['IdContingut']."'"; // Per cada missatge agafo el contingut recomanat
                                                     $result2 = mysqli_query($con,$query);
                                                     $contingut = mysqli_fetch_array($result2);
