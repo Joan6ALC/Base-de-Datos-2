@@ -114,7 +114,7 @@
                                 <?php
                                     include "connection.php";
 
-                                    $query = "SELECT * from contingut ORDER BY RAND()";
+                                    $query = "SELECT * from contingut where visible=1 ORDER BY RAND()";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
@@ -170,13 +170,6 @@
             </div>
         </section>
         
-        <style>
-            body {
-                background-image: url("img/background2.jpg");
-                background-position:absolute;
-            }
-        </style>
-
         <footer>
             <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
         </footer>
