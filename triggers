@@ -6,9 +6,3 @@ BEGIN
     call procedure;
 
 END;
-
-SET GLOBAL event_scheduler=ON
-SHOW VARIABLES
-SHOW CREATE EVENT
-
-CREATE EVENT event_name ON SCHEDULE schedule DO event_body; 
