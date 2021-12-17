@@ -11,12 +11,7 @@ $consulta = "SELECT * FROM contingut";
 $cerca = mysqli_query($con, $consulta);
 $def = mysqli_fetch_array($cerca);
 
-if (isset($_GET['id'])) {
-    $consultPeli = 'SELECT * FROM contingut WHERE IdContingut = "' . $_GET['id'] . '"';
-    $resultPeli = mysqli_query($con, $consultPeli);
-    $cerk = mysqli_fetch_array($resultPeli);
-    $index = $cerk['titol'];
-} else if (isset($_GET['nomPelicula'])) {
+if (isset($_GET['nomPelicula'])) {
     $index = $_GET['nomPelicula'];
 } else {
     $index = $def['titol'];
