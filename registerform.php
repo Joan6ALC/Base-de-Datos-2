@@ -34,7 +34,8 @@
             <div class="padding"></div>
         </header>
 
-        <section> 
+        <section>
+            <div class="padding"></div>
             <div class="container">
                 <div class="row ">
                     <div class="col-md-3"></div> <!--primera columna vacía-->

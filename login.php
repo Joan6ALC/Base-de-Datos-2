@@ -140,7 +140,7 @@
                                     </center>
                                     <br>
                                     <div class="padding"></div>
-                                    <h5>Novedades</h5>
+                                    <h5>Recomendaciones </h5>
                                     <center>
                                     <div class="row justify-content-center gap-2"> 
                                     <!-- ******** SISTEMA DE RECOMANACIÓ ******** -->
@@ -197,8 +197,8 @@
                                             $nFalta=$max_recommend-$i; // Pel·lícules que falten per mostrar el màxim de 8 pel·lícules al login
                                             $nCategories= $row['count(*)']; // num de categories favorites de l'usuari
 
-                                            if($nCategories>0){
-                                                $query = "select * from categoriafavorits join contingut on contingut.nomCat=categoriafavorits.nomCat and categoriafavorits.IdContracte=".$_SESSION['IdContracte']." ORDER BY RAND() LIMIT 15;" ; // Obtenim 8 continguts aleatories que pertanyen a una categoria favorita de l'usuari
+                                            if($nCategories>0){ // De tots els continguts només seleccionam els visibles
+                                                $query = "select * from categoriafavorits join contingut on contingut.visible=1 and contingut.nomCat=categoriafavorits.nomCat and categoriafavorits.IdContracte=".$_SESSION['IdContracte']." ORDER BY RAND() LIMIT 15;" ; // Obtenim 8 continguts aleatoris que pertanyen a una categoria favorita de l'usuari
                                                 $result = mysqli_query($con,$query);
                                                 
                                                 $it=0;
@@ -234,11 +234,11 @@
                                                     }
 
                                                     if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                                        echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'&redir=login.php" class="btn btn-dark btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';
+                                                        echo           '<a href="eliminarContingutFavorit.php?id='.$pelicules[$it]->id.'&redir=login.php" class="btn btn-success btn-sm"><i class="bi-star-fill" title="Eliminar de favoritos" style="font-size: 0.9rem;"></i></a>';
                                                                     
                                                                             
                                                     }  else { // Imprimim el botó per afegir favorit
-                                                        echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'&redir=login.php" class="btn btn-outline-dark btn-sm"><i class="bi-star" title="Agregar a favoritos" style="font-size: 0.9rem;"></i></a>';
+                                                        echo            '<a href="afegirContingutFavorit.php?id='.$pelicules[$it]->id.'&redir=login.php" class="btn btn-outline-success btn-sm"><i class="bi-star" title="Agregar a favoritos" style="font-size: 0.9rem;"></i></a>';
                                                                     
                                                     }
                                                     

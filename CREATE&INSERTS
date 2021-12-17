@@ -25,7 +25,7 @@ IdTipus integer AUTO_INCREMENT PRIMARY KEY,
 CREATE TABLE Contingut(
 IdContingut integer AUTO_INCREMENT PRIMARY KEY,
 	titol varchar(20) NOT NULL,
-	html varchar(250) NOT NULL,
+	link varchar(250) NOT NULL,
 	camiFoto varchar(250) NOT NULL,
 	nomCat varchar(20),
 	visible boolean,
@@ -107,7 +107,7 @@ CREATE TABLE CategoriaFavorits(
 
 INSERT INTO tipus(edat) VALUES ("<9 anys"),  ("9-18 anys"),  ("+18 anys");
 
-INSERT INTO categoria(nomCat) VALUES ("Terror"), ("Comedia"), ("Intriga"),("Ciencia ficción"),("Aventuras"),("Drama"),("Fantasía"),("Suspense"),("Musical"),("Animación"),("Documental"),("Histórica"),("Bélica"),("Crimen"),("Policíaca"),("Acción");
+INSERT INTO categoria(nomCat, visible) VALUES ("Terror", true), ("Comedia", true), ("Intriga", true),("Ciencia ficción", true),("Aventuras", true),("Drama", true),("Fantasía", true),("Suspense", true),("Musical", true),("Animación", true),("Documental", true),("Histórica", true),("Bélica", true),("Crimen", true),("Policíaca", true),("Acción", true);
 
 INSERT INTO tarifa(nomTarifa, preu, periodicitat, estatTarifa) VALUES('MENSUAL', 10, 30, 'VIGENT'),('TRIMESTRAL', 25, 90, 'VIGENT');
 
@@ -116,33 +116,33 @@ INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dat
 # INSERTS PEL·LÍCULES
 
 #Ciencia ficción
-insert into contingut(titol, html, camiFoto, nomCat) values ("Avatar", 'https://www.youtube.com/embed/5PSNL1qE6VY',"/img/carteles/1-Avatar.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("ZONE 414", 'https://www.youtube.com/embed/Zn5kZwZ-l2g', "/img/carteles/2-ZONE 414.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("DUNE", 'https://www.youtube.com/embed/1looWByWgW0', "/img/carteles/3-DUNE.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Reminiscencia", 'https://www.youtube.com/embed/5MvFknvMabU', "/img/carteles/4-Reminiscencia.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Chaos Walking", 'https://www.youtube.com/embed/KJOd3poTq_I', "/img/carteles/5-Chaos Walking.jpg", "Ciencia ficción");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Ad Astra", 'https://www.youtube.com/embed/gaf-zgnlNLg',"/img/carteles/6-Ad Astra.jpg", "Ciencia ficción");
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Avatar", 'https://www.youtube.com/embed/5PSNL1qE6VY',"/img/carteles/1-Avatar.jpg", "Ciencia ficción", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("ZONE 414", 'https://www.youtube.com/embed/Zn5kZwZ-l2g', "/img/carteles/2-ZONE 414.jpg", "Ciencia ficción", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("DUNE", 'https://www.youtube.com/embed/1looWByWgW0', "/img/carteles/3-DUNE.jpg", "Ciencia ficción", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Reminiscencia", 'https://www.youtube.com/embed/5MvFknvMabU', "/img/carteles/4-Reminiscencia.jpg", "Ciencia ficción", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Chaos Walking", 'https://www.youtube.com/embed/KJOd3poTq_I', "/img/carteles/5-Chaos Walking.jpg", "Ciencia ficción", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Ad Astra", 'https://www.youtube.com/embed/gaf-zgnlNLg',"/img/carteles/6-Ad Astra.jpg", "Ciencia ficción", true);
 
 #Aventuras
-insert into contingut(titol, html, camiFoto, nomCat) values ("Jumanji", 'https://www.youtube.com/embed/leIrosWRbYQ',"/img/carteles/7-Jumanji.jpg", "Aventuras");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Jungle Cruise", 'https://www.youtube.com/embed/hIJUnZnvAzA',"/img/carteles/8-Jungle Cruise.jpg", "Aventuras");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Animales fantásticos", 'https://www.youtube.com/embed/US2LnWrrCq4',"/img/carteles/14-Animales Fantásticos.jpg", "Aventuras");
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Jumanji", 'https://www.youtube.com/embed/leIrosWRbYQ',"/img/carteles/7-Jumanji.jpg", "Aventuras", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Jungle Cruise", 'https://www.youtube.com/embed/hIJUnZnvAzA',"/img/carteles/8-Jungle Cruise.jpg", "Aventuras", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Animales fantásticos", 'https://www.youtube.com/embed/US2LnWrrCq4',"/img/carteles/14-Animales Fantásticos.jpg", "Aventuras", true);
 
 #Animación
-insert into contingut(titol, html, camiFoto, nomCat) values ("Los Simpson", 'https://www.youtube.com/embed/HRV6tMR-SSs',"/img/carteles/9-Los Simpson.png", "Animación");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Soul", 'https://www.youtube.com/embed/85hY9bninqU',"/img/carteles/10-Soul.jpg", "Animación");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Coco", 'https://www.youtube.com/embed/htwlR51npL4',"/img/carteles/11-Coco.jpg", "Animación");
-insert into contingut(titol, html, camiFoto, nomCat) values ("Del Revés", 'https://www.youtube.com/embed/RbfKs_syius',"/img/carteles/12-Del reves.jpg", "Animación");
-insert into contingut(titol, html, camiFoto, nomCat) values ("El Rey León", 'https://www.youtube.com/embed/mb79ctR-E-c',"/img/carteles/13-El Rey León.jpg", "Animación");
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Los Simpson", 'https://www.youtube.com/embed/HRV6tMR-SSs',"/img/carteles/9-Los Simpson.png", "Animación", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Soul", 'https://www.youtube.com/embed/85hY9bninqU',"/img/carteles/10-Soul.jpg", "Animación", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Coco", 'https://www.youtube.com/embed/htwlR51npL4',"/img/carteles/11-Coco.jpg", "Animación", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Del Revés", 'https://www.youtube.com/embed/RbfKs_syius',"/img/carteles/12-Del reves.jpg", "Animación", true);
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("El Rey León", 'https://www.youtube.com/embed/mb79ctR-E-c',"/img/carteles/13-El Rey León.jpg", "Animación", true);
 
 #Acción
-insert into contingut(titol, html, camiFoto, nomCat) values ("Alerta Roja", 'https://www.youtube.com/embed/UUZ_DITqers',"/img/carteles/15-Alerta Roja.jpg", "Acción");
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Alerta Roja", 'https://www.youtube.com/embed/UUZ_DITqers',"/img/carteles/15-Alerta Roja.jpg", "Acción", true);
 #Bélica
-insert into contingut(titol, html, camiFoto, nomCat) values ("1917", 'https://www.youtube.com/embed/SBc69RKIqwg',"/img/carteles/16-1917.jpg", "Bélica");
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("1917", 'https://www.youtube.com/embed/SBc69RKIqwg',"/img/carteles/16-1917.jpg", "Bélica", true);
 #Comedia
 #Crimen
 #Documental
-insert into contingut(titol, html, camiFoto, nomCat) values ("The Last Dance", 'https://www.youtube.com/embed/qQjYmZgB3QQ',"/img/carteles/17-The Last Dance.jpg", "Documental");
+insert into contingut(titol, link, camiFoto, nomCat, visible) values ("The Last Dance", 'https://www.youtube.com/embed/qQjYmZgB3QQ',"/img/carteles/17-The Last Dance.jpg", "Documental", true);
 #Drama
 #Fantasía
 #Histórica
@@ -152,3 +152,24 @@ insert into contingut(titol, html, camiFoto, nomCat) values ("The Last Dance", '
 #Policíaca
 #Suspense
 #Terror
+
+#INSERT R_TIPUS_CONTINGUT
+
+INSERT INTO R_Tipus_Contingut(IdTipus, IdContingut) VALUES 
+(2,1),(3,1),
+(2,2),(3,2),
+(2,3),(3,3),
+(2,4),(3,4),
+(2,5),(3,5),
+(2,6),(3,6),
+(1,7),(2,7),(3,7),
+(1,8),(2,8),(3,8),
+(1,9),(2,9),(3,9),
+(1,10),(2,10),(3,10),
+(1,11),(2,11),(3,11),
+(1,12),(2,12),(3,12),
+(1,13),(2,13),(3,13),
+(1,14),(2,14),(3,14),
+(2,15),(3,15),
+(2,16),(3,16),
+(1,17),(2,17),(3,17);
