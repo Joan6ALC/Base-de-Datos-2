@@ -4,7 +4,11 @@ if (!isset($_SESSION['username'])) {
     die();
 }
 
-$orden = $_POST['orden'];
+if (isset($_GET['orden'])) {
+    $orden = $_GET['orden'];
+} else {
+    $orden = 'todos';
+}
 
 
 ?>
@@ -38,53 +42,46 @@ $orden = $_POST['orden'];
                 <!--primera columna vacía-->
                 <div class="col-md-10">
                     <div class="shadow-lg p-4 mb-5 bg-body rounded">
-
-                        <form action="visualitzarUsuarisBD.php" method="post" enctype="multipart/form-data"></form>
-                        <form action="visualitzarUsuarisBD.php" method="post" enctype="multipart/form-data">
-                            <div class="d-grid gap-2">
-                                <div class="row">
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                    <div class="col">
-                                        <label>Ordenar por:</label>
-                                        <select name="orden">
-                                            <?php
-                                            if ($orden == 'contActivos') {
-                                                echo '<optgroup label="Categorías">
+                        <div class="d-grid gap-2">
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col"></div>
+                                <div class="col">
+                                    <label>Ordenar por:</label>
+                                    <select class="ordenar" name="ordenSelect" id="ordenSelect">
+                                        <?php
+                                        if ($orden == 'contActivos') {
+                                            echo '<optgroup label="Categorías">
                                                     <option value="contActivos" selected>contratos activos</option>
                                                     <option value="noActivos">contratos inactivos</option>
                                                     <option value="todos">todos los usuarios por orden alfabético</option>
                                                 </optgroup>';
-                                            } else if ($orden == 'noActivos') {
-                                                echo '<optgroup label="Categorías">
+                                        } else if ($orden == 'noActivos') {
+                                            echo '<optgroup label="Categorías">
                                                     <option value="contActivos">contratos activos</option>
                                                     <option value="noActivos" selected>contratos inactivos</option>
                                                     <option value="todos">todos los usuarios por orden alfabético</option>
                                                 </optgroup>';
-                                            } else {
-                                                echo '<optgroup label="Categorías">
+                                        } else {
+                                            echo '<optgroup label="Categorías">
                                                     <option value="contActivos">contratos activos</option>
                                                     <option value="noActivos">contratos inactivos</option>
                                                     <option value="todos" selected>todos los usuarios por orden alfabético</option>
                                                 </optgroup>';
-                                            }
-                                            ?>
+                                        }
+                                        ?>
 
-                                        </select>
-                                    </div>
-                                    <div class="col" style="padding-top: 2%;">
-                                        <input type="submit" value="Ordenar" class="btn btn-danger" style="width: 60px; height: 28px; font-size: 9pt; padding: 0px;">
-                                    </div>
+                                    </select>
                                 </div>
                             </div>
-                        </form>
+                        </div>
 
 
 
@@ -238,6 +235,18 @@ $orden = $_POST['orden'];
     <footer>
         PelisTube &copy; 2021
     </footer>
+
+    <script>
+        selectElement = document.querySelector('.ordenar');
+
+
+
+        selectElement.addEventListener('change', (event) => {
+            var ordenSelect = document.getElementById("ordenSelect");
+            var id = ordenSelect.options[ordenSelect.selectedIndex].value;
+            window.location.replace('visualitzarUsuarisBD.php?orden=' + id);
+        });
+    </script>
 
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
