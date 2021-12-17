@@ -19,7 +19,7 @@
     <body>
 
         <header>
-            <?php include "navbar.php"; 
+            <?php include "navbar.php";
 
             if(isset($_GET['msg'])){
                 switch($_GET['msg']){
@@ -107,8 +107,8 @@
                             <div class="row justify-content-center gap-2">                                
                                 <?php
                                     include "connection.php";
-
-                                    $query = "SELECT * from contingutFavorits";
+                                    $query = "SELECT * from (contingutfavorits JOIN contingut ON contingutfavorits.IdContingut = contingut.IdContingut)
+                                    JOIN categoria ON categoria.nomCat = contingut.nomCat AND categoria.visible = 1";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
@@ -129,8 +129,6 @@
                                                                     <i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                         }
                                         
-
-                                        // Tancam els div :href="eliminarContingut.php?id='.$row['IdContingut'].'"
                                         echo        '</div>
                                                     </div>
                                                 </div>';
@@ -153,12 +151,6 @@
             <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
         </footer>
 
-        <style>
-            body {
-                background-image: url("img/background2.jpg");
-                background-position:absolute;
-            }
-        </style>
 
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

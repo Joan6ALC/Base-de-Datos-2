@@ -14,6 +14,8 @@ $tipoCont = $_POST['tipoCont'];
 $nomFoto   = $_FILES['file']['name'];
 $camiFoto = "/img/carteles/" . $nomFoto;
 
+$html = str_replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/', $html);
+
 if ($_FILES['file']['name'] != "") {
     $path = $_FILES['file']['name'];
     $pathto = 'img/carteles/' . $path;
