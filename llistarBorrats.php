@@ -90,13 +90,6 @@
                 </div>
             </div>
         </section>
-        
-        <style>
-            body {
-                background-image: url("img/background2.jpg");
-                background-position:absolute;
-            }
-        </style>
 
         <footer>
             <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
