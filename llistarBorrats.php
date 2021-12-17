@@ -31,7 +31,7 @@
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="row">
-                            <h5>Películas borradas</h5></div>
+                            <h5>Películas eliminadas</h5></div>
 
                             <div class="padding"></div>
                             <center>

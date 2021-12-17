@@ -1,8 +1,7 @@
 body {
     overflow: auto;
     background-image: url("img/background.jpg");
-    background-position: absolute;
-    background-position: 10%;
+    background-position-x: -3400px;
 }
 
 header {
@@ -22,7 +21,7 @@ header {
 }
 
 .title-small {
-  padding-top: 35px;
+  padding-top: 55px;
   color: #df2525;
   font-family: manis;
   font-size: 50px;

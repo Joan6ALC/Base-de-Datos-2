@@ -82,12 +82,5 @@
         <footer>
             <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
         </footer>
-
-        <style>
-            body {
-                background-image: url("img/background2.jpg");
-                background-position-y: -2450px;
-            }
-        </style>
     </body>
 </html>
