@@ -34,16 +34,8 @@
                         ?>
                         </div>
                     </li>
-                    <li class="nav-item dropdown"> <!-- Favorits -->
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Favoritos
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="llistaContingutFavorit.php">Contenidos</a>
-                            <a class="dropdown-item" href="llistaCategoriaFavorit.php">Categorias</a>
-                        </div>
-                    </li>
-                    <?php // Si és administrador, afegim les opcions
+
+                    <?php // Si és administrador, afegim les opcions d'adminstrador
                         if($_SESSION['administrador']==true){
                             echo '  <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,8 +49,18 @@
                                             <a class="dropdown-item" href="visualitzarUsuarisForm.php">Visualizar usuarios</a>
                                         </div>
                                     </li>';
-                            }
-                        ?>
+                        } else {
+                            echo '  <li class="nav-item dropdown"> <!-- Favorits -->
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Favoritos
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="llistaContingutFavorit.php">Contenidos</a>
+                                            <a class="dropdown-item" href="llistaCategoriaFavorit.php">Categorias</a>
+                                        </div>
+                                    </li>';
+                        }
+                    ?>
                 </ul> 
                 <div class="col"></div>
                 <ul class="nav navbar-nav mx-auto">       
@@ -84,16 +86,20 @@
                             <a class="dropdown-item" href="veureUsuariForm.php">Mi perfil</a>
                             <a class="dropdown-item" href="#">Mensajes</a>
                             <?php
-                                //si l'usuari no té cap contracte, l'opció que surt es la de
-                                //contractar, fer un nou contracte
-                                //en cas contrari, opció de veure el contracte
-                                if($_SESSION['IdContracte'] == null){
-                                    echo '<a class="dropdown-item" href="editarContracteForm.php">Contratar</a>';
-                                }else{
-                                    echo '<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>';
+                                // L'usuari administrador no veurà aquestes opcions (doncs mai tendra un contracte)
+                                if($_SESSION['administrador'] != true){
+                                    // si l'usuari no té cap contracte, l'opció que surt es la de
+                                    // contractar, fer un nou contracte
+                                    // en cas contrari, opció de veure el contracte
+                                    if($_SESSION['IdContracte'] == null){
+                                        echo '<a class="dropdown-item" href="editarContracteForm.php">Contratar</a>';
+                                    }else{
+                                        echo '<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>';
+                                    }
+                                    echo '<a class="dropdown-item" href="veureFactures.php">Facturas</a>';
                                 }
                             ?>
-                            <a class="dropdown-item" href="veureFactures.php">Facturas</a>
+
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="logout.php">Cerrar sesión</a></li>
