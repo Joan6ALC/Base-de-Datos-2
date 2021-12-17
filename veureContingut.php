@@ -9,7 +9,7 @@
     $query = "SELECT * FROM contingut WHERE IdContingut=".$_GET['id'] ; 
     $result = mysqli_query($con,$query);
     $row = mysqli_fetch_array($result);
-    $peli = $row['html'];
+    $peli = $row['link'];
     $titol = $row['titol'];
     
     
