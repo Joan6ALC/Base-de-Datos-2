@@ -107,8 +107,8 @@
                             <div class="row justify-content-center gap-2">                                
                                 <?php
                                     include "connection.php";
-
-                                    $query = "SELECT * from contingutFavorits";
+                                    $query = "SELECT * from contingutFavorits JOIN contingut ON contingutFavorits.idContingut = contingut.idContingut
+                                    JOIN categoria ON categoria.nomCat = contingut.nomCat AND categoria.visible = 1";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
@@ -129,8 +129,6 @@
                                                                     <i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                         }
                                         
-
-                                        // Tancam els div :href="eliminarContingut.php?id='.$row['IdContingut'].'"
                                         echo        '</div>
                                                     </div>
                                                 </div>';
