@@ -93,7 +93,7 @@
                             <center>
                             <div class="row justify-content-center gap-2">                                
                                 <?php
-                                     $query = "SELECT * from contingut WHERE (titol LIKE '$resultatCerca%')"; // Cercam els resultats
+                                     $query = "SELECT * from contingut WHERE (visible = 1 and titol LIKE '$resultatCerca%')"; // Cercam els resultats
                                      $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
