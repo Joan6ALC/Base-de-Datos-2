@@ -34,8 +34,8 @@ if(isset($_GET['msg'])){
     
         case 4: // Eliminació categoria
             echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="bi-star" style="font-size: 0.9rem;"></i>
-                        &nbspCategoría favorita elminada correctamente
+                        <i class="bi-tags" style="font-size: 0.9rem;"></i>
+                        &nbspCategoría eliminada correctamente
                         <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -43,9 +43,9 @@ if(isset($_GET['msg'])){
             break;
 
         case 5: // Addició categoria
-            echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="bi-star" style="font-size: 0.9rem;"></i>
-                        &nbspCategoría favorita elminada correctamente
+            echo    '<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <i class="bi-tags" style="font-size: 0.9rem;"></i>
+                        &nbspCategoría añadida correctamente
                         <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
                            <span aria-hidden="true">&times;</span>
                         </button>
@@ -55,7 +55,7 @@ if(isset($_GET['msg'])){
         case 6: // Eliminació categoria favorita
             echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <i class="bi-star" style="font-size: 0.9rem;"></i>
-                        &nbspCategoría favorita elminada correctamente
+                        &nbspCategoría favorita eliminada correctamente
                         <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -63,9 +63,9 @@ if(isset($_GET['msg'])){
             break;
         
         case 7: // Addició categoria favorita
-            echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            echo    '<div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="bi-star" style="font-size: 0.9rem;"></i>
-                        &nbspCategoría favorita elminada correctamente
+                        &nbspCategoria favorita añadida correctamente
                         <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -74,18 +74,18 @@ if(isset($_GET['msg'])){
             
         case 8: // Addició contingut favorit
             echo    '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
-                        &nbspCategoría editado correctamente
+                        <i class="bi-star" style="font-size: 0.9rem;"></i>
+                        &nbspContenido favorito añadido correctamente
                         <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>';
             break;
 
-        case 9: // Eliminació categoria favorita
-            echo    '<div class="alert alert-primary alert-dismissible fade show" role="alert">
-                        <i class="bi-plus-circle" style="font-size: 0.9rem;"></i>
-                        &nbspCategoría añadido correctamente
+        case 9: // Eliminació contingut favorita
+            echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi-star" style="font-size: 0.9rem;"></i>
+                        &nbspContenido favorito eliminado correctamente
                         <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
