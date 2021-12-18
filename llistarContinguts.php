@@ -114,7 +114,7 @@
                                 <?php
                                     include "connection.php";
 
-                                    $query = "SELECT * from contingut where visible=1 ORDER BY RAND()";
+                                    $query = "SELECT * from contingut where visible=1 order by titol"; //ORDER BY RAND()";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         if(isset($_SESSION['IdContracte'])){
