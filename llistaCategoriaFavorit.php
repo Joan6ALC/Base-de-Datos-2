@@ -21,10 +21,7 @@
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
 </head>
 
-<body>
-
-        <section>       
-        
+<body>    
                                 
     <header>
         <?php include "navbar.php";
@@ -191,7 +188,7 @@
 
 
     <footer>
-            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+        PelisTube &copy; 2021
     </footer>
 
 

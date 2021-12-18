@@ -68,7 +68,7 @@
         </section>
 
         <footer>
-            <div>PelisTube &copy; 2021</div>
+            PelisTube &copy; 2021
         </footer>
 
         <!-- Frameworks -->

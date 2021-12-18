@@ -92,7 +92,7 @@
         </section>
 
         <footer>
-            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+            PelisTube &copy; 2021
         </footer>
 
     <!-- Frameworks -->

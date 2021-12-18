@@ -75,7 +75,7 @@
                                         <h5>Bandeja de entrada</h5>
                                         <div class="padding"></div>
                                         <center>
-                                        <div class="card" style="width: 26rem;">
+                                        <div class="card">
                                             <div class="card-body">
                                                 <?php // MISSATGES: Comprovam si tenim missatges sense llegir
                                                     include "connection.php";
@@ -110,7 +110,7 @@
                                         <h5>Facturación</h5>
                                         <div class="padding"></div>
                                         <center>
-                                        <div class="card" style="width: 26rem;">
+                                        <div class="card">
                                             <div class="card-body">
                                                 <img src="img/cash-stack.svg" height="30" width="30" style="color: white">
                                                 <div class="padding"></div>
@@ -266,7 +266,7 @@
         </section>
         
         <footer>
-            <div style="color: grey; font-size: 9px">PelisTube &copy; 2021</div>
+            PelisTube &copy; 2021
         </footer>
 
     <!-- Frameworks -->
