@@ -216,25 +216,26 @@
                                                 while($contingut = mysqli_fetch_array($result) and $it<$nFalta){ // Sempre que hi hagi continguts a la taula i encara no haguem cobert el $max_recommend
                                                     $c=new contingut($contingut['titol'], $contingut['camiFoto'], $contingut['IdContingut']);
                                                     if(!in_array($c,$movies)){ // Si és un contingut que ja es troba dins l'array, no l'afegirem a l'array i no iterarem (seguirem cercant)
-
                                                         switch ($_SESSION['IdTipus']) { // 3 possibilitats
                                                             case 1: // menor de 9 anys --> només recomanam els continguts de la seva edat
-                                                                $query2 = "SELECT * from r_tipus_contingut where IdContingut=".$contingut['IdContingut']." and IdTipus=".$_SESSION['IdTipus']; // Miram si el contingut és de la meva edat
-                                                                $result2 = mysqli_query($con,$query2);
-                                                                $tipusContingut=mysqli_fetch_array($result2);
-
-                                                                if (isset($tipusContingut['IdContingut'])){ 
-                                                                    array_push($movies, $c);
-                                                                    $it=$it+1;
-                                                                }
-
+                                                                $query2 = "SELECT * from r_tipus_contingut where IdContingut=".$contingut['IdContingut']." and IdTipus=1"; // Miram si el contingut és de la meva edat
                                                                 break;
 
                                                             case 2: // 9-18 anys --> recomanam els continguts de la seva edat i inferiors
-
+                                                                $query2 = "SELECT * from r_tipus_contingut where IdContingut=".$contingut['IdContingut']." and IdTipus!=3"; // Miram si el contingut es per majors de 18 anys
                                                                 break;
 
                                                             default: // per al cas 3 i possibles nous casos no tenguts en compte per defecte --> qualsevol contingut és recomanable
+                                                                $query2 = "SELECT * from r_tipus_contingut where IdContingut=".$contingut['IdContingut']; // Miram si el contingut es per majors de 18 anys
+                                                                break;
+                                                        }
+
+                                                        $result2 = mysqli_query($con,$query2);
+                                                        $tipusContingut=mysqli_fetch_array($result2);
+
+                                                        if (isset($tipusContingut['IdContingut'])){ 
+                                                            array_push($movies, $c);
+                                                            $it=$it+1;
                                                         }                                                        
                                                     } 
                                                 }
