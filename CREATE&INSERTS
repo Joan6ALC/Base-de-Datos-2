@@ -7,7 +7,7 @@ USE pelistube;
 CREATE TABLE Tarifa(
 	nomTarifa varchar(15) PRIMARY KEY,
 	preu integer NOT NULL,
-	periodicitat varchar(15) NOT NULL,
+	periodicitat INTEGER NOT NULL,
 	estatTarifa boolean
 );
 
@@ -105,7 +105,7 @@ CREATE TABLE CategoriaFavorits(
 
 # INSERTS NECESSARIS
 
-INSERT INTO tipus(edat) VALUES ("<9 anys"),  ("9-18 anys"),  ("+18 anys");
+INSERT INTO tipus(edat) VALUES ("<9 años"),  ("9-18 años"),  ("+18 años");
 
 INSERT INTO categoria(nomCat, visible) VALUES ("Terror", true), ("Comedia", true), ("Intriga", true),("Ciencia ficción", true),("Aventuras", true),("Drama", true),("Fantasía", true),("Suspense", true),("Musical", true),("Animación", true),("Documental", true),("Histórica", true),("Bélica", true),("Crimen", true),("Policíaca", true),("Acción", true);
 
