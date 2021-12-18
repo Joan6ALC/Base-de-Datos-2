@@ -61,8 +61,8 @@
                                                 echo           '<div class="padding"></div>
                                                                 <div class="row gap-1">
                                                                 <div class="col">
-                                                                        <a href="restaurarContingut.php?id='.$row['IdContingut'].'&redir=llistarBorrats.php" onclick="return confirmRestore()" class="btn btn-outline-warning btn-sm">
-                                                                            <i class="bi-unlock" title="Restaurar"  style="font-size: 0.9rem;"></i>
+                                                                        <a href="restaurarContingut.php?id='.$row['IdContingut'].'&redir=llistarBorrats.php" onclick="return confirmRestore()" class="btn btn-outline-primary btn-sm">
+                                                                            <i class="bi-cloud-download" title="Restaurar"  style="font-size: 0.9rem;">&nbspRestaurar</i>
                                                                         </a> 
                                                                     </div>
                                                                 </div>';  

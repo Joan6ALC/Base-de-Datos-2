@@ -23,7 +23,7 @@ if (isset($row['nomCat'])) {
 $query = 'UPDATE categoria SET nomCat="'. $novaCat .'"  WHERE (nomCat="' . $antCat . '")'; //INSERTANDO VARIABLES DIRECTAMENTE
 mysqli_query($con, $query);
 
-header("Location: login.php?nomCat=$novaCat"); // Redirigim a l'usuari a la pàgina principal
+header("Location: login.php?msg=4"); // Redirigim a l'usuari a la pàgina principal
 die();
 ?>
 

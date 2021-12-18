@@ -45,7 +45,7 @@
                                             <a class="dropdown-item" href="afegirContingutForm.php">Añadir contenido</a>
                                             <a class="dropdown-item" href="editarContingutForm.php?redir=editarContingutForm.php">Editar/Borrar contenido</a>
                                             <a class="dropdown-item" href="afegirCategoriaForm.php">Añadir categoria</a>
-                                            <a class="dropdown-item" href="editarCategoriaForm.php">Editar/Borrar categoria</a>
+                                            <a class="dropdown-item" href="editarCategoriaForm.php">Editar categoria</a>
                                             <a class="dropdown-item" href="visualitzarUsuarisBD.php">Visualizar usuarios</a>
                                             <a class="dropdown-item" href="llistarBorrats.php">Contenidos eliminados</a>
                                         </div>

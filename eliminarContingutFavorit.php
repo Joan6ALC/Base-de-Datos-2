@@ -10,7 +10,7 @@
 
     $query="DELETE FROM contingutfavorits WHERE IdContingut=".$IdContingut." AND IdContracte=".$_SESSION['IdContracte']." ";
     $result=mysqli_query($con, $query);
-    header("Location: $redirect?msg=1&id=$IdContingut");
+    header("Location: $redirect?msg=9&id=$IdContingut");
 
     mysqli_close($con);
 ?>

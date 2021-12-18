@@ -16,7 +16,7 @@
     }
 
 mysqli_close($con);
-header("Location: $redirect?msg=3&id=$Contingut");
+header("Location: $redirect?msg=8&id=$Contingut");
 die();
 
     

@@ -32,10 +32,10 @@ if(isset($_GET['msg'])){
                     </div>';
             break;
     
-        case 4: // Eliminació categoria
-            echo    '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="bi-tags" style="font-size: 0.9rem;"></i>
-                        &nbspCategoría eliminada correctamente
+        case 4: // Edició categoria
+            echo    '<div class="alert alert-sucess alert-dismissible fade show" role="alert">
+                        <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                        &nbspCategoría editada correctamente
                         <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>

@@ -60,7 +60,7 @@ foreach ($_POST['tipoCont'] as $tipoCont) {
     mysqli_query($con, $query);
 }
 
-header("Location: login.php?msg=3"); // Redirigim a l'usuari a la pàgina principal
+header("Location: llistarContinguts.php?msg=3"); // Redirigim a l'usuari a la pàgina principal
 die();
 ?>
 
