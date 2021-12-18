@@ -59,18 +59,34 @@ $tipus = mysqli_query($con, $resultTipus);
     <header>
         <?php
         include "navbar.php";
-        if (isset($_GET['error'])) {
-            switch ($_GET['error']) {
-                case 1:
+
+        if (isset($_GET['msg'])) {
+            switch ($_GET['msg']) {
+                case 1: // TITOL DE LA PELICULA JA EXISTEIX
                     echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
+                                <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
                                 &nbspLa película introducida ya existe
+                                <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>';
                     break;
-                case 2:
+                case 2: // FOTO JA INTRODUIDA
                     echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
+                                <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
                                 &nbspYa existe una imagen con el mismo nombre
+                                <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>';
+                    break;
+                case 3: // EDICIÓ
+                    echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                                &nbspContenido editado correctamente
+                                <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>';
                     break;
                 default:
