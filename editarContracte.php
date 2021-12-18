@@ -26,6 +26,16 @@
         $aplicacio = mysqli_query($con, $comprovacio);
         $valor = mysqli_fetch_array($aplicacio);
         $_SESSION['IdContracte'] = $valor['IdContracte'];
+        
+        $tar = "SELECT * FROM tarifa WHERE nomTarifa = '".$tarifa."'";
+        $ResultatTarifa = mysqli_query($con, $tar);
+        $ValorTarifa = mysqli_fetch_array($ResultatTarifa);
+        //$fechaFin = "SELECT DATEADD(DAY,'".$ValorTarifa['periodicitat']."','".$localdate."')";
+        //$fechaFin = date("YYYY-mm-dd",strtotime($localdate."+ '".$ValorTarifa['periodicitat']."' days"));
+        $fecha = strval($ValorTarifa['periodicitat']);
+        $date1 = date("y-m-d", strtotime($localdate."+ $fecha days"));
+        $query2 = "INSERT INTO factura(dataInici, import, dataFinal, IdContracte) VALUES ('".$localdate."','".$ValorTarifa['preu']."','".$date1."','".$_SESSION['IdContracte']."')";
+        $PrimeraFac = mysqli_query($con, $query2);
 
     }else{
         //si ja tenia un contracte creat, mirem l'estat al qual volem canviar
