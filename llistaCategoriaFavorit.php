@@ -101,7 +101,7 @@
                     <div class="col-md-10">
                         <div class="shadow-lg p-4 mb-5 bg-body rounded">
                             <div class="row">
-                            <h5>Tus categorías favoritos
+                            <h5>Tus categorías favoritas
                             
                             </h5></div>
 

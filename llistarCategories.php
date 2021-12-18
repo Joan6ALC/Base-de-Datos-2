@@ -104,7 +104,7 @@
                         <div class="col-md-10">
                             <div class="shadow-lg p-4 mb-5 bg-body rounded">
                                 <div class="d-grid gap-0">
-                                <h5>Nuestras películas
+                                <h5>Categorias
                                         <?php
                                         if($_SESSION['administrador']==1){
                                         echo '&nbsp&nbsp<a href="afegirCategoriaForm.php" class="btn btn-outline-primary btn-sm">

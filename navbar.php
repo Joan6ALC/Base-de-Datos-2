@@ -16,7 +16,7 @@
             <!-- Menú d'opcions -->
             <div class="collapse navbar-collapse" id="menu">   
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link active" href="login.php">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="llistarContinguts.php">Explorar</a></li>
                     <li class="nav-item dropdown"> <!-- Favorits -->
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
