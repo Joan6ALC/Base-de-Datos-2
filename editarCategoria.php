@@ -23,7 +23,7 @@ $row = mysqli_fetch_array($result);
 $query = 'UPDATE categoria SET visible="'. $visible .'"  WHERE (nomCat="' . $cat . '")'; //INSERTANDO VARIABLES DIRECTAMENTE
 mysqli_query($con, $query);
 
-header("Location: login.php?nomCat=$cat"); // Redirigim a l'usuari a la pàgina principal
+header("Location: editarCategoriaForm.php?msg=4"); // Redirigim a l'usuari a la pàgina principal
 die();
 ?>
 

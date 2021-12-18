@@ -43,7 +43,7 @@ if ($_FILES['file']['name'] != "") {
     $row = mysqli_fetch_array($result);
 
     if (isset($row['camiFoto'])) {
-        header("Location: editarContingutForm.php?msg=2");
+        header("Location: editarContingutForm.php?error=2");
         die();
     }
     $path = $_FILES['file']['name'];
@@ -61,7 +61,7 @@ $row = mysqli_fetch_array($result);
 
 
 if (isset($row['titol'])) {
-    header("Location: editarContingutForm.php?msg=1");
+    header("Location: editarContingutForm.php?error=1");
     die();
 }
 
