@@ -6,8 +6,22 @@ if (!isset($_SESSION['username'])) {
     die();
 }
 
-$query = 'SELECT DISTINCT nomCat FROM categoria';
-$cat = mysqli_query($con, $query);
+$consulta = "SELECT * FROM categoria";
+$cerca = mysqli_query($con, $consulta);
+$def = mysqli_fetch_array($cerca);
+
+if (isset($_GET['nomCategoria'])) {
+    $index = $_GET['nomCategoria'];
+} else {
+    $index = $def['nomCat'];
+}
+
+$consultCat = 'SELECT * FROM categoria WHERE nomCat = "' . $index . '"';
+$resultCat= mysqli_query($con, $consultCat);
+$cerk = mysqli_fetch_array($resultCat);
+$cat = $cerk['nomCat'];
+
+$visible = $cerk['visible'];
 
 ?>
 <!DOCTYPE html>
@@ -29,12 +43,16 @@ $cat = mysqli_query($con, $query);
     <header>
         <?php
         include "navbar.php";
-        if (isset($_GET['error'])) {
-            switch ($_GET['error']) {
-                case 1:
-                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
-                                &nbspLa categoría introducida ya existe
+
+        if (isset($_GET['msg'])) {
+            switch ($_GET['msg']) {
+                case 1: // EDICIÓ
+                    echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                                &nbspCategoría editada correctamente
+                                <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>';
                     break;
                 default:
@@ -42,8 +60,6 @@ $cat = mysqli_query($con, $query);
         } ?>
     </header>
     <section>
-
-
         <div class="container">
             <div class="padding"><br></div>
             <div class="row">
@@ -51,39 +67,82 @@ $cat = mysqli_query($con, $query);
                 <!--primera columna vacía-->
                 <div class="col-md-6">
                     <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                        <!--<form action="afegirCategoria.php" method="post" enctype="multipart/form-data"></form>-->
-                        <form action="afegirCategoria.php" method="post" enctype="multipart/form-data">
+                        <!--<form action="afegirContingut.php" method="post" enctype="multipart/form-data"></form>-->
+                        <form action="editarCategoria.php" method="post" enctype="multipart/form-data">
                             <div class="d-grid gap-2">
 
                                 <div class="row">
-                                    <div class="col">
-                                        <label>Categoría<span style="color: red;">*</span>:</label>
-                                        <select name="nomAnt">
-                                            <optgroup label="Categorías">
-                                                <?php
-                                                if (mysqli_num_rows($cat) > 0) {
-                                                    while ($fila1 = mysqli_fetch_assoc($cat)) {
-                                                        echo "<option value = '" . $fila1['nomCat'] . "' selected='selected'>" . $fila1['nomCat'] . "</option>";
+                                    <div class="col-md-auto">
+                                        <label>Selecciona la categoría a editar<span style="color: red;">*</span>:</label>
+                                        <select class="categorias my-2" name="catSelect" id="catSelect">
+
+                                            <?php
+                                            $catTotal = "SELECT * FROM categoria";
+
+                                            $res = mysqli_query($con, $catTotal);
+
+                                            if (mysqli_num_rows($res) > 0) {
+                                                while ($fila1 = mysqli_fetch_assoc($res)) {
+
+                                                    if ($index == $fila1['nomCat']) {
+                                                        echo '<option value="' . $fila1['nomCat'] . '" selected ="selected" >' . $fila1['nomCat'] . '</option>';
+                                                    } else {
+                                                        echo '<option value="' . $fila1['nomCat'] . '">' . $fila1['nomCat'] . '</option>';
                                                     }
+                                                    //echo "<option value = '" . $fila1['titol'] . "' selected='selected'>" . $fila1['titol'] . "</option>";
                                                 }
-                                                ?>
-                                            </optgroup>
+                                            }
+                                            ?>
+
                                         </select>
+                                        <script>
+                                            selectElement = document.querySelector('.categorias');
+                                            selectElement.addEventListener('change', (event) => {
+                                                var catSelect = document.getElementById("catSelect");
+                                                var id = catSelect.options[catSelect.selectedIndex].value;
+                                                window.location.replace('editarCategoriaForm.php?nomCategoria=' + id);
+                                            });
+                                        </script>
+
+                                        
                                     </div>
+                                    <div class="col"></div>
+                                    <div class="col-md-auto">
+                                        
+
+
+                                        <label class="mt-2">Visible:</label>
+                                        <?php
+
+                                        if ($visible == 1) {
+                                            echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1' checked></input>";
+                                        } else {
+                                            echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1'></input>";
+                                        }
+                                        ?>
+                                    </div>
+
                                     <div class="col">
-                                        <label>Nuevo nombre<span style="color: red;">*</span>:</label>
-                                        <input type="text" id="nomCat" name="nomCat" required><br>
+
                                     </div>
+
                                 </div>
+
 
                             </div>
 
                             <div class="alerta"></div>
 
                             <div style="padding: 3%; text-align: center;">
-                                <input type="submit" value="Guardar cambios" class="btn btn-danger">
+                                <input type="submit" value="Aceptar cambios" name="update" class="btn btn-success">
+                                <!--<input type="submit" value="Eliminar" name="delete" class="btn btn-danger">-->
+
+                                <?php //echo '<a href="eliminarCategoria.php?id='.$cerk['nomCat'].'&redir=editarContingutForm.php" class="btn btn-danger">Eliminar</a>';
+                                ?>
+                               
                             </div>
                         </form>
+                        
                     </div>
                 </div>
             </div>

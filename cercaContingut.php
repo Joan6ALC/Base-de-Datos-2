@@ -5,14 +5,11 @@
     }
     $resultatCerca = $_POST['cercador'];
     include "connection.php";
-
-    $query = "SELECT * from contingut WHERE (titol LIKE '$resultatCerca%')"; // Cercam els resultats
-                                     $result = mysqli_query($con,$query);
-                                     $res = mysqli_fetch_array($result);
-                                     if (!isset($res)){
-                                         header("Location: noHiHaCoincidencies.php?redir=login.php");
-                                         die();
-                                     }
+    
+    $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')"; // Cercam els resultats
+    $result = mysqli_query($con,$query);
+    $res = mysqli_fetch_array($result);
+    
                                    
 ?>
 <!DOCTYPE html>
@@ -93,48 +90,55 @@
                             <center>
                             <div class="row justify-content-center gap-2">                                
                                 <?php
-                                     $query = "SELECT * from contingut WHERE (visible = 1 and titol LIKE '$resultatCerca%')"; // Cercam els resultats
+                                     $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')"; // Cercam els resultats
                                      $result = mysqli_query($con,$query);
-                                    while($row = mysqli_fetch_array($result)){
-                                        if(isset($_SESSION['IdContracte'])){
-                                            $query2 = "SELECT * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
-                                            $result2 = mysqli_query($con,$query2);
-                                            $fav = mysqli_fetch_array($result2);
-                                        }
-
-                                        echo   '<div class="col">
-                                                    <div class="card" style="width: 12rem;">
-                                                        <img class="card-img-top" src=".'.$row['camiFoto'].'" alt="'.$row['titol'].'.png" height="250">
-                                                        <div class="card-body">
-                                                            <center><h6>'.$row['titol'].'</h6>
-                                                            <div class="padding"></div>
-                                                            <a href="veureContingut.php?id='.$row['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
-
-                                        if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                            echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'&redir=llistarContinguts.php" class="btn btn-dark btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
-                                            
-                                        }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-dark btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
-                                        }  
+                                     
+                                     if (isset($res)){
                                         
-                                        if($_SESSION['administrador']==1){
-                                            echo           '<div class="padding"></div>
-                                                            <div class="row gap-1">
-                                                            <div class="col">
-                                                                    <a href="editarContingutForm.php?nomPelicula='.$row['titol'].'" class="btn btn-outline-success btn-sm">
-                                                                        <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
-                                                                    </a>
-                                                                    <a href="eliminarContingut.php?id='.$row['IdContingut'].'&redir=llistarContinguts.php" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
-                                                                        <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
-                                                                    </a> 
-                                                                </div>
-                                                            </div>';  
-                                        }
+                                    
+                                        while($row = mysqli_fetch_array($result)){
+                                            if(isset($_SESSION['IdContracte'])){
+                                                $query2 = "SELECT * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
+                                                $result2 = mysqli_query($con,$query2);
+                                                $fav = mysqli_fetch_array($result2);
+                                            }
 
-                                        // Tancam els div :href="eliminarContingut.php?id='.$row['IdContingut'].'"
-                                        echo        '</div>
-                                                    </div>
-                                                </div>';
+                                            echo   '<div class="col">
+                                                        <div class="card" style="width: 12rem;">
+                                                            <img class="card-img-top" src=".'.$row['camiFoto'].'" alt="'.$row['titol'].'.png" height="250">
+                                                            <div class="card-body">
+                                                                <center><h6>'.$row['titol'].'</h6>
+                                                                <div class="padding"></div>
+                                                                <a href="veureContingut.php?id='.$row['IdContingut'].'" class="btn btn-danger btn-sm">Ver película</a> ';
+
+                                            if(isset($fav)){ // Imprimim el botó per eliminar favorit
+                                                echo            '<a href="eliminarContingutFavorit.php?id='.$row['IdContingut'].'&redir=llistarContinguts.php" class="btn btn-dark btn-sm" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
+                                                
+                                            }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
+                                                echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-dark btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
+                                            }  
+                                            
+                                            if($_SESSION['administrador']==1){
+                                                echo           '<div class="padding"></div>
+                                                                <div class="row gap-1">
+                                                                <div class="col">
+                                                                        <a href="editarContingutForm.php?nomPelicula='.$row['titol'].'" class="btn btn-outline-success btn-sm">
+                                                                            <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
+                                                                        </a>
+                                                                        <a href="eliminarContingut.php?id='.$row['IdContingut'].'&redir=llistarContinguts.php" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">
+                                                                            <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
+                                                                        </a> 
+                                                                    </div>
+                                                                </div>';  
+                                            }
+
+                                            // Tancam els div :href="eliminarContingut.php?id='.$row['IdContingut'].'"
+                                            echo        '</div>
+                                                        </div>
+                                                    </div>';
+                                        }
+                                    }else{
+                                        echo '<div class="padding"></div><h6><i class="bi-search" style="font-size: 0.9rem;"></i>&nbsp&nbspNo se han encontrado resultados para la búsqueda</h6><div class="padding"></div>';  
                                     }
                                 ?>
                                 <div class="padding"></div>
