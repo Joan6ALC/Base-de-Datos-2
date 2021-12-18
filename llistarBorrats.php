@@ -20,7 +20,7 @@
     
     <body>
         <header>
-            <?php include "navbar.php"; ?>
+            <?php include "navbar.php"; include "missatge.php" ?>
         </header>
 
         <section>
@@ -68,7 +68,7 @@
                                                                 </div>';  
                                             }
 
-                                            // Tancam els div :href="eliminarContingut.php?id='.$row['IdContingut'].'"
+                                            // Tancam els div 
                                             echo        '</div>
                                                         </div>
                                                     </div>';
