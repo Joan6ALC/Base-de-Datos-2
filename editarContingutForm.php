@@ -59,6 +59,7 @@ $tipus = mysqli_query($con, $resultTipus);
     <header>
         <?php
         include "navbar.php";
+        include "missatge.php";
 
         if (isset($_GET['msg'])) {
             switch ($_GET['msg']) {

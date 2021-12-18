@@ -91,7 +91,7 @@ if(is_array($tipoCont)){
     }
 }
 
-header("Location: editarContingutForm.php?msg=3&nomFoto=$nomFoto&idTipo=$idTipo&idCntingut=$idContingt"); // Redirigim a l'usuari a la pàgina principal
+header("Location: editarContingutForm.php?msg=2&nomFoto=$nomFoto&idTipo=$idTipo&idCntingut=$idContingt"); // Redirigim a l'usuari a la pàgina principal
 die();
 
 ?>
