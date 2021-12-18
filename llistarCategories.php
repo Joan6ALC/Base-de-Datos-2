@@ -196,7 +196,7 @@
                                                             echo           '<div class="padding"></div>
                                                                             <div class="row gap-1">
                                                                             <div class="col">
-                                                                                    <a href="editarContingutForm.php?id='.$row2['IdContingut'].'" class="btn btn-outline-success btn-sm">
+                                                                                    <a href="editarContingutForm.php?nomPelicula='.$row2['titol'].'" class="btn btn-outline-success btn-sm">
                                                                                         <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
                                                                                     </a>
                                                                                     <a href="eliminarContingut.php?id='.$row2['IdContingut'].'&redir=llistarContinguts.php" onclick="return confirmDelete()" class="btn btn-outline-danger btn-sm">

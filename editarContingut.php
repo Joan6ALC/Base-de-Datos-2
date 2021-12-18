@@ -43,7 +43,7 @@ if ($_FILES['file']['name'] != "") {
     $row = mysqli_fetch_array($result);
 
     if (isset($row['camiFoto'])) {
-        header("Location: editarContingutForm.php?error=2");
+        header("Location: editarContingutForm.php?msg=2");
         die();
     }
     $path = $_FILES['file']['name'];
@@ -61,7 +61,7 @@ $row = mysqli_fetch_array($result);
 
 
 if (isset($row['titol'])) {
-    header("Location: editarContingutForm.php?error=1");
+    header("Location: editarContingutForm.php?msg=1");
     die();
 }
 
@@ -91,7 +91,7 @@ if(is_array($tipoCont)){
     }
 }
 
-header("Location: editarContingutForm.php?nomFoto=$nomFoto&idTipo=$idTipo&idCntingut=$idContingt"); // Redirigim a l'usuari a la pàgina principal
+header("Location: editarContingutForm.php?msg=3&nomFoto=$nomFoto&idTipo=$idTipo&idCntingut=$idContingt"); // Redirigim a l'usuari a la pàgina principal
 die();
 
 ?>
