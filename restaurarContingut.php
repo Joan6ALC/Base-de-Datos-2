@@ -16,7 +16,6 @@
     // Connexió a bd
     include "connection.php";
 
-
     // Fem invisible el contingut
     $query="UPDATE contingut SET visible=1 WHERE IdContingut=".$IdContingut;
     $result=mysqli_query($con, $query);
@@ -24,7 +23,7 @@
     mysqli_close($con);
 
     if (!isset($row['username'])){
-        header("Location: $Redirect?msg=1");
+        header("Location: $Redirect?msg=10");
         die();
     }
 ?>

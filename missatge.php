@@ -91,6 +91,16 @@ if(isset($_GET['msg'])){
                         </button>
                     </div>';
             break;
+
+        case 10: // Restaurar contingut
+            echo    '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi-cloud-download" style="font-size: 0.9rem;"></i>
+                        &nbspContenido restaurado correctamente
+                        <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+            break;
         
         default: 
     }
