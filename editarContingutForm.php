@@ -195,11 +195,14 @@ $tipus = mysqli_query($con, $resultTipus);
                             <div class="alerta"></div>
 
                             <div style="padding: 3%; text-align: center;">
-                                <input type="submit" value="Aceptar cambios" name="update" class="btn btn-danger">
-                                <input type="submit" value="Eliminar" name="delete" class="btn btn-danger">
+                                <input type="submit" value="Aceptar cambios" name="update" class="btn btn-success">
+                                <!--<input type="submit" value="Eliminar" name="delete" class="btn btn-danger">-->
+                                <?php echo '<a href="eliminarContingut.php?id='.$cerk['IdContingut'].'&redir=editarContingutForm.php" class="btn btn-danger">Eliminar</a>';
+                                ?>
+                               
                             </div>
                         </form>
-
+                        
                     </div>
                 </div>
             </div>
