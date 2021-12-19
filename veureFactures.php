@@ -49,7 +49,8 @@ $importfila = $resu["import"];
 
 <body>
     <header>
-        <?php include "navbar.php"; ?>
+        <?php include "navbar.php"; 
+        include "missatge.php";?>
     </header>
     <section>
         <!-- quadre on mostrem la informació del contracte de l'usuari-->

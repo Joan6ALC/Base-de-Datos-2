@@ -102,6 +102,36 @@ if(isset($_GET['msg'])){
                     </div>';
             break;
         
+        case 11: // Creació contracte
+            echo    '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                            &nbspContrato creado correctamente
+                            <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>';
+            break;
+
+        case 12: // Edició contracte
+            echo    '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                            &nbspContrato editado correctamente
+                            <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>';
+            break;
+
+        case 13: // Pagar
+            echo    '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
+                            &nbspPagado correctamente
+                            <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>';
+            break;
+        
         default: 
     }
 }

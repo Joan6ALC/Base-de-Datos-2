@@ -34,6 +34,9 @@
         $date1 = date("y-m-d", strtotime($localdate."+ $fecha days"));
         $query2 = "INSERT INTO factura(dataInici, import, dataFinal, IdContracte) VALUES ('".$localdate."','".$ValorTarifa['preu']."','".$date1."','".$_SESSION['IdContracte']."')";
         $PrimeraFac = mysqli_query($con, $query2);
+        // Redirigim a l'usuari a la pàgina principal
+        header("Location: login.php?msg=11");
+        die();
 
     }else{
         //si ja tenia un contracte creat, mirem l'estat al qual volem canviar
@@ -46,11 +49,12 @@
         }
         $_SESSION['estatContracte'] = $estado;
         mysqli_query($con, $query);
+        // Redirigim a l'usuari a la pàgina principal
+        header("Location: login.php?msg=12");
+        die();
     }
     
-    // Redirigim a l'usuari a la pàgina principal
-    header("Location: login.php");
-    die();
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,7 +68,8 @@
 </head>
     <body>
         <header>
-            <?php include "navbar.php"; ?>
+            <?php include "navbar.php"; 
+            include "missatge.php";?>
         </header>
         <!-- Frameworks -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
