@@ -17,6 +17,11 @@ $descripcio = $row['descripcio'];
 $estat = $row['estatMissatge'];
 $idContingut = $row['IdContingut'];
 
+$query2 = "SELECT titol FROM contingut WHERE IdContingut = '".$idContingut."'";
+$result2 = mysqli_query($con, $query2);
+$row2 = mysqli_fetch_assoc($result2);
+$titol = $row2['titol'];
+
 $upd = "UPDATE missatge SET estatMissatge = 1 WHERE IdMissatge = '".$id."'";
 mysqli_query($con, $upd);
 
@@ -67,7 +72,7 @@ mysqli_query($con, $upd);
                             </br></br>
                             <h4> Descripción </h4>
                             </br>
-                                <h6> <?php echo $descripcio?> </h6>
+                                <h6> <?php echo $descripcio.$titol?>  </h6>
                             </br></br>
 
                             </div>
@@ -75,7 +80,7 @@ mysqli_query($con, $upd);
                         <center>
                             <?php 
                                 echo '<a href="llistarMissatges.php" class="btn btn-danger mx-2" value = "Volver">Volver</a>';
-                                echo '<a href="veureContingut.php?id='.$id.'" class="btn btn-primary mx-2" value = "Ver contenido">Ver contenido</a>';
+                                echo '<a href="veureContingut.php?id='.$idContingut.'" class="btn btn-primary mx-2" value = "Ver contenido">Ver contenido</a>';
                             ?>
                         </center>
 
