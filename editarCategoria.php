@@ -22,7 +22,7 @@ $query = 'SELECT * FROM categoria WHERE nomCat="' . $cat . '"';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 
-
+//Si la categoria es fa invisible, feim invisibles tots els continguts d'aquesta categoria
 if ($visible == 0){
     $q1 = "SELECT * FROM contingut WHERE contingut.nomCat = '".$row['nomCat']."'";
     $r1 = mysqli_query($con, $q1);
