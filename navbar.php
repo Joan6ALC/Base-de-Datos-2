@@ -85,7 +85,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <!--<a class="dropdown-item" href="veureContracteActual.php">Ver contrato</a>-->
                             <a class="dropdown-item" href="veureUsuariForm.php">Mi perfil</a>
-                            <a class="dropdown-item" href="veureMissatges.php">Mensajes</a>
+                            <a class="dropdown-item" href="llistarMissatges.php">Mensajes</a>
                             <?php
                                 // L'usuari administrador no veurà aquestes opcions (doncs mai tendra un contracte)
                                 if($_SESSION['administrador'] != true){
