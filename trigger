@@ -1,4 +1,4 @@
-# Procedure genera missatges
+-- Procedure genera missatges
 DELIMITER // 
 CREATE PROCEDURE procGeneraMissatges(IN IdContingut INT, IN nomCat VARCHAR(20))
 BEGIN
@@ -19,7 +19,7 @@ DECLARE CONTINUE HANDLER FOR NOT FOUND SET hihaerror=true;
 	END LOOP;
 END;
 
-# Trigger genera missatges
+-- Trigger genera missatges
 DELIMITER //
 CREATE TRIGGER GeneraMissatges
 AFTER INSERT ON contingut
