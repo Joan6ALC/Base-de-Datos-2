@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 $consultP = 'select distinct (nomCat) from categoria';
 $resultP = mysqli_query($con, $consultP);
 
-$consultQ = 'select distinct (edat) from tipus';
+$consultQ = 'select * from tipus';
 $resultQ = mysqli_query($con, $consultQ);
 
 ?>
