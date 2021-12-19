@@ -14,6 +14,7 @@
     $peli = $row['link'];
     $titol = $row['titol'];
     $id = $row['IdContingut'];
+    $cat = $row['nomCat'];
 
     $query3 = "SELECT * FROM r_tipus_contingut JOIN tipus ON (tipus.IdTipus = r_tipus_contingut.IdTipus AND r_tipus_contingut.IdContingut = '".$id."')"; 
     $result3 = mysqli_query($con,$query3);
@@ -51,9 +52,9 @@
                                 <div class="row gap-2">
                                     <div class="col mt-2 mb-4">
                                     
-                                        <h5> 
+                                        <h3> 
                                             <?php echo $titol ?>
-                                        </h5>
+                                        </h3>
                                     </div>
                                 </div>
                                 <div class="container">                                
@@ -63,48 +64,47 @@
                                 </div>
                                 <div class= "mt-4  mb-3">
                                     
-                                <?php 
-                                if($_SESSION['administrador']==1){
-                                    echo   '<div class="padding"></div>
-                                            <div class="row">
-                                                    <div class="col">
-                                                    <a href="editarContingutForm.php?nomPelicula='.$titol.'" class="btn btn-outline-success mx-3">
-                                                        <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
-                                                    </a>
-                                                    <a href="eliminarContingut.php?id='.$id.'&redir=llistarContinguts.php" onclick="return confirmDelete()" class="btn btn-outline-danger mx-3">
-                                                        <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
-                                                    </a> 
+                                    <?php 
+                                    if($_SESSION['administrador']==1){
+                                        echo   '<div class="padding"></div>
+                                                <div class="row">
+                                                        <div class="col">
+                                                        <a href="editarContingutForm.php?nomPelicula='.$titol.'" class="btn btn-outline-success mx-3">
+                                                            <i class="bi-pencil-square" title="Editar contenido" style="font-size: 0.9rem;"></i>
+                                                        </a>
+                                                        <a href="eliminarContingut.php?id='.$id.'&redir=llistarContinguts.php" onclick="return confirmDelete()" class="btn btn-outline-danger mx-3">
+                                                            <i class="bi-trash" title="Eliminar contenido"  style="font-size: 0.9rem;"></i>
+                                                        </a> 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                
-                                </div>';  
-                                } else if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                        echo '<a href="eliminarContingutFavorit.php?id='.$id.'&redir=veureContingut.php" class="btn btn-success" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a>';
-                                                        
-                                }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                        echo '<a href="afegirContingutFavorit.php?id='.$id.'&redir=veureContingut.php" class="btn btn-outline-success" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a>';
-                                    }
-                                ?>
+                                    
+                                    </div>';  
+                                    } else if(isset($fav)){ // Imprimim el botó per eliminar favorit
+                                            echo '<a href="eliminarContingutFavorit.php?id='.$id.'&redir=veureContingut.php" class="btn btn-success" title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a>';
+                                                            
+                                    }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
+                                            echo '<a href="afegirContingutFavorit.php?id='.$id.'&redir=veureContingut.php" class="btn btn-outline-success" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a>';
+                                        }
+                                    ?>
                                 
                                 
                                 
                             </center>
-                            <div class="row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-6">
-                                <label class = "mb-3">
-                                Este contenido está recomendado para: 
-                            </label>
-                            
-                            <?php
-                                                if (mysqli_num_rows($result3) > 0) {
-                                                    while ($fila1 = mysqli_fetch_assoc($result3)) {
-                                                        echo "<br /><label class= 'ms-3'> " . $fila1['edat'] . "</label></input>";
-                                                    }
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-5">
+                                        <?php echo "<h5 class = 'mb-3'>La categoría a la que pertenece este contenido es ".$cat." y está recomendado para:</h5>";?>
+                                        
+                                        <?php
+                                            if (mysqli_num_rows($result3) > 0) {
+                                                while ($fila1 = mysqli_fetch_assoc($result3)) {
+                                                    echo "<h6 class= 'ms-3'> " . $fila1['edat'] . "</h6>";
                                                 }
-                                                ?>
-                                                
-                                </div>
+                                            }
+                                        ?>
+                                                    
+                                    </div>
+                                    
                                 </div>
                                 </div>
                         </div>
