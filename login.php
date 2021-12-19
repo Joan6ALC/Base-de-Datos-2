@@ -81,7 +81,7 @@
                                                 <?php
                                                     include "connection.php";
 
-                                                    $query = "SELECT count(*) from missatge where username='".$_SESSION['username']."' and estatMissatge=false";
+                                                    $query = "SELECT count(*) from missatge where username='".$_SESSION['username']."' and estatMissatge=0";
                                                     $result = mysqli_query($con,$query);
                                                     $row = mysqli_fetch_array($result);
 
@@ -94,7 +94,7 @@
                                                         $row = mysqli_fetch_array($result); // Obtenim la primera fila de la consulta
                                                         echo $row['data']." - ".$row['assumpte']."<br>"; 
                                                         
-                                                        echo '<div class="padding"></div><a href="veureMissatges.php" class="btn btn-danger btn-sm">Ver más</a>';
+                                                        echo '<div class="padding"></div><a href="llistarMissatges.php?orden=noAbiertos" class="btn btn-danger btn-sm">Ver más</a>';
                                                     } else {
                                                         echo '<img src="img/envelope.svg" height="30" width="30"><div class="padding"></div>';
                                                         echo "<h6>No tienes mensajes nuevos</h6>";
