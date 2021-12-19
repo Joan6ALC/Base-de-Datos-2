@@ -69,7 +69,7 @@
                             <td>'.$dataFifila.'</td>
                             <td>'.$importfila.'</td>
                             <td>
-                            <a href="pagar.php?msg=13&value='.$trob.'&redir=veureFacturesNoPagades.php" class="btn btn-danger">Pagar</a>
+                            <a href="pagar.php?value='.$trob.'&redir=veureFacturesNoPagades.php" class="btn btn-danger">Pagar</a>
                             </td>
                           </tr>
                         </tbody>
