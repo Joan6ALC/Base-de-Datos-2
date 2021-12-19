@@ -106,7 +106,8 @@
                                         </center>
                                     </div>
                                     <!-- *********************************************************** FACTURES *********************************************************** -->
-                                    <!-- Es mostra la última factura disponible de l'usuari, en cas de tenir-ne i per a que la pagui o la consulti segons correspongui -->
+                                    <!-- Mostrarà la factura més antiga sense pagar (només 1 sempre), mentres n'hi hagi sense pagar. Si no, mostrarà la més recent per a 
+                                         la seva consulta  -->
                                     <div class="col">
                                         <h5>Facturación</h5>
                                         <div class="padding"></div>
@@ -118,19 +119,24 @@
                                                 <?php
                                                     include "connection.php";
 
-                                                    $query = "SELECT * from contracte join factura on contracte.idContracte=factura.idContracte and username='".$_SESSION['username']."'";
+                                                    $query = "SELECT * FROM factura WHERE idContracte='".$_SESSION['IdContracte']."' and dataPagament is null";
                                                     $result = mysqli_query($con,$query);
                                                     if($row = mysqli_fetch_array($result)){
                                                         echo '<h6>Consulta tu última factura:</h6>';
                                                         echo $row['dataInici']." al ".$row['dataFinal']." - Importe: ".$row['import'].'€';
-                                                        if ($row['dataPagament']==null){
-                                                            echo '<div class="padding"></div><a href="veureFacturesNoPagades.php" class="btn btn-danger btn-sm">Pagar</a>';
-                                                        } else {
-                                                            echo '<div class="padding"></div><a href="veureFactures.php" class="btn btn-danger btn-sm">Consultar</a>';;
-                                                        }
-
+                                                        echo '<div class="padding"></div><a href="veureFacturesNoPagades.php" class="btn btn-danger btn-sm">Pagar</a>';
+                                                        
                                                     } else {
-                                                        echo '<h6>No tienes todavía ninguna factura disponible</h6>';
+                                                        $query = "SELECT * FROM factura WHERE idContracte='".$_SESSION['IdContracte']."' and dataPagament is not null ORDER BY dataFinal DESC";
+                                                        $result = mysqli_query($con,$query);
+
+                                                        if($row = mysqli_fetch_array($result)){
+                                                            echo '<h6>Consulta tu última factura:</h6>';
+                                                            echo $row['dataInici']." al ".$row['dataFinal']." - Importe: ".$row['import'].'€';
+                                                            echo '<div class="padding"></div><a href="veureFactures.php" class="btn btn-danger btn-sm">Consultar</a>';
+                                                        } else {
+                                                            echo '<h6>No tienes todavía ninguna factura disponible</h6>'; 
+                                                        }
                                                     }
                                                     mysqli_close($con);
                                                 ?>
