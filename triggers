@@ -1,8 +1,0 @@
-DELIMITER //
-CREATE TRIGGER GeneraMissatges
-AFTER INSERT ON contingut
-FOR EACH ROW
-BEGIN
-    call procedure;
-
-END;
