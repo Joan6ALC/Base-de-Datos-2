@@ -1,6 +1,6 @@
 # Procedure genera missatges
 DELIMITER // 
-CREATE PROCEDURE procGeneraMissatges(IN IdContingut INT, IN nomCat INT)
+CREATE PROCEDURE procGeneraMissatges(IN IdContingut INT, IN nomCat VARCHAR(20))
 BEGIN
 DECLARE locusername VARCHAR(15);
 DECLARE hihaerror BOOLEAN;
