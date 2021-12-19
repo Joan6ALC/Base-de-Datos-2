@@ -7,6 +7,7 @@ if (!isset($_SESSION['username'])) {
 // Connexió a bd
 include "connection.php";
 
+//Guardam els valors passats per paràmetre
 $tituloAnt = $_POST['titolSelect'];
 
 $titulo = $_POST['titulo'];
@@ -17,26 +18,23 @@ $visible = $_POST['visible'];
 $nomFoto   = $_FILES['file']['name'];
 $camiFoto = "/img/carteles/" . $nomFoto;
 
+//Assignam la visibilitat
 if (isset($visible) && $visible == '1')
         $visible = 1;
     else
         $visible = 0;
 
-        
-
-
+//Seleccionam l'id del contingut a editar
 $idContingut = "SELECT IdContingut FROM contingut WHERE titol = '".$tituloAnt."'";
 $resId = mysqli_query($con, $idContingut);
 $idCont = mysqli_fetch_array($resId);
 
+//Seleccionam el cami de la foto
 $camiFotoAnt = "SELECT camiFoto FROM contingut WHERE IdContingut = '".$idCont['IdContingut']."'";
 $resCamiAnt = mysqli_query($con, $camiFotoAnt);
 $camiAnt = mysqli_fetch_array($resCamiAnt);
 
-//echo $camiAnt['camiFoto'];
-
-
-
+//Pujam la nova foto si n'hi ha
 if ($_FILES['file']['name'] != "") {
     $query = 'SELECT camiFoto FROM contingut WHERE camiFoto="' . $camiFoto . '"';
     $result = mysqli_query($con, $query);
@@ -52,32 +50,32 @@ if ($_FILES['file']['name'] != "") {
     move_uploaded_file($_FILES['file']['tmp_name'], $pathto) or die("Could not copy file!");
 } else {
     $camiFoto = $camiAnt['camiFoto'];
-    //die("No file specified!");
 }
 
+//Seleccionam el titol del contingut a editar
 $query = 'SELECT titol FROM contingut WHERE titol="' . $titulo . '" and IdContingut != "'.$idCont['IdContingut'].'" ';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 
-
+//Missatge d'error
 if (isset($row['titol'])) {
     header("Location: editarContingutForm.php?error=1");
     die();
 }
 
-
-
+//Actualitzam els valors nous
 $upd = "UPDATE contingut SET titol = '".$titulo."', link = '".$html."', camiFoto = '".$camiFoto."', nomCat = '".$nomCat."', visible = '".$visible."' WHERE IdContingut = '".$idCont['IdContingut']."'";
 mysqli_query($con, $upd);
 
 
-    $query = 'SELECT IdContingut FROM contingut WHERE titol="' . $titulo . '"';
-    $result = mysqli_query($con, $query);
-    $idContingt = mysqli_fetch_array($result);
-    $query = "DELETE FROM r_tipus_contingut WHERE IdContingut = '".$idContingt['IdContingut']."'"; //INSERTANDO VARIABLES DIRECTAMENTE
-    mysqli_query($con, $query);
+$query = 'SELECT IdContingut FROM contingut WHERE titol="' . $titulo . '"';
+$result = mysqli_query($con, $query);
+$idContingt = mysqli_fetch_array($result);
+//Eliminam les relacions amb els tipus
+$query = "DELETE FROM r_tipus_contingut WHERE IdContingut = '".$idContingt['IdContingut']."'"; 
+mysqli_query($con, $query);
 
-
+//Assignam les relacions amb els tipus
 if(is_array($tipoCont)){
     foreach ($tipoCont as $valor) {
         $query = 'SELECT IdTipus FROM tipus WHERE edat="' . $valor . '"';
@@ -86,12 +84,13 @@ if(is_array($tipoCont)){
         $query = 'SELECT IdContingut FROM contingut WHERE titol="' . $titulo . '"';
         $result = mysqli_query($con, $query);
         $idContingt = mysqli_fetch_array($result);
-        $query = "INSERT INTO r_tipus_contingut (IdTipus, IdContingut) values ('".$idTipo['IdTipus']."','".$idContingt['IdContingut']."')"; //INSERTANDO VARIABLES DIRECTAMENTE
+        //Inserim la relacio a la base de dades
+        $query = "INSERT INTO r_tipus_contingut (IdTipus, IdContingut) values ('".$idTipo['IdTipus']."','".$idContingt['IdContingut']."')";
         mysqli_query($con, $query);
     }
 }
-
-header("Location: editarContingutForm.php?msg=2&nomFoto=$nomFoto&idTipo=$idTipo&idCntingut=$idContingt"); // Redirigim a l'usuari a la pàgina principal
+//Redirigim a l'usuari a la pàgina d'editar contingut
+header("Location: editarContingutForm.php?msg=2&nomFoto=$nomFoto&idTipo=$idTipo&idCntingut=$idContingt");
 die();
 
 ?>

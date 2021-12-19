@@ -1,13 +1,13 @@
 <?php
     include "connection.php";
     session_start();
+    //Si un usuari que no és l'administrador no té contracte o el té inactiu, redirigim l'usuari a editarContracteForm
     if(isset($_SESSION['username']) and $_SESSION['administrador']==0 and ($_SESSION['estatContracte']==0 or $_SESSION['estatContracte']==null)){
         header("Location: editarContracteForm.php");
         die();
     }
 
-
-
+    //Seleccionam el contingut que volem visualitzar
     $query = "SELECT * FROM contingut WHERE IdContingut=".$_GET['id']; 
     $result = mysqli_query($con,$query);
     $row = mysqli_fetch_array($result);
@@ -16,6 +16,7 @@
     $id = $row['IdContingut'];
     $cat = $row['nomCat'];
 
+    //Seleccionam el tipus al qual pertany
     $query3 = "SELECT * FROM r_tipus_contingut JOIN tipus ON (tipus.IdTipus = r_tipus_contingut.IdTipus AND r_tipus_contingut.IdContingut = '".$id."')"; 
     $result3 = mysqli_query($con,$query3);
     
@@ -43,7 +44,6 @@
             <?php include "navbar.php"; ?>
         </header>
         <section>
-        
             <div class="container">
                 <div class="padding"><br></div>
                     <div class="col-md-auto">
@@ -51,21 +51,20 @@
                             <center>
                                 <div class="row gap-2">
                                     <div class="col mt-2 mb-4">
-                                    
-                                        <h3> 
+                                        <h3> <!--Imprimim el titol del contingut-->
                                             <?php echo $titol ?>
                                         </h3>
                                     </div>
                                 </div>
                                 <div class="container">                                
-                                    
-                                        <?php echo '<iframe width="1080" height="608" src='.$peli.'?autoplay=1 title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'?>
+                                    <!--Mostram el video del contingut-->
+                                    <?php echo '<iframe width="1080" height="608" src='.$peli.'?autoplay=1 title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'?>
                                       
                                 </div>
                                 <div class= "mt-4  mb-3">
                                     
                                     <?php 
-                                    if($_SESSION['administrador']==1){
+                                    if($_SESSION['administrador']==1){//Si és administrador posam els botons d'editar contingut i eliminar contingut
                                         echo   '<div class="padding"></div>
                                                 <div class="row">
                                                         <div class="col">
@@ -87,29 +86,25 @@
                                         }
                                     ?>
                                 
-                                
-                                
                             </center>
-                                <div class="row">
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-5">
-                                        <?php echo "<h5 class = 'mb-3'>La categoría a la que pertenece este contenido es ".$cat." y está recomendado para:</h5>";?>
-                                        
-                                        <?php
-                                            if (mysqli_num_rows($result3) > 0) {
-                                                while ($fila1 = mysqli_fetch_assoc($result3)) {
-                                                    echo "<h6 class= 'ms-3'> " . $fila1['edat'] . "</h6>";
-                                                }
-                                            }
-                                        ?>
-                                                    
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5">
+                                    <!--Mostram la categotia a la qual pertany-->
+                                    <?php echo "<h5 class = 'mb-3'>La categoría a la que pertenece este contenido es ".$cat." y está recomendado para:</h5>";?>
                                     
+                                    <?php //Mostram el tipus al qual pertany
+                                        if (mysqli_num_rows($result3) > 0) {
+                                            while ($fila1 = mysqli_fetch_assoc($result3)) {
+                                                echo "<h6 class= 'ms-3'> " . $fila1['edat'] . "</h6>";
+                                            }
+                                        }
+                                    ?>     
                                 </div>
-                                </div>
+                            </div>
                         </div>
                     </div>
-                
+                </div>
             </div>
         </section>
        

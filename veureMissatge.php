@@ -4,24 +4,28 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     die();
 }
-
+//Agafam l'id que ens passen per paràmetre
 $id = $_GET['id'];
 
+//Seleccionam el missatge amb aquest id
 $query = "SELECT * FROM missatge WHERE IdMissatge = '".$id."'";
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_assoc($result);
 
+//Assignam variables
 $assumpte = $row['assumpte'];
 $data = $row['data'];
 $descripcio = $row['descripcio'];
 $estat = $row['estatMissatge'];
 $idContingut = $row['IdContingut'];
 
+//Seleccionam el titol del contngut relacionat amb el missatge
 $query2 = "SELECT titol FROM contingut WHERE IdContingut = '".$idContingut."'";
 $result2 = mysqli_query($con, $query2);
 $row2 = mysqli_fetch_assoc($result2);
 $titol = $row2['titol'];
 
+//Actualitzam la base de dades amb el nou estat del missatge
 $upd = "UPDATE missatge SET estatMissatge = 1 WHERE IdMissatge = '".$id."'";
 mysqli_query($con, $upd);
 
@@ -48,28 +52,24 @@ mysqli_query($con, $upd);
     </header>
 
     <section>
-
         <div class="container">
             <div class="padding"><br></div>
             <div class="row justify-content-md-center">
-                
                 <!--primera columna vacía-->
                 <div class="col-md-7">
                     <div class="shadow-lg p-4 mb-5 bg-body rounded">
                         <div class="d-grid gap-2">
                             <div class="row">
-                                
-                                
+                                <!--Imprimim l'assumpte i la data del missatge-->
                                 <div class="col-sm-7 ms-1"><h3>Asunto: <?php echo $assumpte?> </h3></div>
                                 <div class="col mb-0"><h5>Fecha: <?php echo $data?> </h5></div>
-                                
-                                
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col">
                             </br></br>
+                            <!--Imprimim la descripció del missatge-->
                             <h4> Descripción </h4>
                             </br>
                                 <h6> <?php echo $descripcio.$titol?>  </h6>
@@ -79,11 +79,11 @@ mysqli_query($con, $upd);
                         </div>
                         <center>
                             <?php 
+                                //Posam els botons de tornar enrere i veure contingut
                                 echo '<a href="llistarMissatges.php" class="btn btn-danger mx-2" value = "Volver">Volver</a>';
                                 echo '<a href="veureContingut.php?id='.$idContingut.'" class="btn btn-primary mx-2" value = "Ver contenido">Ver contenido</a>';
                             ?>
                         </center>
-
                     </div>
                 </div>
             </div>
@@ -94,17 +94,6 @@ mysqli_query($con, $upd);
         PelisTube &copy; 2021
     </footer>
 
-    <script>
-        selectElement = document.querySelector('.ordenar');
-
-
-
-        selectElement.addEventListener('change', (event) => {
-            var ordenSelect = document.getElementById("ordenSelect");
-            var id = ordenSelect.options[ordenSelect.selectedIndex].value;
-            window.location.replace('llistarMissatges.php?orden=' + id);
-        });
-    </script>
 
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

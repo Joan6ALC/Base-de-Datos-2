@@ -5,6 +5,7 @@ if (!isset($_SESSION['username'])) {
     die();
 }
 
+//Guardam els valors que ens passen per paràmetre
 if (isset($_GET['orden'])) {
     $orden = $_GET['orden'];
 } else {
@@ -40,62 +41,56 @@ if (isset($_GET['orden'])) {
             <div class="padding"><br></div>
             <div class="row">
                 <div class="col-md-1"></div>
-                <!--primera columna vacía-->
                 <div class="col-md-10">
                     <div class="shadow-lg p-4 mb-5 bg-body rounded">
                         <div class="d-grid gap-2">
                             <div class="row">
-                                
-                                
                                 <div class="col-sm-7 ms-1"><h3>Buzón de mensajes</h3></div>
-                                
                                 <div class="col-sm-4 align-self-lg-end">
+                                    <!--Selecció de l'ordre en que es volen veure els missatges-->
                                     <label>Ordenar por:</label>
                                     <select class="ordenar" name="ordenSelect" id="ordenSelect">
                                         <?php
-                                        if ($orden == 'abiertos') {
-                                            echo '<optgroup label="Selección">
-                                                    <option value="recientes">Más recientes primero</option>
-                                                    <option value="noRecientes">Menos recientes primero</option>
-                                                    <option value="abiertos" selected>Leídos</option>
-                                                    <option value="noAbiertos">No leídos</option>                                                    
-                                                </optgroup>';
-                                        } else if ($orden == 'noRecientes') {
-                                            echo '<optgroup label="Selección">
-                                                    <option value="recientes">Más recientes primero</option>
-                                                    <option value="noRecientes" selected>Menos recientes primero</option>
-                                                    <option value="abiertos">Leídos</option>
-                                                    <option value="noAbiertos">No leídos</option>                                                    
-                                                </optgroup>';
-                                        } else if ($orden == 'noAbiertos') {
-                                            echo '<optgroup label="Selección">
-                                                    <option value="recientes">Más recientes primero</option>
-                                                    <option value="noRecientes">Menos recientes primero</option>
-                                                    <option value="abiertos">Leídos</option>
-                                                    <option value="noAbiertos" selected>No leídos</option>
-                                                </optgroup>';
-                                        } else {
-                                            echo '<optgroup label="Selección">
-                                                    <option value="recientes" selected>Más recientes primero</option>
-                                                    <option value="noRecientes">Menos recientes primero</option>
-                                                    <option value="abiertos">Leídos</option>
-                                                    <option value="noAbiertos">No leídos</option>
-                                                </optgroup>';
-                                        }
+                                            if ($orden == 'abiertos') { //Només missatges oberts
+                                                echo '<optgroup label="Selección">
+                                                        <option value="recientes">Más recientes primero</option>
+                                                        <option value="noRecientes">Menos recientes primero</option>
+                                                        <option value="abiertos" selected>Leídos</option>
+                                                        <option value="noAbiertos">No leídos</option>                                                    
+                                                    </optgroup>';
+                                            } else if ($orden == 'noRecientes') {//Missatges més antics primer
+                                                echo '<optgroup label="Selección">
+                                                        <option value="recientes">Más recientes primero</option>
+                                                        <option value="noRecientes" selected>Menos recientes primero</option>
+                                                        <option value="abiertos">Leídos</option>
+                                                        <option value="noAbiertos">No leídos</option>                                                    
+                                                    </optgroup>';
+                                            } else if ($orden == 'noAbiertos') {//Només missatges sense obrir
+                                                echo '<optgroup label="Selección">
+                                                        <option value="recientes">Más recientes primero</option>
+                                                        <option value="noRecientes">Menos recientes primero</option>
+                                                        <option value="abiertos">Leídos</option>
+                                                        <option value="noAbiertos" selected>No leídos</option>
+                                                    </optgroup>';
+                                            } else {//Missatges més recents primer
+                                                echo '<optgroup label="Selección">
+                                                        <option value="recientes" selected>Más recientes primero</option>
+                                                        <option value="noRecientes">Menos recientes primero</option>
+                                                        <option value="abiertos">Leídos</option>
+                                                        <option value="noAbiertos">No leídos</option>
+                                                    </optgroup>';
+                                            }
                                         ?>
-
                                     </select>
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div class="table table-responsive table-bordered" style="padding-top: 3%;">
                             <table class="table">
 
                                 <?php
                                 if ($orden == 'abiertos') {
+                                    //Selecionam els missatges oberts
                                     $consultP = "SELECT assumpte, data, IdMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' AND estatMissatge = 1 ORDER BY data DESC";
                                     $resultP = mysqli_query($con, $consultP);
 
@@ -108,7 +103,7 @@ if (isset($_GET['orden'])) {
                                         </tr>
                                     </thead>                                    
                                     ';
-
+                                    //Omplim la taula amb els resultats
                                     if (mysqli_num_rows($resultP) > 0) {
                                         while ($fila1 = mysqli_fetch_assoc($resultP)) {
                                             $assumpte = $fila1['assumpte'];
@@ -131,6 +126,7 @@ if (isset($_GET['orden'])) {
                                         }
                                     }
                                 } else if ($orden == 'noAbiertos') {
+                                    //Seleccionam els missatges no oberts
                                     $consultP = "SELECT assumpte, data, IdMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' AND estatMissatge = 0 ORDER BY data DESC";
                                     $resultP = mysqli_query($con, $consultP);
 
@@ -143,7 +139,7 @@ if (isset($_GET['orden'])) {
                                         </tr>
                                     </thead>                                    
                                     ';
-
+                                    //Omplim la taula amb els resultats
                                     if (mysqli_num_rows($resultP) > 0) {
                                         while ($fila1 = mysqli_fetch_assoc($resultP)) {
                                             $assumpte = $fila1['assumpte'];
@@ -166,6 +162,7 @@ if (isset($_GET['orden'])) {
                                         }
                                     }
                                 } else if ($orden == 'noRecientes') {
+                                    //Seleccionam els missatges i els ordenam de manera ascendent
                                     $consultP = "SELECT assumpte, data, IdMissatge, estatMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' ORDER BY data ASC";
                                     $resultP = mysqli_query($con, $consultP);
 
@@ -178,7 +175,7 @@ if (isset($_GET['orden'])) {
                                         </tr>
                                     </thead>                                    
                                     ';
-
+                                    //Omplim la taula amb els resultats
                                     if (mysqli_num_rows($resultP) > 0) {
                                         while ($fila1 = mysqli_fetch_assoc($resultP)) {
                                             $assumpte = $fila1['assumpte'];
@@ -186,7 +183,7 @@ if (isset($_GET['orden'])) {
                                             $id = $fila1['IdMissatge'];
                                             $estat = $fila1['estatMissatge'];
 
-                                            if($estat == 1){
+                                            if($estat == 1){//Si ja està obert
                                                 echo '
                                                 <tbody>
                                                 <tr>
@@ -201,7 +198,7 @@ if (isset($_GET['orden'])) {
                                                     </tr>
                                                 </tbody>
                                                 ';
-                                            } else {
+                                            } else {//Si està tancat
                                                 echo '
                                                 <tbody>
                                                 <tr>
@@ -221,6 +218,7 @@ if (isset($_GET['orden'])) {
                                         }
                                     }
                                 }else {
+                                    //Seleccionam els missatges i els odenam de forma descendent
                                     $consultP = "SELECT assumpte, data, IdMissatge, estatMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' ORDER BY data DESC";
                                     $resultP = mysqli_query($con, $consultP);
                                     
@@ -233,7 +231,7 @@ if (isset($_GET['orden'])) {
                                         </tr>
                                     </thead>                                    
                                     ';
-                                    
+                                    //Omplim la taula amb els resultats
                                     if (mysqli_num_rows($resultP) > 0) {
                                         while ($fila1 = mysqli_fetch_assoc($resultP)) {
                                             $assumpte = $fila1['assumpte'];
@@ -241,7 +239,7 @@ if (isset($_GET['orden'])) {
                                             $id = $fila1['IdMissatge'];
                                             $estat = $fila1['estatMissatge'];
 
-                                            if($estat == 1){
+                                            if($estat == 1){//Si està obert
                                                 echo '
                                                 <tbody>
                                                 <tr>
@@ -256,7 +254,7 @@ if (isset($_GET['orden'])) {
                                                     </tr>
                                                 </tbody>
                                                 ';
-                                            } else {
+                                            } else {//Si està tancat
                                                 echo '
                                                 <tbody>
                                                 <tr>
@@ -279,7 +277,6 @@ if (isset($_GET['orden'])) {
                                 ?>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -290,11 +287,8 @@ if (isset($_GET['orden'])) {
         PelisTube &copy; 2021
     </footer>
 
-    <script>
+    <script> //Script que ens actualitza la pàgina ordenant els missatges
         selectElement = document.querySelector('.ordenar');
-
-
-
         selectElement.addEventListener('change', (event) => {
             var ordenSelect = document.getElementById("ordenSelect");
             var id = ordenSelect.options[ordenSelect.selectedIndex].value;

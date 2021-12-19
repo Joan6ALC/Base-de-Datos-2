@@ -6,16 +6,19 @@ if (!isset($_SESSION['username'])) {
     die();
 }
 
+//Cercam totes les categories
 $consulta = "SELECT * FROM categoria";
 $cerca = mysqli_query($con, $consulta);
 $def = mysqli_fetch_array($cerca);
 
+//Si ens han passat el nom de la categoria per paràmetre, el guardam
 if (isset($_GET['nomCategoria'])) {
     $index = $_GET['nomCategoria'];
 } else {
     $index = $def['nomCat'];
 }
 
+//Cercam la categoria que ens passen per paràmetre
 $consultCat = 'SELECT * FROM categoria WHERE nomCat = "' . $index . '"';
 $resultCat= mysqli_query($con, $consultCat);
 $cerk = mysqli_fetch_array($resultCat);
@@ -54,35 +57,34 @@ $visible = $cerk['visible'];
                 <!--primera columna vacía-->
                 <div class="col-md-6">
                     <div class="shadow-lg p-4 mb-5 bg-body rounded">
-                        <!--<form action="afegirContingut.php" method="post" enctype="multipart/form-data"></form>-->
+                        <!--Formulari per introduir les dades de la categoria a editar-->
                         <form action="editarCategoria.php" method="post" enctype="multipart/form-data">
                             <div class="d-grid gap-2">
-
                                 <div class="row">
                                     <div class="col-md-auto">
+                                        <!--Selecció de la categoria a editar-->
                                         <label>Selecciona la categoría a editar<span style="color: red;">*</span>:</label>
                                         <select class="categorias my-2" name="catSelect" id="catSelect">
 
                                             <?php
-                                            $catTotal = "SELECT * FROM categoria";
+                                                $catTotal = "SELECT * FROM categoria";
 
-                                            $res = mysqli_query($con, $catTotal);
+                                                $res = mysqli_query($con, $catTotal);
 
-                                            if (mysqli_num_rows($res) > 0) {
-                                                while ($fila1 = mysqli_fetch_assoc($res)) {
+                                                if (mysqli_num_rows($res) > 0) {
+                                                    while ($fila1 = mysqli_fetch_assoc($res)) {
 
-                                                    if ($index == $fila1['nomCat']) {
-                                                        echo '<option value="' . $fila1['nomCat'] . '" selected ="selected" >' . $fila1['nomCat'] . '</option>';
-                                                    } else {
-                                                        echo '<option value="' . $fila1['nomCat'] . '">' . $fila1['nomCat'] . '</option>';
+                                                        if ($index == $fila1['nomCat']) {
+                                                            echo '<option value="' . $fila1['nomCat'] . '" selected ="selected" >' . $fila1['nomCat'] . '</option>';
+                                                        } else {
+                                                            echo '<option value="' . $fila1['nomCat'] . '">' . $fila1['nomCat'] . '</option>';
+                                                        }
                                                     }
-                                                    //echo "<option value = '" . $fila1['titol'] . "' selected='selected'>" . $fila1['titol'] . "</option>";
                                                 }
-                                            }
                                             ?>
 
                                         </select>
-                                        <script>
+                                        <script> //Script que ens passa per paràmetre la categoria seleccionada
                                             selectElement = document.querySelector('.categorias');
                                             selectElement.addEventListener('change', (event) => {
                                                 var catSelect = document.getElementById("catSelect");
@@ -90,46 +92,31 @@ $visible = $cerk['visible'];
                                                 window.location.replace('editarCategoriaForm.php?nomCategoria=' + id);
                                             });
                                         </script>
-
-                                        
                                     </div>
                                     <div class="col"></div>
                                     <div class="col-md-auto">
-                                        
-
-
+                                        <!--Selecció de la visibilitat de la categoria-->
                                         <label class="mt-2">Visible:</label>
+
                                         <?php
-
-                                        if ($visible == 1) {
-                                            echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1' checked></input>";
-                                        } else {
-                                            echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1'></input>";
-                                        }
+                                            if ($visible == 1) {
+                                                echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1' checked></input>";
+                                            } else {
+                                                echo "<input  class = 'my-2 ms-2' type='checkbox' name='visible' value = '1'></input>";
+                                            }
                                         ?>
-                                    </div>
-
-                                    <div class="col">
 
                                     </div>
-
+                                    <div class="col"></div>
                                 </div>
-
-
                             </div>
 
                             <div class="alerta"></div>
-
+                            <!--Botó per acceptar canvis-->
                             <div style="padding: 3%; text-align: center;">
                                 <input type="submit" value="Aceptar cambios" name="update" class="btn btn-success">
-                                <!--<input type="submit" value="Eliminar" name="delete" class="btn btn-danger">-->
-
-                                <?php //echo '<a href="eliminarCategoria.php?id='.$cerk['nomCat'].'&redir=editarContingutForm.php" class="btn btn-danger">Eliminar</a>';
-                                ?>
-                               
                             </div>
                         </form>
-                        
                     </div>
                 </div>
             </div>

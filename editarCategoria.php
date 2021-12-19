@@ -7,23 +7,26 @@ if (!isset($_SESSION['username'])) {
 // Connexió a bd
 include "connection.php";
 
+//Guardam els valors passats per paràmetre
 $cat = $_POST['catSelect'];
 $visible = $_POST['visible'];
 
+//Assignam la variable 'visible'
 if (isset($visible) && $visible == '1')
         $visible = 1;
     else
         $visible = 0;
 
+//Cercam la categoria corresponent        
 $query = 'SELECT * FROM categoria WHERE nomCat="' . $cat . '"';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 
-
-$query = 'UPDATE categoria SET visible="'. $visible .'"  WHERE (nomCat="' . $cat . '")'; //INSERTANDO VARIABLES DIRECTAMENTE
+//Actualitzam les dades de la categoria
+$query = 'UPDATE categoria SET visible="'. $visible .'"  WHERE (nomCat="' . $cat . '")';
 mysqli_query($con, $query);
 
-header("Location: editarCategoriaForm.php?msg=4"); // Redirigim a l'usuari a la pàgina principal
+header("Location: editarCategoriaForm.php?msg=4"); // Redirigim a l'usuari al formulari d'edició de categoria
 die();
 ?>
 
@@ -42,7 +45,10 @@ die();
 
 <body>
     <header>
-        <?php include "navbar.php"; ?>
+        <?php 
+        include "navbar.php"; 
+        include "missatge.php";
+        ?>
     </header>
     <!-- Frameworks -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -6,7 +6,8 @@
     $resultatCerca = $_POST['cercador'];
     include "connection.php";
     
-    $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')"; // Cercam els resultats
+    //Cercam a la base de dades els continguts a mostrar
+    $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')";
     $result = mysqli_query($con,$query);
     $res = mysqli_fetch_array($result);
     
@@ -27,44 +28,9 @@
     <body>
 
         <header>
-            <?php include "navbar.php"; 
-
-            if(isset($_GET['msg']) and $_SESSION['administrador']==1){
-                switch($_GET['msg']){
-                    case 1: // ELIMINACIÓ
-                        echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <i class="bi-trash" style="font-size: 0.9rem;"></i>
-                                    &nbspContenido eliminado correctamente
-                                    <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>';
-                        break;
-                    
-                    case 2: // EDICIÓ
-                        echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
-                                    &nbspContenido editado correctamente
-                                    <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>';
-                        break;
-
-                    case 3: // ADDICIÓ
-                        echo    '<div class="padding"></div><div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                    <i class="bi-plus-circle" style="font-size: 0.9rem;"></i>
-                                    &nbspContenido añadido correctamente
-                                    <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>';
-                        break;
-                    
-                    default: 
-                }
-            }
-            
+            <?php 
+                include "navbar.php"; 
+                include "missatge.php";
             ?>
         </header>
 
@@ -78,7 +44,7 @@
                             <div class="row">
                             <h5>Nuestras películas
                             <?php 
-                                if($_SESSION['administrador']==1){
+                                if($_SESSION['administrador']==1){ //Si és l'administrador posam el botó Añadir contenido
                                     echo '&nbsp&nbsp<a href="afegirContingutForm.php" class="btn btn-outline-primary btn-sm">
                                     <i class="bi-plus-circle" title="Añadir contenido" style="font-size: 0.9rem;"></i> Añadir contenido
                                     </a>';
@@ -90,12 +56,12 @@
                             <center>
                             <div class="row justify-content-center gap-2">                                
                                 <?php
-                                     $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')"; // Cercam els resultats
-                                     $result = mysqli_query($con,$query);
+                                    //Cercam els resultats que són visibles
+                                    $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')";
+                                    $result = mysqli_query($con,$query);
                                      
-                                     if (isset($res)){
-                                        
-                                    
+                                    if (isset($res)){ //Si hi ha contingut
+                                        //Bucle que ens mostra tots els continguts
                                         while($row = mysqli_fetch_array($result)){
                                             if(isset($_SESSION['IdContracte'])){
                                                 $query2 = "SELECT * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$row['IdContingut'].""; // Per comprovar si ja està a la llista de favorits
@@ -103,6 +69,7 @@
                                                 $fav = mysqli_fetch_array($result2);
                                             }
 
+                                            //Imprimim el botó per veure el contingut
                                             echo   '<div class="col">
                                                         <div class="card" style="width: 12rem;">
                                                             <img class="card-img-top" src=".'.$row['camiFoto'].'" alt="'.$row['titol'].'.png" height="250">
@@ -118,6 +85,7 @@
                                                 echo            '<a href="afegirContingutFavorit.php?id='.$row['IdContingut'].'" class="btn btn-outline-dark btn-sm" title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
                                             }  
                                             
+                                            //Imprimim els botons per editar i eliminar el contingut
                                             if($_SESSION['administrador']==1){
                                                 echo           '<div class="padding"></div>
                                                                 <div class="row gap-1">
@@ -137,7 +105,7 @@
                                                         </div>
                                                     </div>';
                                         }
-                                    }else{
+                                    }else{ //Si no hi ha coincidencies de cerca
                                         echo '<div class="padding"></div><h6><i class="bi-search" style="font-size: 0.9rem;"></i>&nbsp&nbspNo se han encontrado resultados para la búsqueda</h6><div class="padding"></div>';  
                                     }
                                 ?>
