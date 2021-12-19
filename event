@@ -1,5 +1,5 @@
+-- Procedure nueva factura
 DELIMITER //
-
 CREATE PROCEDURE nuevaFactura()
 
 BEGIN
@@ -26,6 +26,8 @@ END
 -------------------------------------------------------------------------------------------------
 SET GLOBAL event_scheduler = ON;
 -------------------------------------------------------------------------------------------------
+
+-- Trigger nueva factura
 DELIMITER //
 
 CREATE EVENT facturacio
