@@ -124,7 +124,7 @@
                                                             <center><h6>'.$row['nomCat'].'</h6>
                                                             <div class="padding"></div>';
 
-                                                        echo    '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir=llistaCategoriaFavorit.php" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
+                                                        echo    '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir=llistaCategoriaFavorit.php" class="btn btn-success btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                             
                                         echo '</div>
                                         </div>

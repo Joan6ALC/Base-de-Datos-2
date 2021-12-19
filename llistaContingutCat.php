@@ -26,73 +26,9 @@
         <section>       
         
                                 
-    <header>
-        <?php include "navbar.php"; 
-        if(isset($_GET['msg'])){
-            switch($_GET['msg']){
-                case 1: // ELIMINACIÓ
-                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi-trash" style="font-size: 0.9rem;"></i>
-                                &nbspContenido eliminado correctamente
-                                <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>';
-                    break;
-                
-                case 2: // EDICIÓ
-                    echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
-                                &nbspContenido editado correctamente
-                                <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>';
-                    break;
-
-                case 3: // ADDICIÓ
-                    echo    '<div class="padding"></div><div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                <i class="bi-plus-circle" style="font-size: 0.9rem;"></i>
-                                &nbspContenido añadido correctamente
-                                <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>';
-                    break;
-
-                    case 4: // ELIMINACIÓ
-                        echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <i class="bi-trash" style="font-size: 0.9rem;"></i>
-                                    &nbspCategoría eliminado correctamente
-                                    <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>';
-                        break;
-                    
-                    case 5: // EDICIÓ
-                        echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
-                                    &nbspCategoría editado correctamente
-                                    <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>';
-                        break;
-
-                    case 6: // ADDICIÓ
-                        echo    '<div class="padding"></div><div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                    <i class="bi-plus-circle" style="font-size: 0.9rem;"></i>
-                                    &nbspCategoría añadido correctamente
-                                    <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>';
-                        break;
-                
-                default: 
-            }
-        }
+        <header>
+        <?php include "navbar.php";
+        include "missatge.php";
         ?>
     </header>
 
@@ -130,10 +66,10 @@
                                                             <div class="padding"></div>';
 
                                         if(isset($fav)){ // Imprimim el botó per eliminar favorit
-                                            echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir=llistaContingutCat.php" class="btn btn-dark btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
+                                            echo            '<a href="eliminarCategoriaFavorit.php?id='.$row['nomCat'].'&redir=llistaContingutCat.php" class="btn btn-success btn-sm"  title="Eliminar de favoritos"><i class="bi-star-fill" style="font-size: 0.9rem;"></i></a></center>';
                                             
                                         }  else if (isset($_SESSION['IdContracte'])) { // Imprimim el botó per afegir favorit
-                                            echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'&redir=llistaContingutCat.php" class="btn btn-outline-dark btn-sm"  title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
+                                            echo            '<a href="afegirCategoriaFavorita.php?id='.$row['nomCat'].'&redir=llistaContingutCat.php" class="btn btn-outline-success btn-sm"  title="Agregar a favoritos"><i class="bi-star" style="font-size: 0.9rem;"></i></a></center>';
                                         }if($_SESSION['administrador']==1){
                                             echo           '<div class="padding"></div>
                                                             <div class="row gap-1">
