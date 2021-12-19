@@ -131,7 +131,16 @@ if(isset($_GET['msg'])){
                             </button>
                     </div>';
             break;
-        
+
+        case 14: // Contingut no visible
+            echo    '</div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi-trash" style="font-size: 0.9rem;"></i>
+                        &nbspContenido no visible
+                        <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+            break;
         default: 
     }
 }

@@ -15,6 +15,12 @@
     $titol = $row['titol'];
     $id = $row['IdContingut'];
     $cat = $row['nomCat'];
+    $vis = $row['visible'];
+
+    if($visible == 0){
+        header("Location: llistarContinguts.php?msg=14");
+        die();
+    }
 
     //Seleccionam el tipus al qual pertany
     $query3 = "SELECT * FROM r_tipus_contingut JOIN tipus ON (tipus.IdTipus = r_tipus_contingut.IdTipus AND r_tipus_contingut.IdContingut = '".$id."')"; 
@@ -41,7 +47,8 @@
 </head>
     <body class="bg-dark">
         <header>
-            <?php include "navbar.php"; ?>
+            <?php include "navbar.php";
+            include "missatge.php"; ?>
         </header>
         <section>
             <div class="container">
