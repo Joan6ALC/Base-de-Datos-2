@@ -17,7 +17,7 @@
     $cat = $row['nomCat'];
     $vis = $row['visible'];
 
-    if($visible == 0){
+    if($vis == 0 and $_SESSION['administrador']==0){
         header("Location: llistarContinguts.php?msg=14");
         die();
     }
