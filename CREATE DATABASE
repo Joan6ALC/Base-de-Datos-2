@@ -111,9 +111,22 @@ INSERT INTO categoria(nomCat, visible) VALUES ("Terror", true), ("Comedia", true
 
 INSERT INTO tarifa(nomTarifa, preu, periodicitat, estatTarifa) VALUES('MENSUAL', 10, 30, 'VIGENT'),('TRIMESTRAL', 25, 90, 'VIGENT');
 
-INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR AMB PASSWORD= 1234
+# TOTS AMB PASSWORD= 1234
+INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR
+ 
+INSERT INTO PERSONA(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('21-12-02','user1','$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'Juan Carlos', 'Bujosa', 'Herreros', '1996-08-31', false);
 
-# INSERTS PEL·LÍCULES
+insert into contracte(dataAlta, dataBaixa, estat, nomTarifa, username) values ('2021-11-01', null, true, 'MENSUAL', 'user1');
+insert into factura(import, dataInici, dataFinal, dataPagament, idContracte) values (10, '2021-11-01', '2021-12-01', null, 1);
+insert into categoriafavorits(IdContracte, nomCat) values (1, "Ciencia ficción");
+insert into categoriafavorits(IdContracte, nomCat) values (1, "Aventuras");
+insert into categoriafavorits(IdContracte, nomCat) values (1, "Animación");
+
+# *************************************** FINS AQUÍ *************************************** 
+
+# AQUÍ TRIGGER I EVENT
+
+# ********************************** INSERTS PEL·LÍCULES ********************************** 
 
 #Ciencia ficción
 insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Avatar", 'https://www.youtube.com/embed/5PSNL1qE6VY',"/img/carteles/1-Avatar.jpg", "Ciencia ficción", true);
