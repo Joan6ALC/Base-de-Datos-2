@@ -14,6 +14,10 @@ $tipoCont = $_POST['tipoCont'];
 $nomFoto   = $_FILES['file']['name'];
 $camiFoto = "/img/carteles/" . $nomFoto;
 
+$idContingut = "SELECT IdContingut FROM contingut WHERE titol = '".$tituloAnt."'";
+$resId = mysqli_query($con, $idContingut);
+$idCont = mysqli_fetch_array($resId);
+
 $html = str_replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/', $html);
 
 if ($_FILES['file']['name'] != "") {
@@ -46,18 +50,17 @@ if (isset($row['camiFoto'])) {
 $query = "INSERT INTO contingut (titol, link, camiFoto, nomCat, visible) values ('$titulo','$html','$camiFoto','$nomCat', '1')"; //INSERTANDO VARIABLES DIRECTAMENTE
 mysqli_query($con, $query);
 
-foreach ($_POST['tipoCont'] as $tipoCont) {
-    $query = 'SELECT IdTipus FROM tipus WHERE edat="' . $tipoCont . '"';
-    $result = mysqli_query($con, $query);
-    $row = mysqli_fetch_array($result);
-    $idTipo = $row['IdTipus'];
-    $query = 'SELECT IdContingut FROM contingut WHERE titol="' . $titulo . '"';
-    $result = mysqli_query($con, $query);
-    $row = mysqli_fetch_array($result);
-    $idContingt = $row['IdContingut'];
-
-    $query = "INSERT INTO r_tipus_contingut (IdTipus, IdContingut) values ('$idTipo','$idContingt')"; //INSERTANDO VARIABLES DIRECTAMENTE
-    mysqli_query($con, $query);
+if(is_array($tipoCont)){
+    foreach ($tipoCont as $valor) {
+        $query = 'SELECT IdTipus FROM tipus WHERE edat="' . $valor . '"';
+        $result = mysqli_query($con, $query);
+        $idTipo = mysqli_fetch_array($result);
+        $query = 'SELECT IdContingut FROM contingut WHERE titol="' . $titulo . '"';
+        $result = mysqli_query($con, $query);
+        $idContingt = mysqli_fetch_array($result);
+        $query = "INSERT INTO r_tipus_contingut (IdTipus, IdContingut) values ('".$idTipo['IdTipus']."','".$idContingt['IdContingut']."')"; //INSERTANDO VARIABLES DIRECTAMENTE
+        mysqli_query($con, $query);
+    }
 }
 
 header("Location: llistarContinguts.php?msg=3"); // Redirigim a l'usuari a la pàgina principal
