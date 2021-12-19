@@ -78,7 +78,7 @@ CREATE TABLE Factura(
 CREATE TABLE Missatge(
 	data DATE,
 	assumpte varchar(50),
-	descripcio varchar(50),
+	descripcio varchar(280),
 	estatMissatge boolean,
 	IdMissatge integer AUTO_INCREMENT PRIMARY KEY,
 	username varchar(15),
@@ -114,19 +114,30 @@ INSERT INTO tarifa(nomTarifa, preu, periodicitat, estatTarifa) VALUES('MENSUAL',
 # TOTS AMB PASSWORD= 1234
 INSERT INTO persona(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador, IdTipus) values ('0000-00-00','admin', '$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'admin', 'admin', 'admin', '0000-00-00', true, NULL); # CREACIÓ D’UN USUARI ADMINISTRADOR
  
-INSERT INTO PERSONA(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('21-12-02','user1','$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'Juan Carlos', 'Bujosa', 'Herreros', '1996-08-31', false);
+# HACER VUESTRO INSERTS DE USUARIOS CON SUS CARACTERISTICAS
+#JC
+INSERT INTO PERSONA(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('21-09-01','user1','$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'Juan Carlos', 'Bujosa', 'Herreros', '1996-08-31', false);
 
 insert into contracte(dataAlta, dataBaixa, estat, nomTarifa, username) values ('2021-11-01', null, true, 'MENSUAL', 'user1');
+insert into factura(import, dataInici, dataFinal, dataPagament, idContracte) values (10, '2021-09-01', '2021-10-01', null, 1);
+insert into factura(import, dataInici, dataFinal, dataPagament, idContracte) values (10, '2021-10-01', '2021-11-01', null, 1);
 insert into factura(import, dataInici, dataFinal, dataPagament, idContracte) values (10, '2021-11-01', '2021-12-01', null, 1);
 insert into categoriafavorits(IdContracte, nomCat) values (1, "Ciencia ficción");
 insert into categoriafavorits(IdContracte, nomCat) values (1, "Aventuras");
 insert into categoriafavorits(IdContracte, nomCat) values (1, "Animación");
+# PAU
+# ALBERTO
 
-# *************************************** FINS AQUÍ *************************************** 
+INSERT INTO PERSONA(dataAlta, username, password, nom, llinatge1, llinatge2, dataNaixament, administrador) values ('2021-12-17','user3','$1$ciJ2Am3s$jy1CJ0uIm7q9CwmFw.hvS/', 'Zhuo Han', 'Yang', 'Yang', '2000-09-21', false);
 
-# AQUÍ TRIGGER I EVENT
+insert into contracte(dataAlta, dataBaixa, estat, nomTarifa, username) values ('2021-12-17', null, true, 'MENSUAL', 'user3');
 
-# ********************************** INSERTS PEL·LÍCULES ********************************** 
+insert into factura(import, dataInici, dataFinal, dataPagament, idContracte) values (10, '2021-09-01', '2021-10-01', null, 1);
+
+# PAULA
+# JOAN 
+
+# INSERTS PEL·LÍCULES
 
 #Ciencia ficción
 insert into contingut(titol, link, camiFoto, nomCat, visible) values ("Avatar", 'https://www.youtube.com/embed/5PSNL1qE6VY',"/img/carteles/1-Avatar.jpg", "Ciencia ficción", true);
@@ -186,3 +197,4 @@ INSERT INTO R_Tipus_Contingut(IdTipus, IdContingut) VALUES
 (2,15),(3,15),
 (2,16),(3,16),
 (1,17),(2,17),(3,17);
+
