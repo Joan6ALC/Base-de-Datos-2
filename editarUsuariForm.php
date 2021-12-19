@@ -40,24 +40,24 @@
                                 <div class="d-grid gap-2">
                                     <label>Nombre:</label>
                                     <input name="name" class="form-control" value="<?php echo $registro['nom']; ?>" 
-                                    <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?>>
+                                    <?php if(isset($_GET['name'])) echo 'value="'.$_GET['name'].'"'; ?> required>
                                     <!--agafar el text per a actualitzar la base de dades-->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Primer apellido:</label>
-                                            <input name="surname1" class="form-control" value="<?php echo $registro['llinatge1']; ?>" <?php if(isset($_GET['surname1'])) echo 'value="'.$_GET['surname1'].'"'; ?>>
+                                            <input name="surname1" class="form-control" value="<?php echo $registro['llinatge1']; ?>" <?php if(isset($_GET['surname1'])) echo 'value="'.$_GET['surname1'].'"'; ?> required>
                                         </div> 
                                         <div class="col-md-6">
                                             <label>Segundo apellido:</label>
-                                            <input name="surname2" class="form-control" value="<?php echo $registro['llinatge2']; ?>" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?>>       
+                                            <input name="surname2" class="form-control" value="<?php echo $registro['llinatge2']; ?>" <?php if(isset($_GET['surname2'])) echo 'value="'.$_GET['surname2'].'"'; ?> required>       
                                         </div> 
                                     </div>
 
                                     
                                     <label>Fecha de nacimiento:</label>
-                                    <input type="date" name="dateofbirth" class="form-control" min="1920-1-01" max="2023-12-31" value ="<?php echo $registro['dataNaixament']; ?>"<?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?>>
+                                    <input type="date" name="dateofbirth" class="form-control" min="1920-1-01" max="2023-12-31" value ="<?php echo $registro['dataNaixament']; ?>"<?php if(isset($_GET['dob'])) echo 'value="'.$_GET['dob'].'"'; ?> required>
                                     <label>Usuario:</label>
-                                    <input name="username" class="form-control" value="<?php echo $user ?>" <?php if(isset($_GET['username'])) echo 'value="'.$_GET['username'].'"'; ?>>
+                                    <input name="username" class="form-control" value="<?php echo $user ?>" <?php if(isset($_GET['username'])) echo 'value="'.$_GET['username'].'"'; ?> required>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Contraseña:</label>
