@@ -33,10 +33,10 @@ if(isset($_GET['msg'])){
             break;
     
         case 4: // Edició categoria
-            echo    '<div class="alert alert-sucess alert-dismissible fade show" role="alert">
+            echo    '<div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="bi-check2-square" style="font-size: 0.9rem;"></i>
                         &nbspCategoría editada correctamente
-                        <button type="button" style="background-color: transparent; border: 0px;" class="close" data-dismiss="alert" aria-label="close">
+                        <button type="button" style="background-color: transparent; border: 0px; class="close" data-dismiss="alert" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>';

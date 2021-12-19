@@ -7,23 +7,23 @@ if (!isset($_SESSION['username'])) {
 // Connexió a bd
 include "connection.php";
 
-$antCat = $_POST['nomAnt'];
-$novaCat = $_POST['nomCat'];
+$cat = $_POST['catSelect'];
+$visible = $_POST['visible'];
 
-$query = 'SELECT nomCat FROM categoria WHERE nomCat="' . $novaCat . '"';
+if (isset($visible) && $visible == '1')
+        $visible = 1;
+    else
+        $visible = 0;
+
+$query = 'SELECT * FROM categoria WHERE nomCat="' . $cat . '"';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 
 
-if (isset($row['nomCat'])) {
-    header("Location: afegirCategoriaForm.php?error=1");
-    die();
-}
-
-$query = 'UPDATE categoria SET nomCat="'. $novaCat .'"  WHERE (nomCat="' . $antCat . '")'; //INSERTANDO VARIABLES DIRECTAMENTE
+$query = 'UPDATE categoria SET visible="'. $visible .'"  WHERE (nomCat="' . $cat . '")'; //INSERTANDO VARIABLES DIRECTAMENTE
 mysqli_query($con, $query);
 
-header("Location: login.php?msg=4"); // Redirigim a l'usuari a la pàgina principal
+header("Location: editarCategoriaForm.php?msg=4"); // Redirigim a l'usuari a la pàgina principal
 die();
 ?>
 
