@@ -20,7 +20,8 @@
 </head>
     <body>
         <header>
-            <?php include "navbar.php"; ?>
+            <?php include "navbar.php"; 
+            include "missatge.php";?>
         </header>
             <section>
                 <div class = "container">
@@ -33,7 +34,7 @@
                                         d'on haguem vengut a n'aquest-->
                                         <form action="<?php echo $redir ?>" method="post">
                                             <h1 class="title-small">
-                                                <center> No tens cap factura </center>
+                                                <center> No hay facturas </center>
                                             </h1>
                                             <br>
                                             <center>

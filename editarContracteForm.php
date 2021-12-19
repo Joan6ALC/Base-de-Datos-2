@@ -20,7 +20,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
@@ -96,7 +96,13 @@
                                             ?>
                                         </optgroup>
                                     </select>
-                                    <button type="submit" class="btn btn-danger">Aceptar cambios</button>          
+                                    <?php 
+                                    if(!isset($registro['estat'])){
+                                        echo '<button type="submit" class="btn btn-danger">Crear</button>';
+                                    }else{
+                                        echo '<button type="submit" class="btn btn-danger">Aceptar cambios</button>';
+                                    }
+                                    ?>          
                                 </div>
                             </form>
                         </div>
