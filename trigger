@@ -14,7 +14,7 @@ DECLARE CONTINUE HANDLER FOR NOT FOUND SET hihaerror=true;
     	LEAVE etiq;
     END IF;
     
-	INSERT INTO missatge(data,assumpte,descripcio, estatMissatge, username, IdContingut) VALUES (CURRENT_DATE,"Nueva película en el catálogo", "Hola! Estamos aumentando nuestro catálogo cadad dia. Preprara las palomitas y disfruta de la nueva película: ", false, locusername, IdContingut);
+	INSERT INTO missatge(data,assumpte,descripcio, estatMissatge, username, IdContingut) VALUES (CURRENT_DATE,"Nueva película en el catálogo", "Hola! Estamos aumentando nuestro catálogo cada dia. Preprara las palomitas y disfruta de la nueva película: ", false, locusername, IdContingut);
 
 	END LOOP;
 END;
