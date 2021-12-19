@@ -22,6 +22,20 @@ $query = 'SELECT * FROM categoria WHERE nomCat="' . $cat . '"';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 
+//Si la categoria es fa invisible, feim invisibles tots els continguts d'aquesta categoria
+if ($visible == 0){
+    $q1 = "SELECT * FROM contingut WHERE contingut.nomCat = '".$row['nomCat']."'";
+    $r1 = mysqli_query($con, $q1);
+    $row1 = mysqli_fetch_array($r1);
+    if(is_array($row1)){
+        foreach ($row1 as $valor) {
+            
+            $query = "UPDATE contingut SET visible = 0 WHERE nomCat = '".$row1['nomCat']."'";
+            mysqli_query($con, $query);
+        }
+    }
+}
+
 //Actualitzam les dades de la categoria
 $query = 'UPDATE categoria SET visible="'. $visible .'"  WHERE (nomCat="' . $cat . '")';
 mysqli_query($con, $query);
