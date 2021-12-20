@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <title>PelisTube - Tu plataforma de streaming</title> <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css"/> <!-- Importamos hoja de estilos de bootrstrap-->
-    <link rel="stylesheet" href="styles.css"/> <!-- Nuestra propia hoja de estilos-->
+    <link rel="stylesheet" href="css/styles.css"/> <!-- Nuestra propia hoja de estilos-->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
 </head>
     <body>
