@@ -11,14 +11,14 @@
         $row = mysqli_fetch_array($result);
 
         if (!isset($row['username'])){
-            header("Location: index.php?msg=1");
+            header("Location: index.php?msg=15");
             die();
         }
 
         $passbd = $row['password']; // Conté la contrasenya encriptada emmegatzemada a la base de dades
 
         if(!password_verify($password, $passbd)){ // Compara la contrasenya introduïda (plain) amb la guardada a la base de dades (encriptada)
-            header("Location: index.php?msg=2");
+            header("Location: index.php?msg=16");
             die();
             
         }
@@ -253,10 +253,6 @@
                                                 shuffle($movies); // Es mesclen els continguts per mostrar-se de forma aleatòria
                                                 $it=0;
                                                 while ($it<$length){
-                                                   /* $query2 = "SELECT * from contingutfavorits where IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$movies[$it]->id.""; // Per comprovar si ja està a la llista de favorits
-                                                    $result2 = mysqli_query($con,$query2);
-                                                    $fav = mysqli_fetch_array($result2);*/
-
                                                     echo   '<div class="col">
                                                                 <div class="card" style="width: 12rem;">
                                                                     <img class="card-img-top" src=".'.$movies[$it]->cami.'" alt="'.$movies[$it]->titol.'.png" height="250">

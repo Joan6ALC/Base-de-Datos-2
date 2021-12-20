@@ -141,6 +141,41 @@ if(isset($_GET['msg'])){
                         </button>
                     </div>';
             break;
+
+        case 15: // Inicio de sessió: Usuari inexistent
+            echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi-person-x" style="font-size: 0.9rem;"></i>
+                        &nbspEl username introducido no existe
+                     </div>';
+            break;
+
+        case 16: // Inici de sessió: Contrasenya incorrecta
+            echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi-person-x" style="font-size: 0.9rem;"></i>
+                        &nbspContraseña incorrecta
+                    </div>';
+            break;
+
+        case 17: // Registre satisfactori
+            echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi-person-x" style="font-size: 0.9rem;"></i>
+                            &nbspTe has registrado satisfactoriamente
+                        </div>';
+            break;
+
+        case 18: // Registre: Contrassenyes no coincideixen
+            echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi-person-x" style="font-size: 0.9rem;"></i>
+                        &nbspLas contraseñas no coinciden
+                        </div>';
+            break;
+        case 19: // Registre: Username ja en ús
+            echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi-person-x" style="font-size: 0.9rem;"></i>
+                        &nbspEl nombre de usuario elegido ya existe
+                    </div>';
+            break;
+            
         default: 
     }
 }
