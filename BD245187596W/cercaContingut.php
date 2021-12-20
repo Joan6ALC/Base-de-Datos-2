@@ -7,7 +7,7 @@
     include "connection.php";
     
     //Cercam a la base de dades els continguts a mostrar
-    $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')";
+    $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')";
     $result = mysqli_query($con,$query);
     $res = mysqli_fetch_array($result);
     
@@ -57,7 +57,7 @@
                             <div class="row justify-content-center gap-2">                                
                                 <?php
                                     //Cercam els resultats que són visibles
-                                    $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')";
+                                    $query = "SELECT * from contingut JOIN categoria ON(categoria.visible = 1 AND contingut.visible = 1 AND contingut.nomCat = categoria.nomCat) WHERE (titol LIKE '$resultatCerca%')";
                                     $result = mysqli_query($con,$query);
                                      
                                     if (isset($res)){ //Si hi ha contingut
