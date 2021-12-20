@@ -20,28 +20,7 @@
 </head>
     <body class>
         <header>
-        <?php if (isset($_GET['msg'])){
-            switch ($_GET['msg']) {
-                case 1:
-                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi-person-x" style="font-size: 0.9rem;"></i>
-                                &nbspEl username introducido no existe
-                            </div>';
-                    break;
-                case 2:
-                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi-person-x" style="font-size: 0.9rem;"></i>
-                                &nbspContraseña incorrecta
-                            </div>';
-                    break;
-                case 3: 
-                    echo    '<div class="padding"></div><div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <i class="bi-person-x" style="font-size: 0.9rem;"></i>
-                                &nbspTe has registrado satisfactoriamente
-                            </div>';
-                    default:
-                }
-        } ?>
+            <?php include "missatge.php" ?>
             <div class="title-large" >Pelistube</div>
             <div class="subtitle-large" style="color:white;">Tu plataforma de streaming</div>
         </header>

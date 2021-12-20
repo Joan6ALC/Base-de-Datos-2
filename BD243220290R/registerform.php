@@ -12,23 +12,7 @@
 </head>
     <body>
         <header>
-        <?php if (isset($_GET['error'])){
-            switch ($_GET['error']) {
-                case 1:
-                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi-person-x" style="font-size: 0.9rem;"></i>
-                                &nbspLas contraseñas no coinciden
-                            </div>';
-                    break;
-                case 2:
-                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi-person-x" style="font-size: 0.9rem;"></i>
-                                &nbspEl nombre de usuario elegido ya existe
-                            </div>';
-                    break;
-                default:
-                }
-        } ?>
+            <?php include "missatge.php" ?>
             <div class="title-small">Pelistube</div>
             <div class="subtitle-small" style="color:white;">Tu plataforma de streaming</div>
             <div class="padding"></div>

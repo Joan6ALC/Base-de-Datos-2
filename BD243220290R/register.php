@@ -11,7 +11,7 @@
 
     // Comprovam que les contrasenyes introduides coincideixen
     if($password1!=$password2){ // Si no coincideixen, error 1
-        header("Location: registerform.php?error=1&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
+        header("Location: registerform.php?msg=18&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
         die();
     }
 
@@ -24,7 +24,7 @@
 
 
     if (isset($row['username'])){ // Si ja existeix l'usuari, error 2
-        header("Location: registerform.php?error=2&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
+        header("Location: registerform.php?msg=19&name=$name&surname1=$surname1&surname2=$surname2&dob=$dob&username=$username");
         die();
     }
 
@@ -50,6 +50,6 @@
     echo $query;
 
     // L'usuari s'ha registrat correctament, li permetem iniciar sessió
-    header("Location: index.php?msg=3"); // Redirigim a l'usuari a la pàgina principal amb missatge d'èxit
+    header("Location: index.php?msg=17"); // Redirigim a l'usuari a la pàgina principal amb missatge d'èxit
     die();
 ?>
