@@ -175,7 +175,15 @@ if(isset($_GET['msg'])){
                         &nbspEl nombre de usuario elegido ya existe
                     </div>';
             break;
-            
+        
+        case 20: // Restaurar un contingut d'una categoria invisible
+            echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi-exclamation-circle" style="font-size: 0.9rem;"></i>
+                        &nbspAtención! Acabas de restaurar un contenido de una categoría no visible. Cambia la categoria del contenido restaurado
+                        inmediatamente para que pueda ser encontrado fácilmente
+                    </div>';
+            break;
+                
         default: 
     }
 }
