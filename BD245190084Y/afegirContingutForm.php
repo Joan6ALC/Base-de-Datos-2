@@ -46,6 +46,12 @@ $resultQ = mysqli_query($con, $consultQ);
                                 &nbspYa existe una imagen con el mismo nombre
                             </div>';
                     break;
+                case 3:
+                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
+                                    &nbsp ¡Ningún valor seleccionado para tipo de contenido!
+                                </div>';
+                    break;
                 default:
             }
         } ?>
@@ -88,13 +94,13 @@ $resultQ = mysqli_query($con, $consultQ);
 
                                     <div class="col">
                                         <label>Tipo de contenido<span style="color: red;">*</span>:</label>
-                                                <?php
-                                                if (mysqli_num_rows($resultQ) > 0) {
-                                                    while ($fila1 = mysqli_fetch_assoc($resultQ)) {
-                                                        echo "<br /><input type='checkbox' name='tipoCont[]' value='" . $fila1['edat'] . "'><label> " . $fila1['edat'] . "</label></input>";
-                                                    }
-                                                }
-                                                ?>
+                                        <?php
+                                        if (mysqli_num_rows($resultQ) > 0) {
+                                            while ($fila1 = mysqli_fetch_assoc($resultQ)) {
+                                                echo "<br /><input type='checkbox' name='tipoCont[]' value='" . $fila1['edat'] . "'><label> " . $fila1['edat'] . "</label></input>";
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                 </div>
 

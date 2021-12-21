@@ -38,6 +38,11 @@ if (isset($row['titol'])) {
     die();
 }
 
+if ($tipoCont == '') {
+    header("Location: afegirContingutForm.php?error=3");
+    die();
+}
+
 $query = 'SELECT camiFoto FROM contingut WHERE camiFoto="' . $camiFoto . '"';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
