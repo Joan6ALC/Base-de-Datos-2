@@ -19,7 +19,7 @@ DECLARE CONTINUE HANDLER FOR NOT FOUND SET hihaerror=true;
     	LEAVE etiq;
     END IF;
     SELECT periodicitat INTO locPeriodicitat FROM contracte JOIN tarifa ON contracte.IdContracte = locIdContracte AND contracte.nomTarifa = tarifa.nomTarifa;
-    INSERT INTO factura(dataInici,dataFinal,import,IdContracte) VALUES (locDataInici,date_add(now(),INTERVAL locPeriodicitat DAY ),locImport,locIdContracte);
+    INSERT INTO factura(dataInici,dataFinal,dataPagament,import,IdContracte) VALUES (locDataInici,date_add(now(),INTERVAL locPeriodicitat DAY ),null,locImport,locIdContracte);
 	END LOOP;
     CLOSE pagaHoy;
 END
