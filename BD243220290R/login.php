@@ -253,6 +253,9 @@
                                                 shuffle($movies); // Es mesclen els continguts per mostrar-se de forma aleatòria
                                                 $it=0;
                                                 while ($it<$length){
+                                                    $query2 = "SELECT * FROM contingutfavorits WHERE IdContracte=".$_SESSION['IdContracte']." and IdContingut=".$movies[$it]->id."";
+                                                    $result2 = mysqli_query($con,$query2);
+                                                    $fav = mysqli_fetch_array($result2);
                                                     echo   '<div class="col">
                                                                 <div class="card" style="width: 12rem;">
                                                                     <img class="card-img-top" src=".'.$movies[$it]->cami.'" alt="'.$movies[$it]->titol.'.png" height="250">
