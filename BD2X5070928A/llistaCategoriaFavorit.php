@@ -46,7 +46,7 @@
                             
         <?php
         include "connection.php";
-        $query = "SELECT * from categoriafavorits ORDER BY nomCat ASC";
+        $query = "SELECT * from categoriafavorits WHERE IdContracte = '".$_SESSION['IdContracte']."' ORDER BY nomCat ASC";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
                                         $query2 ="SELECT * from categoria WHERE nomCat = '".$row['nomCat']."'";

@@ -41,7 +41,7 @@
                             <div class="row justify-content-center gap-2">                                
                                 <?php
                                     include "connection.php";
-                                    $query = "SELECT * from (contingutfavorits JOIN contingut ON contingutfavorits.IdContingut = contingut.IdContingut)
+                                    $query = "SELECT * from (contingutfavorits JOIN contingut ON contingutfavorits.IdContingut = contingut.IdContingut AND contingutfavorits.IdContracte = '".$_SESSION['IdContracte']."')
                                     JOIN categoria ON categoria.nomCat = contingut.nomCat AND categoria.visible = 1";
                                     $result = mysqli_query($con,$query);
                                     while($row = mysqli_fetch_array($result)){
