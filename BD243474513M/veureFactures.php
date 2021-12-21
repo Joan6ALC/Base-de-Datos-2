@@ -99,19 +99,19 @@ $importfila = $resu["import"];
                                     });
                                 </script>
                             </form>
-                            <label>Data pagament:</label>
+                            <label>Fecha de pago:</label>
                             <input type="date" name="datapag" class="form-control" value=<?php echo "'" . $datapagfila . "'" ?> readonly>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Data inici:</label>
+                                    <label>Fecha inicio:</label>
                                     <input type="date" name="datain" class="form-control" value=<?php echo "'" . $dataInfila . "'" ?> readonly>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Data fi:</label>
+                                    <label>Fecha fin:</label>
                                     <input type="date" name="datafi" class="form-control" value=<?php echo "'" . $dataFifila . "'" ?> readonly>
                                 </div>
                             </div>
-                            <label>Import:</label>
+                            <label>Importe:</label>
                             <input name="num" class="form-control" value=<?php echo "'" . $importfila . "'" ?> readonly>
                             <div class="row">
                                 <div class="col-md-9">
