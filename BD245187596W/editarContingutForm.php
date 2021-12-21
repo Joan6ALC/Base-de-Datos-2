@@ -87,6 +87,12 @@ $tipus = mysqli_query($con, $resultTipus);
                                 </button>
                             </div>';
                     break;
+                case 3:
+                    echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
+                                    &nbsp ¡Ningún valor seleccionado para tipo de contenido!
+                                </div>';
+                    break;
                 default:
             }
         } ?>

@@ -19,11 +19,15 @@ $nomFoto   = $_FILES['file']['name'];
 $camiFoto = "/img/carteles/" . $nomFoto;
 
 //Assignam la visibilitat
-if (isset($visible) && $visible == '1')
+if (isset($visible) && $visible == '1'){
         $visible = 1;
-    else
+}else{
         $visible = 0;
-
+}
+if ($tipoCont == '') {
+    header("Location: editarContingutForm.php?error=3&nomPelicula=$tituloAnt");
+    die();
+}
 //Seleccionam l'id del contingut a editar
 $idContingut = "SELECT IdContingut FROM contingut WHERE titol = '".$tituloAnt."'";
 $resId = mysqli_query($con, $idContingut);
