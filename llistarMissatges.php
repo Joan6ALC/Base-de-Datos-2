@@ -11,7 +11,19 @@ if (isset($_GET['orden'])) {
 } else {
     $orden = 'recientes';
 }
+include "connection.php";
+//Missatges llegits
+$consLlegits = "SELECT assumpte, data, IdMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' AND estatMissatge = 1 ORDER BY data DESC";
+$resLlegits = mysqli_query($con, $consLlegits);
+$fil = mysqli_fetch_array($resLlegits);
 
+$consNoLlegits = "SELECT assumpte, data, IdMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' AND estatMissatge = 0 ORDER BY data DESC";
+$resNoLlegits = mysqli_query($con, $consNoLlegits);
+$filNo = mysqli_fetch_array($resNoLlegits);
+
+$consTots = "SELECT assumpte, data, IdMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."'";
+$resTots = mysqli_query($con, $consTots);
+$filTots = mysqli_fetch_array($resTots);
 
 ?>
 <!DOCTYPE html>
@@ -93,120 +105,33 @@ if (isset($_GET['orden'])) {
                                     //Selecionam els missatges oberts
                                     $consultP = "SELECT assumpte, data, IdMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' AND estatMissatge = 1 ORDER BY data DESC";
                                     $resultP = mysqli_query($con, $consultP);
+                                    
+                                    //echo $fila1['assumpte'];
+                                    if(!isset($fil)){
+                                        echo '<center><div class="padding"></div><h6><i class="bi-envelope-x" style="font-size: 0.9rem;"></i>&nbsp&nbspNo tienes mensajes abiertos</h6><div class="padding"></div></center>';
+                                    }else {
+                                        echo '
+                                        <thead>
+                                            <tr style="background-color: black; color: white;">
+                                                <th>Ver mensaje</th>
+                                                <th>Asunto</th>
+                                                <th>Fecha</th>
+                                            </tr>
+                                        </thead>                                    
+                                        ';
+                                        //Omplim la taula amb els resultats
+                                        if (mysqli_num_rows($resultP) > 0) {
+                                            while ($fila1 = mysqli_fetch_assoc($resultP)) {
+                                                $assumpte = $fila1['assumpte'];
+                                                $data = $fila1['data'];
+                                                $id = $fila1['IdMissatge'];
 
-                                    echo '
-                                    <thead>
-                                        <tr style="background-color: black; color: white;">
-                                            <th>Ver mensaje</th>
-                                            <th>Asunto</th>
-                                            <th>Fecha</th>
-                                        </tr>
-                                    </thead>                                    
-                                    ';
-                                    //Omplim la taula amb els resultats
-                                    if (mysqli_num_rows($resultP) > 0) {
-                                        while ($fila1 = mysqli_fetch_assoc($resultP)) {
-                                            $assumpte = $fila1['assumpte'];
-                                            $data = $fila1['data'];
-                                            $id = $fila1['IdMissatge'];
-
-                                            echo '
-                                            <tbody>
-                                            <tr>
-                                                <td> 
-                                                    <a href="veureMissatge.php?id='.$id.'" class="btn btn-outline-primary mx-3">
-                                                        <i class="bi-envelope-open" title="Ver mensaje"  style="font-size: 0.9rem;"></i>
-                                                    </a>  
-                                                </td>
-                                                <td>' . $assumpte . '</td>
-                                                <td>' . $data . '</td>
-                                                </tr>
-                                            </tbody>
-                                            ';
-                                        }
-                                    }
-                                } else if ($orden == 'noAbiertos') {
-                                    //Seleccionam els missatges no oberts
-                                    $consultP = "SELECT assumpte, data, IdMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' AND estatMissatge = 0 ORDER BY data DESC";
-                                    $resultP = mysqli_query($con, $consultP);
-
-                                    echo '
-                                    <thead>
-                                        <tr style="background-color: black; color: white;">
-                                            <th>Ver mensaje</th>
-                                            <th>Asunto</th>
-                                            <th>Fecha</th>
-                                        </tr>
-                                    </thead>                                    
-                                    ';
-                                    //Omplim la taula amb els resultats
-                                    if (mysqli_num_rows($resultP) > 0) {
-                                        while ($fila1 = mysqli_fetch_assoc($resultP)) {
-                                            $assumpte = $fila1['assumpte'];
-                                            $data = $fila1['data'];
-                                            $id = $fila1['IdMissatge'];
-
-                                            echo '
-                                            <tbody>
-                                            <tr>
-                                                <td> 
-                                                    <a href="veureMissatge.php?id='.$id.'" class="btn btn-primary mx-3">
-                                                        <i class="bi-envelope" title="Ver mensaje"  style="font-size: 0.9rem;"></i>
-                                                    </a>  
-                                                </td>
-                                                <td>' . $assumpte . '</td>
-                                                <td>' . $data . '</td>
-                                                </tr>
-                                            </tbody>
-                                            ';
-                                        }
-                                    }
-                                } else if ($orden == 'noRecientes') {
-                                    //Seleccionam els missatges i els ordenam de manera ascendent
-                                    $consultP = "SELECT assumpte, data, IdMissatge, estatMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' ORDER BY data ASC";
-                                    $resultP = mysqli_query($con, $consultP);
-
-                                    echo '
-                                    <thead>
-                                        <tr style="background-color: black; color: white;">
-                                            <th>Ver mensaje</th>
-                                            <th>Asunto</th>
-                                            <th>Fecha</th>
-                                        </tr>
-                                    </thead>                                    
-                                    ';
-                                    //Omplim la taula amb els resultats
-                                    if (mysqli_num_rows($resultP) > 0) {
-                                        while ($fila1 = mysqli_fetch_assoc($resultP)) {
-                                            $assumpte = $fila1['assumpte'];
-                                            $data = $fila1['data'];
-                                            $id = $fila1['IdMissatge'];
-                                            $estat = $fila1['estatMissatge'];
-
-                                            if($estat == 1){//Si ja està obert
                                                 echo '
                                                 <tbody>
                                                 <tr>
                                                     <td> 
                                                         <a href="veureMissatge.php?id='.$id.'" class="btn btn-outline-primary mx-3">
-                                                        
                                                             <i class="bi-envelope-open" title="Ver mensaje"  style="font-size: 0.9rem;"></i>
-                                                        </a>  
-                                                    </td>
-                                                    <td>' . $assumpte . '</td>
-                                                    <td>' . $data . '</td>
-                                                    </tr>
-                                                </tbody>
-                                                ';
-                                            } else {//Si està tancat
-                                                echo '
-                                                <tbody>
-                                                <tr>
-                                                    <td> 
-                                                        <a href="veureMissatge.php?id='.$id.'" class="btn btn-primary mx-3">
-                                                       
-                                                            <i class="bi-envelope" title="Ver mensaje"  style="font-size: 0.9rem;"></i>                                                      
-                                                        
                                                         </a>  
                                                     </td>
                                                     <td>' . $assumpte . '</td>
@@ -217,52 +142,35 @@ if (isset($_GET['orden'])) {
                                             }
                                         }
                                     }
-                                }else {
-                                    //Seleccionam els missatges i els odenam de forma descendent
-                                    $consultP = "SELECT assumpte, data, IdMissatge, estatMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' ORDER BY data DESC";
+                                } else if ($orden == 'noAbiertos') {
+                                    //Seleccionam els missatges no oberts
+                                    $consultP = "SELECT assumpte, data, IdMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' AND estatMissatge = 0 ORDER BY data DESC";
                                     $resultP = mysqli_query($con, $consultP);
-                                    
-                                    echo '
-                                    <thead>
-                                        <tr style="background-color: black; color: white;">
-                                            <th>Ver mensaje</th>
-                                            <th>Asunto</th>
-                                            <th>Fecha</th>
-                                        </tr>
-                                    </thead>                                    
-                                    ';
-                                    //Omplim la taula amb els resultats
-                                    if (mysqli_num_rows($resultP) > 0) {
-                                        while ($fila1 = mysqli_fetch_assoc($resultP)) {
-                                            $assumpte = $fila1['assumpte'];
-                                            $data = $fila1['data'];
-                                            $id = $fila1['IdMissatge'];
-                                            $estat = $fila1['estatMissatge'];
+                                    if(!isset($filNo)){
+                                        echo '<center><div class="padding"></div><h6><i class="bi-envelope-x" style="font-size: 0.9rem;"></i>&nbsp&nbspNo tienes mensajes sin abrir</h6><div class="padding"></div></center>';
+                                    }else {
+                                        echo '
+                                        <thead>
+                                            <tr style="background-color: black; color: white;">
+                                                <th>Ver mensaje</th>
+                                                <th>Asunto</th>
+                                                <th>Fecha</th>
+                                            </tr>
+                                        </thead>                                    
+                                        ';
+                                        //Omplim la taula amb els resultats
+                                        if (mysqli_num_rows($resultP) > 0) {
+                                            while ($fila1 = mysqli_fetch_assoc($resultP)) {
+                                                $assumpte = $fila1['assumpte'];
+                                                $data = $fila1['data'];
+                                                $id = $fila1['IdMissatge'];
 
-                                            if($estat == 1){//Si està obert
-                                                echo '
-                                                <tbody>
-                                                <tr>
-                                                    <td> 
-                                                        <a href="veureMissatge.php?id='.$id.'" class="btn btn-outline-primary mx-3">
-                                                        
-                                                            <i class="bi-envelope-open" title="Ver mensaje"  style="font-size: 0.9rem;"></i>
-                                                        </a>  
-                                                    </td>
-                                                    <td>' . $assumpte . '</td>
-                                                    <td>' . $data . '</td>
-                                                    </tr>
-                                                </tbody>
-                                                ';
-                                            } else {//Si està tancat
                                                 echo '
                                                 <tbody>
                                                 <tr>
                                                     <td> 
                                                         <a href="veureMissatge.php?id='.$id.'" class="btn btn-primary mx-3">
-                                                       
-                                                            <i class="bi-envelope" title="Ver mensaje"  style="font-size: 0.9rem;"></i>                                                      
-                                                        
+                                                            <i class="bi-envelope" title="Ver mensaje"  style="font-size: 0.9rem;"></i>
                                                         </a>  
                                                     </td>
                                                     <td>' . $assumpte . '</td>
@@ -270,6 +178,124 @@ if (isset($_GET['orden'])) {
                                                     </tr>
                                                 </tbody>
                                                 ';
+                                            }
+                                        }
+                                    }
+                                } else if ($orden == 'noRecientes') {
+                                    //Seleccionam els missatges i els ordenam de manera ascendent
+                                    $consultP = "SELECT assumpte, data, IdMissatge, estatMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' ORDER BY data ASC";
+                                    $resultP = mysqli_query($con, $consultP);
+                                    if(!isset($filTots)){
+                                        echo '<center><div class="padding"></div><h6><i class="bi-envelope-x" style="font-size: 0.9rem;"></i>&nbsp&nbspNo tienes mensajes</h6><div class="padding"></div></center>';
+                                    }else {
+                                        echo '
+                                        <thead>
+                                            <tr style="background-color: black; color: white;">
+                                                <th>Ver mensaje</th>
+                                                <th>Asunto</th>
+                                                <th>Fecha</th>
+                                            </tr>
+                                        </thead>                                    
+                                        ';
+                                        //Omplim la taula amb els resultats
+                                        if (mysqli_num_rows($resultP) > 0) {
+                                            while ($fila1 = mysqli_fetch_assoc($resultP)) {
+                                                $assumpte = $fila1['assumpte'];
+                                                $data = $fila1['data'];
+                                                $id = $fila1['IdMissatge'];
+                                                $estat = $fila1['estatMissatge'];
+
+                                                if($estat == 1){//Si ja està obert
+                                                    echo '
+                                                    <tbody>
+                                                    <tr>
+                                                        <td> 
+                                                            <a href="veureMissatge.php?id='.$id.'" class="btn btn-outline-primary mx-3">
+                                                            
+                                                                <i class="bi-envelope-open" title="Ver mensaje"  style="font-size: 0.9rem;"></i>
+                                                            </a>  
+                                                        </td>
+                                                        <td>' . $assumpte . '</td>
+                                                        <td>' . $data . '</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    ';
+                                                } else {//Si està tancat
+                                                    echo '
+                                                    <tbody>
+                                                    <tr>
+                                                        <td> 
+                                                            <a href="veureMissatge.php?id='.$id.'" class="btn btn-primary mx-3">
+                                                        
+                                                                <i class="bi-envelope" title="Ver mensaje"  style="font-size: 0.9rem;"></i>                                                      
+                                                            
+                                                            </a>  
+                                                        </td>
+                                                        <td>' . $assumpte . '</td>
+                                                        <td>' . $data . '</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    ';
+                                                }
+                                            }
+                                        }
+                                    }
+                                }else {
+                                    //Seleccionam els missatges i els odenam de forma descendent
+                                    $consultP = "SELECT assumpte, data, IdMissatge, estatMissatge FROM missatge WHERE missatge.username = '".$_SESSION['username']."' ORDER BY data DESC";
+                                    $resultP = mysqli_query($con, $consultP);
+                                    if(!isset($filTots)){
+                                        echo '<center><div class="padding"></div><h6><i class="bi-envelope-x" style="font-size: 0.9rem;"></i>&nbsp&nbspNo tienes mensajes</h6><div class="padding"></div></center>';
+                                    }else {
+                                        echo '
+                                        <thead>
+                                            <tr style="background-color: black; color: white;">
+                                                <th>Ver mensaje</th>
+                                                <th>Asunto</th>
+                                                <th>Fecha</th>
+                                            </tr>
+                                        </thead>                                    
+                                        ';
+                                        //Omplim la taula amb els resultats
+                                        if (mysqli_num_rows($resultP) > 0) {
+                                            while ($fila1 = mysqli_fetch_assoc($resultP)) {
+                                                $assumpte = $fila1['assumpte'];
+                                                $data = $fila1['data'];
+                                                $id = $fila1['IdMissatge'];
+                                                $estat = $fila1['estatMissatge'];
+
+                                                if($estat == 1){//Si està obert
+                                                    echo '
+                                                    <tbody>
+                                                    <tr>
+                                                        <td> 
+                                                            <a href="veureMissatge.php?id='.$id.'" class="btn btn-outline-primary mx-3">
+                                                            
+                                                                <i class="bi-envelope-open" title="Ver mensaje"  style="font-size: 0.9rem;"></i>
+                                                            </a>  
+                                                        </td>
+                                                        <td>' . $assumpte . '</td>
+                                                        <td>' . $data . '</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    ';
+                                                } else {//Si està tancat
+                                                    echo '
+                                                    <tbody>
+                                                    <tr>
+                                                        <td> 
+                                                            <a href="veureMissatge.php?id='.$id.'" class="btn btn-primary mx-3">
+                                                        
+                                                                <i class="bi-envelope" title="Ver mensaje"  style="font-size: 0.9rem;"></i>                                                      
+                                                            
+                                                            </a>  
+                                                        </td>
+                                                        <td>' . $assumpte . '</td>
+                                                        <td>' . $data . '</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    ';
+                                                }
                                             }
                                         }
                                     }
