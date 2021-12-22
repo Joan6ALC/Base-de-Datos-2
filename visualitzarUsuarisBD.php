@@ -4,6 +4,10 @@ if (!isset($_SESSION['username'])) {
     die();
 }
 
+// Connexión con a base de datos
+include "connection.php";
+
+// Seleccionamos el orden en el que se mostrarán los usuarios
 if (isset($_GET['orden'])) {
     $orden = $_GET['orden'];
 } else {
@@ -54,21 +58,25 @@ if (isset($_GET['orden'])) {
                                 <div class="col"></div>
                                 <div class="col"></div>
                                 <div class="col">
+                                    <!-- Selección del orden en funcion de la variable orden-->
                                     <label>Ordenar por:</label>
                                     <select class="ordenar" name="ordenSelect" id="ordenSelect">
                                         <?php
+                                        // Contratos activos
                                         if ($orden == 'contActivos') {
                                             echo '<optgroup label="Categorías">
                                                     <option value="contActivos" selected>contratos activos</option>
                                                     <option value="noActivos">contratos inactivos</option>
                                                     <option value="todos">todos los usuarios por orden alfabético</option>
                                                 </optgroup>';
+                                        // Contratos inactivos
                                         } else if ($orden == 'noActivos') {
                                             echo '<optgroup label="Categorías">
                                                     <option value="contActivos">contratos activos</option>
                                                     <option value="noActivos" selected>contratos inactivos</option>
                                                     <option value="todos">todos los usuarios por orden alfabético</option>
                                                 </optgroup>';
+                                        // Orden alfabetico de usuarios
                                         } else {
                                             echo '<optgroup label="Categorías">
                                                     <option value="contActivos">contratos activos</option>
@@ -89,6 +97,7 @@ if (isset($_GET['orden'])) {
                             <table class="table">
 
                                 <?php
+                                // Montamos las tablas en funcion de la seleccion de orden
                                 if ($orden == 'contActivos') {
                                     $consultP = "SELECT persona.username, persona.dataAlta, nom, llinatge1,llinatge2, edat, estat, IdContracte, nomTarifa FROM tipus JOIN (persona JOIN contracte ON persona.username=contracte.username AND contracte.estat='1') ON tipus.IdTipus=persona.IdTipus";
                                     $resultP = mysqli_query($con, $consultP);

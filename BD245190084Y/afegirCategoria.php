@@ -4,25 +4,26 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     die();
 }
-// Connexió a bd
+// Connexión con la base de datos
 include "connection.php";
-
+// Recogemos el valor a añadir 
 $categoria = $_POST['categoria'];
-
+// Comprobamos que no exista el valor para la categoría
 $query = 'SELECT nomCat FROM categoria WHERE nomCat="' . $categoria . '"';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 
-
+// Si existe da un error y no añade el contenido
 if (isset($row['nomCat'])) {
     header("Location: afegirCategoriaForm.php?error=1");
     die();
 }
 
-$query = "INSERT INTO categoria(nomCat, visible) VALUES ('" . $categoria . "', '1')"; //INSERTANDO VARIABLES DIRECTAMENTE
-mysqli_query($con, $query);
+// Si no existe lo añade a la base de datos
+$query = "INSERT INTO categoria(nomCat, visible) VALUES ('" . $categoria . "', '1')"; 
 
-header("Location: login.php?nomCat=$categoria"); // Redirigim a l'usuari a la pàgina principal
+// Redirigimos al usuario a la página principal
+header("Location: login.php?nomCat=$categoria"); 
 die();
 ?>
 

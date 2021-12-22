@@ -1,4 +1,5 @@
 <?php
+// Conexión con la base de datos
 include "connection.php";
 session_start();
 if (!isset($_SESSION['username'])) {
@@ -16,7 +17,7 @@ if (!isset($_SESSION['username'])) {
     <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css" /> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css" /> <!-- Nuestra propia hoja de estilos-->
-    <link rel="stylesheet" href="dragBox.css" /> <!-- Nuestra propia hoja de estilos-->
+    <link rel="stylesheet" href="dragBox.css" /> <!-- Hoja de estilos própia, para el dragBox -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- Iconos bootstrap -->
 </head>
@@ -25,8 +26,10 @@ if (!isset($_SESSION['username'])) {
     <header>
         <?php
         include "navbar.php";
+        // En caso que haya n error, comprueba cual es y muestra el mensaje de error
         if (isset($_GET['error'])) {
             switch ($_GET['error']) {
+                // Si la categoria ya existe error = 1
                 case 1:
                     echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
@@ -52,6 +55,7 @@ if (!isset($_SESSION['username'])) {
 
                                 <div class="row">
                                     <div class="col">
+                                        <!-- Capo obligatorio de nombre de categoria -->
                                         <label>Introduce el nombre de la categoría:<span style="color: red;">*</span>:</label>
                                         <input type="text" id="categoria" name="categoria" required><br>
                                     </div>
@@ -61,6 +65,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                             <div style="padding: 3%; text-align: center;">
+                            <!-- Botón para enviar el formulario y ejecutar "afegirCategoria.php" -->
                                 <input type="submit" value="Insertar categoría" class="btn btn-danger">
                             </div>
                         </form>

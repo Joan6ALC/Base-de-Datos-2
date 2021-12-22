@@ -1,4 +1,5 @@
 <?php
+// Conexión con la base de datos
 include "connection.php";
 session_start();
 if (!isset($_SESSION['username'])) {
@@ -6,6 +7,8 @@ if (!isset($_SESSION['username'])) {
     die();
 }
 
+
+// Seleccionamos los valores necesariospara rellenar el formulario con valores predeterminads
 $consultP = 'select distinct (nomCat) from categoria';
 $resultP = mysqli_query($con, $consultP);
 
@@ -23,7 +26,7 @@ $resultQ = mysqli_query($con, $consultQ);
     <!--Título que aparecerá en la pestaña del navegador-->
     <link rel="stylesheet" href="css/bootstrap.min.css" /> <!-- Importamos hoja de estilos de bootrstrap-->
     <link rel="stylesheet" href="styles.css" /> <!-- Nuestra propia hoja de estilos-->
-    <link rel="stylesheet" href="dragBox.css" /> <!-- Nuestra propia hoja de estilos-->
+    <link rel="stylesheet" href="dragBox.css" /> <!-- Hoja de estilos própia, para el dragBox -->
     <link rel="shortcut icon" href="img/icon.png" /> <!-- Icono de la pestaña-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> <!-- Iconos bootstrap -->
 </head>
@@ -32,20 +35,24 @@ $resultQ = mysqli_query($con, $consultQ);
     <header>
         <?php
         include "navbar.php";
+        // En caso que haya un error, comprueba cual es y muestra el mensaje de error
         if (isset($_GET['error'])) {
             switch ($_GET['error']) {
+                // Si la película introducida ya existe error=1
                 case 1:
                     echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
                                 &nbspLa película introducida ya existe
                             </div>';
                     break;
+                // Si ya existe una imagen con el mismo nombre error=2
                 case 2:
                     echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
                                 &nbspYa existe una imagen con el mismo nombre
                             </div>';
                     break;
+                // Si no se ha seleccionado nngún valor para tipo de contenido, error=3
                 case 3:
                     echo    '<div class="padding"></div><div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <i class="bi bi-file-earmark-excel" style="font-size: 0.9rem;"></i>
@@ -72,12 +79,15 @@ $resultQ = mysqli_query($con, $consultQ);
 
                                 <div class="row">
                                     <div class="col">
+                                        <!-- Capo obligatorio de título de contenido -->
                                         <label>Título de la película<span style="color: red;">*</span>:</label>
                                         <input type="text" id="titulo" name="titulo" required><br>
+                                        <!-- Capo obligatorio de enlace de contenido -->
                                         <label>Enlace de la película<span style="color: red;">*</span>:</label>
                                         <input type="text" id="enlace" name="enlace" required><br>
                                     </div>
                                     <div class="col">
+                                        <!-- Listado de selección de una categoría -->
                                         <label>Categoría<span style="color: red;">*</span>:</label>
                                         <select name="nomCat">
                                             <optgroup label="Categorías">
@@ -93,6 +103,7 @@ $resultQ = mysqli_query($con, $consultQ);
                                     </div>
 
                                     <div class="col">
+                                        <!-- Capo obligatorio de tipo de contenido -->
                                         <label>Tipo de contenido<span style="color: red;">*</span>:</label>
                                         <?php
                                         if (mysqli_num_rows($resultQ) > 0) {
@@ -105,6 +116,7 @@ $resultQ = mysqli_query($con, $consultQ);
                                 </div>
 
                                 <div class="dragArea">
+                                    <!-- dragBox para añadir una imagen de portada -->
                                     <header style="color: darkgray;">Arrastra o selecciona el archivo para subirlo <span style="color: red;">*</span></header>
                                     <input type="file" id="file" name="file" accept="image/jpeg, image/png" class="form-control" required>
                                 </div>
@@ -114,6 +126,7 @@ $resultQ = mysqli_query($con, $consultQ);
                             <div class="alerta"></div>
 
                             <div style="padding: 3%; text-align: center;">
+                            <!-- Botón para enviar el formulario y ejecutar "afegirContingut.php" -->
                                 <input type="submit" value="Insertar película" class="btn btn-danger">
                             </div>
                         </form>

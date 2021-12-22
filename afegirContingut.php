@@ -4,9 +4,9 @@ if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     die();
 }
-// Connexió a bd
+// Connexión con a base de datos
 include "connection.php";
-
+// Recogemos los valores a añadir
 $titulo = $_POST['titulo'];
 $html = $_POST['enlace'];
 $nomCat = $_POST['nomCat'];
@@ -18,8 +18,10 @@ $idContingut = "SELECT IdContingut FROM contingut WHERE titol = '".$tituloAnt."'
 $resId = mysqli_query($con, $idContingut);
 $idCont = mysqli_fetch_array($resId);
 
+// Formateamos el enlace de youtube para que se pueda ver incrustado en la página
 $html = str_replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/', $html);
 
+// Tomamos el archivo y lo guardamos en la carpeta imagenes
 if ($_FILES['file']['name'] != "") {
     $path = $_FILES['file']['name'];
     $pathto = 'img/carteles/' . $path;
@@ -28,33 +30,39 @@ if ($_FILES['file']['name'] != "") {
     die("No file specified!");
 }
 
+// Comprobamos que no exista el valor para el título
 $query = 'SELECT titol FROM contingut WHERE titol="' . $titulo . '"';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 
-
+// Si ya existe lanzamos un error de tipo 1
 if (isset($row['titol'])) {
     header("Location: afegirContingutForm.php?error=1");
     die();
 }
 
+// Si no se ha seleccionado ningún contenido lanzamos un error de tipo 3
 if ($tipoCont == '') {
     header("Location: afegirContingutForm.php?error=3");
     die();
 }
 
+// Comprobamos que no exista una foto con el mismo nombre
 $query = 'SELECT camiFoto FROM contingut WHERE camiFoto="' . $camiFoto . '"';
 $result = mysqli_query($con, $query);
 $row = mysqli_fetch_array($result);
 
+// Si ya exise, lanzamos un error de tipo 2
 if (isset($row['camiFoto'])) {
     header("Location: afegirContingutForm.php?error=2");
     die();
 }
 
+// Si tras las comprobaciones todo es correcto, se añade el contenido a la base de datos
 $query = "INSERT INTO contingut (titol, link, camiFoto, nomCat, visible) values ('$titulo','$html','$camiFoto','$nomCat', '1')"; //INSERTANDO VARIABLES DIRECTAMENTE
 mysqli_query($con, $query);
 
+// Se añade la relacion entre contenido y tipo
 if(is_array($tipoCont)){
     foreach ($tipoCont as $valor) {
         $query = 'SELECT IdTipus FROM tipus WHERE edat="' . $valor . '"';
@@ -68,7 +76,8 @@ if(is_array($tipoCont)){
     }
 }
 
-header("Location: llistarContinguts.php?msg=3"); // Redirigim a l'usuari a la pàgina principal
+// Redirigimos al usuario a la página principal
+header("Location: llistarContinguts.php?msg=3"); 
 die();
 ?>
 
