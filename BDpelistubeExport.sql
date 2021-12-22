@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pelistube`
 --
-CREATE DATABASE IF NOT EXISTS `BD211` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `pelistube` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `pelistube`;
 
 DELIMITER $$
